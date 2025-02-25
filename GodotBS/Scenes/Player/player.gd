@@ -145,7 +145,7 @@ func _physics_process(delta):
 		print("I collided with ", collision.get_collider().name)
 
 	#position += velocity*delta
-	#position = position.clamp(limit, screen_size_change)
+	position = position.clamp(limit, screen_size_change)
 
 	if timeCombo.time_left>0 and timeCombo.time_left < 1:
 		

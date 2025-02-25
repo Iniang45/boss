@@ -1,6 +1,6 @@
 [gd_scene load_steps=51 format=3 uid="uid://xm78ss1do3bk"]
 
-[ext_resource type="Script" path="res://Soisfranc.gd" id="1_nxuwc"]
+[ext_resource type="Script" path="res://Scenes/Boss/Soisfranc.gd" id="1_nxuwc"]
 [ext_resource type="Texture2D" uid="uid://bprv43o8nen12" path="res://Assets/demon-Files/Spritesheets/demon-attack.png" id="2_1mamb"]
 [ext_resource type="Texture2D" uid="uid://4tmo7mht75ar" path="res://Assets/demon-Files/Spritesheets/demon-attack-no-breath.png" id="3_3prb2"]
 [ext_resource type="Texture2D" uid="uid://bv7pjg6p14ft0" path="res://Assets/demon-Files/Spritesheets/demon-idle.png" id="4_8cuve"]

@@ -1,19 +1,19 @@
 [gd_scene load_steps=57 format=3 uid="uid://bt3r46au4wq72"]
 
 [ext_resource type="TileSet" uid="uid://dj7rpgp6e5us2" path="res://Assets/new_tile_set.tres" id="1_arfhw"]
-[ext_resource type="Script" path="res://main.gd" id="1_k0qxf"]
-[ext_resource type="Script" path="res://TileMap.gd" id="2_47my1"]
-[ext_resource type="PackedScene" uid="uid://c7t387c8qj6r1" path="res://player.tscn" id="2_f71xd"]
+[ext_resource type="Script" path="res://Scenes/Map/main.gd" id="1_k0qxf"]
+[ext_resource type="Script" path="res://Scenes/Map/TileMap.gd" id="2_47my1"]
+[ext_resource type="PackedScene" uid="uid://c7t387c8qj6r1" path="res://Scenes/Player/player.tscn" id="2_f71xd"]
 [ext_resource type="Texture2D" uid="uid://bprv43o8nen12" path="res://Assets/demon-Files/Spritesheets/demon-attack.png" id="3_llt3w"]
 [ext_resource type="Texture2D" uid="uid://bv7pjg6p14ft0" path="res://Assets/demon-Files/Spritesheets/demon-idle.png" id="4_j6s2u"]
 [ext_resource type="Texture2D" uid="uid://4tmo7mht75ar" path="res://Assets/demon-Files/Spritesheets/demon-attack-no-breath.png" id="5_e5eny"]
-[ext_resource type="Script" path="res://Soisfranc.gd" id="5_tma5k"]
+[ext_resource type="Script" path="res://Scenes/Boss/Soisfranc.gd" id="5_tma5k"]
 [ext_resource type="Texture2D" uid="uid://chu2gifw8bji3" path="res://Assets/demon-Files/Spritesheets/breath.png" id="8_it4sg"]
 [ext_resource type="Texture2D" uid="uid://cykeuuepyjgla" path="res://Assets/GrosLuffy/WALK.png" id="9_vtvdh"]
 [ext_resource type="Texture2D" uid="uid://bwck7m3gni2ay" path="res://Assets/GrosLuffy/JUMP.png" id="10_6r7b3"]
 [ext_resource type="Texture2D" uid="uid://cjnypeas2jfux" path="res://Texture/Soisfranc_sombrero.JPG" id="10_8x0f1"]
-[ext_resource type="PackedScene" uid="uid://dfdf1mijodef4" path="res://debut.tscn" id="14_20kke"]
-[ext_resource type="PackedScene" uid="uid://d0dfqdub4xaah" path="res://BossHealthBar.tscn" id="14_syjww"]
+[ext_resource type="PackedScene" uid="uid://dfdf1mijodef4" path="res://Scenes/Map/debut.tscn" id="14_20kke"]
+[ext_resource type="PackedScene" uid="uid://d0dfqdub4xaah" path="res://Scenes/Boss/BossHealthBar.tscn" id="14_syjww"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_dhnvn"]
 radius = 30.7552
@@ -408,12 +408,12 @@ offset_right = 223.0
 offset_bottom = 514.0
 
 [node name="Player" parent="." instance=ExtResource("2_f71xd")]
-position = Vector2(456, 275)
+position = Vector2(535, 976)
 
 [node name="Node" type="Node" parent="Player"]
 
 [node name="Camera2D" type="Camera2D" parent="Player/Node"]
-position = Vector2(570, 312)
+position = Vector2(579, 957)
 
 [node name="debut" parent="." instance=ExtResource("14_20kke")]
 offset_top = 650.0

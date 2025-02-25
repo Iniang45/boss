@@ -1,6 +1,6 @@
 [gd_scene load_steps=18 format=3 uid="uid://bfi2cd3ycuqsr"]
 
-[ext_resource type="Script" path="res://Characters/esma.gd" id="1_0xytq"]
+[ext_resource type="Script" path="res://Scenes/NPC/esma.gd" id="1_0xytq"]
 [ext_resource type="Texture2D" uid="uid://dyeoqvi5w5hoy" path="res://Assets/NPC/Princess/SpriteSheet.png" id="1_xnvt3"]
 [ext_resource type="Texture2D" uid="uid://c45u0sxwwkaec" path="res://Assets/NPC/BDBULLE.png" id="3_m2268"]
 

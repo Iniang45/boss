@@ -1,6 +1,6 @@
 [gd_scene load_steps=76 format=3 uid="uid://c7t387c8qj6r1"]
 
-[ext_resource type="Script" path="res://player.gd" id="1_fv22x"]
+[ext_resource type="Script" path="res://Scenes/Player/player.gd" id="1_fv22x"]
 [ext_resource type="Texture2D" uid="uid://d2du816em77xt" path="res://The Adventurer - Free/Idle/idle_up.png" id="2_3cirb"]
 [ext_resource type="Texture2D" uid="uid://culx7mf2ws718" path="res://Assets/GoofyAssets/TUMENS.jpg" id="2_37fyq"]
 [ext_resource type="Texture2D" uid="uid://c3ouxk0cgh8y8" path="res://The Adventurer - Free/Idle/idle_down.png" id="2_md727"]
@@ -13,8 +13,8 @@
 [ext_resource type="Texture2D" uid="uid://dd40auwv57l8x" path="res://TopDownCharacter/Weapon/Sword_DownLeft.png" id="10_8n66r"]
 [ext_resource type="Texture2D" uid="uid://qp4o3ry2p2jk" path="res://TopDownCharacter/Weapon/Sword_UpRight.png" id="11_52erg"]
 [ext_resource type="Texture2D" uid="uid://d3h5pn10uqach" path="res://The Adventurer - Free/Walk/super_yeah.png" id="12_gs7nk"]
-[ext_resource type="PackedScene" uid="uid://4ebyonidqpag" path="res://slash.tscn" id="14_h5chh"]
-[ext_resource type="PackedScene" uid="uid://cxd2c6yg3wp2j" path="res://player_hb.tscn" id="15_4yu5y"]
+[ext_resource type="PackedScene" uid="uid://4ebyonidqpag" path="res://Scenes/Player/slash.tscn" id="14_h5chh"]
+[ext_resource type="PackedScene" uid="uid://cxd2c6yg3wp2j" path="res://Scenes/Player/player_hb.tscn" id="15_4yu5y"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_lcn8m"]
 atlas = ExtResource("2_md727")

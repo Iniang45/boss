@@ -1,6 +1,6 @@
 [gd_scene load_steps=12 format=3 uid="uid://ceneyp25ps5ov"]
 
-[ext_resource type="Script" path="res://Pise.gd" id="1_w1lnb"]
+[ext_resource type="Script" path="res://Scenes/NPC/pise.gd" id="1_w1lnb"]
 [ext_resource type="Texture2D" uid="uid://dilmmbwaw0a5e" path="res://Assets/NPC/Lise/SpriteSheet.png" id="2_g4heo"]
 [ext_resource type="Texture2D" uid="uid://c45u0sxwwkaec" path="res://Assets/NPC/BDBULLE.png" id="3_itdcv"]
 
