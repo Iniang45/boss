@@ -1,0 +1,63 @@
+[gd_scene load_steps=6 format=3 uid="uid://cxd2c6yg3wp2j"]
+
+[ext_resource type="Texture2D" uid="uid://e36ouykpnf8y" path="res://Assets/UI/moiHBvide.png" id="1_u56ij"]
+[ext_resource type="Texture2D" uid="uid://r23tfv2l076q" path="res://Assets/UI/HBgreen.png" id="2_bb723"]
+[ext_resource type="Texture2D" uid="uid://cr20yiynpt3ln" path="res://Assets/UI/HBje.png" id="3_q7tte"]
+[ext_resource type="Texture2D" uid="uid://1yh68f05487x" path="res://Assets/UI/nolimits.jpg" id="4_4kkt1"]
+[ext_resource type="Texture2D" uid="uid://f6sscp1xfvds" path="res://Assets/UI/look_to_the_horizon.png" id="5_8yogm"]
+
+[node name="PlayerHB" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="HBvide" type="TextureRect" parent="."]
+layout_mode = 0
+offset_left = 50.0
+offset_top = 50.0
+offset_right = 7850.0
+offset_bottom = 1010.0
+scale = Vector2(0.05, 0.05)
+texture = ExtResource("1_u56ij")
+
+[node name="HB" type="TextureRect" parent="HBvide"]
+layout_mode = 0
+offset_right = 7840.0
+offset_bottom = 880.0
+texture = ExtResource("2_bb723")
+
+[node name="HB2" type="TextureRect" parent="HBvide"]
+visible = false
+layout_mode = 0
+offset_right = 7840.0
+offset_bottom = 880.0
+texture = ExtResource("3_q7tte")
+
+[node name="Label" type="Label" parent="."]
+layout_mode = 0
+offset_left = 54.0
+offset_top = 27.0
+offset_right = 98.0
+offset_bottom = 53.0
+text = "Dawg"
+
+[node name="PeutTaper" type="TextureRect" parent="."]
+layout_mode = 0
+offset_left = 106.0
+offset_top = 2.0
+offset_right = 352.0
+offset_bottom = 207.0
+scale = Vector2(0.25, 0.25)
+texture = ExtResource("4_4kkt1")
+
+[node name="PeutPasTaper" type="TextureRect" parent="."]
+visible = false
+layout_mode = 0
+offset_left = 109.0
+offset_right = 896.0
+offset_bottom = 703.0
+scale = Vector2(0.075, 0.075)
+texture = ExtResource("5_8yogm")

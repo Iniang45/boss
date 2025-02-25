@@ -1,0 +1,20 @@
+[gd_scene load_steps=2 format=3 uid="uid://4ebyonidqpag"]
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_p4eco"]
+radius = 16.0
+height = 73.9787
+
+[node name="Slash" type="Area2D"]
+collision_mask = 2
+
+[node name="CollisionSlash" type="CollisionShape2D" parent="."]
+position = Vector2(63, 34)
+rotation = -0.354302
+shape = SubResource("CapsuleShape2D_p4eco")
+
+[node name="RayCast2D" type="RayCast2D" parent="CollisionSlash"]
+rotation = -1.4591
+target_position = Vector2(1.98065, 16.9728)
+collision_mask = 2
+hit_from_inside = true
+collide_with_areas = true

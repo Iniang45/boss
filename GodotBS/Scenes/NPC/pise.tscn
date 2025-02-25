@@ -1,0 +1,104 @@
+[gd_scene load_steps=12 format=3 uid="uid://ceneyp25ps5ov"]
+
+[ext_resource type="Script" path="res://Pise.gd" id="1_w1lnb"]
+[ext_resource type="Texture2D" uid="uid://dilmmbwaw0a5e" path="res://Assets/NPC/Lise/SpriteSheet.png" id="2_g4heo"]
+[ext_resource type="Texture2D" uid="uid://c45u0sxwwkaec" path="res://Assets/NPC/BDBULLE.png" id="3_itdcv"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_q324g"]
+atlas = ExtResource("2_g4heo")
+region = Rect2(0, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_4n5xe"]
+atlas = ExtResource("2_g4heo")
+region = Rect2(0, 16, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_tmk8x"]
+atlas = ExtResource("2_g4heo")
+region = Rect2(0, 32, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_12qsv"]
+atlas = ExtResource("2_g4heo")
+region = Rect2(32, 96, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_l5p78"]
+atlas = ExtResource("2_g4heo")
+region = Rect2(48, 96, 16, 16)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_r48xv"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_q324g")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_4n5xe")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_tmk8x")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_12qsv")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_l5p78")
+}],
+"loop": true,
+"name": &"idle",
+"speed": 2.0
+}]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_f6w11"]
+size = Vector2(75, 76)
+
+[sub_resource type="LabelSettings" id="LabelSettings_ddifu"]
+font_size = 22
+font_color = Color(0, 0, 0, 1)
+
+[node name="Pise" type="StaticBody2D"]
+collision_layer = 4
+script = ExtResource("1_w1lnb")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+position = Vector2(30, 32.5)
+scale = Vector2(4.75, 5.0625)
+sprite_frames = SubResource("SpriteFrames_r48xv")
+animation = &"idle"
+frame_progress = 0.401363
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(35.5, 38)
+shape = SubResource("RectangleShape2D_f6w11")
+
+[node name="RayCast2D" type="RayCast2D" parent="."]
+position = Vector2(26, 76)
+target_position = Vector2(0, 25)
+
+[node name="Bulle" type="TextureRect" parent="."]
+visible = false
+z_index = 4
+offset_left = 25.0
+offset_top = -62.0
+offset_right = 3845.0
+offset_bottom = 3686.0
+scale = Vector2(0.05, 0.05)
+texture = ExtResource("3_itdcv")
+flip_h = true
+
+[node name="Label" type="Label" parent="Bulle"]
+z_index = 4
+layout_mode = 0
+offset_left = 1180.0
+offset_top = 1140.0
+offset_right = 1509.0
+offset_bottom = 1276.0
+scale = Vector2(10, 10)
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+text = "Ca te dit d'aller
+ me chercher 
+3 photos pour 5$ 
+et un twix "
+label_settings = SubResource("LabelSettings_ddifu")
+
+[node name="BulleTimer" type="Timer" parent="Bulle"]
+
+[connection signal="timeout" from="Bulle/BulleTimer" to="." method="_on_bulle_timer_timeout"]

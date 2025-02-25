@@ -1,0 +1,153 @@
+[gd_scene load_steps=18 format=3 uid="uid://bfi2cd3ycuqsr"]
+
+[ext_resource type="Script" path="res://Characters/esma.gd" id="1_0xytq"]
+[ext_resource type="Texture2D" uid="uid://dyeoqvi5w5hoy" path="res://Assets/NPC/Princess/SpriteSheet.png" id="1_xnvt3"]
+[ext_resource type="Texture2D" uid="uid://c45u0sxwwkaec" path="res://Assets/NPC/BDBULLE.png" id="3_m2268"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_2txce"]
+atlas = ExtResource("1_xnvt3")
+region = Rect2(0, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_4v1q1"]
+atlas = ExtResource("1_xnvt3")
+region = Rect2(0, 16, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_1y32d"]
+atlas = ExtResource("1_xnvt3")
+region = Rect2(0, 32, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_l5jeo"]
+atlas = ExtResource("1_xnvt3")
+region = Rect2(0, 48, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_5nsky"]
+atlas = ExtResource("1_xnvt3")
+region = Rect2(0, 64, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_4hfpx"]
+atlas = ExtResource("1_xnvt3")
+region = Rect2(0, 80, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_2sux3"]
+atlas = ExtResource("1_xnvt3")
+region = Rect2(0, 96, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ghenm"]
+atlas = ExtResource("1_xnvt3")
+region = Rect2(0, 16, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_f517s"]
+atlas = ExtResource("1_xnvt3")
+region = Rect2(0, 32, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_1cio0"]
+atlas = ExtResource("1_xnvt3")
+region = Rect2(0, 48, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_cvo1k"]
+atlas = ExtResource("1_xnvt3")
+region = Rect2(48, 96, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_gkqll"]
+atlas = ExtResource("1_xnvt3")
+region = Rect2(32, 96, 16, 16)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_27dqh"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_2txce")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_4v1q1")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_1y32d")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_l5jeo")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_5nsky")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_4hfpx")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_2sux3")
+}],
+"loop": true,
+"name": &"idle",
+"speed": 2.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ghenm")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_f517s")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_1cio0")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_cvo1k")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_gkqll")
+}],
+"loop": true,
+"name": &"idle_left",
+"speed": 5.0
+}]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_g3vo6"]
+size = Vector2(75, 76)
+
+[node name="Esma" type="StaticBody2D"]
+collision_layer = 4
+script = ExtResource("1_0xytq")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+position = Vector2(30, 32.5)
+scale = Vector2(4.75, 5.0625)
+sprite_frames = SubResource("SpriteFrames_27dqh")
+animation = &"idle_left"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(35.5, 38)
+shape = SubResource("RectangleShape2D_g3vo6")
+
+[node name="RayCast2D" type="RayCast2D" parent="."]
+position = Vector2(32, 74)
+target_position = Vector2(1, 29)
+
+[node name="Bulle" type="TextureRect" parent="."]
+visible = false
+z_index = 4
+offset_left = 25.0
+offset_top = -62.0
+offset_right = 3845.0
+offset_bottom = 3686.0
+scale = Vector2(0.05, 0.05)
+texture = ExtResource("3_m2268")
+flip_h = true
+
+[node name="Label" type="Label" parent="Bulle"]
+z_index = 4
+layout_mode = 0
+offset_left = 940.0
+offset_top = 1360.0
+offset_right = 1327.0
+offset_bottom = 1568.0
+scale = Vector2(5, 5)
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_font_sizes/font_size = 35
+text = "Gogeta LR ??!!!
+"
+autowrap_mode = 2
+clip_text = true
+
+[node name="BulleTimer" type="Timer" parent="Bulle"]
+
+[connection signal="timeout" from="Bulle/BulleTimer" to="." method="_on_bulle_timer_timeout"]
