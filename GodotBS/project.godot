@@ -10,10 +10,10 @@ config_version=5
 
 [application]
 
-config/name="BossFight"
+config/name="Francois"
 run/main_scene="res://Scenes/Map/main.tscn"
 config/features=PackedStringArray("4.1", "GL Compatibility")
-config/icon="res://icon.svg"
+config/icon="res://Assets/GoofyAssets/LIBEREZ FRANCOIS (1).png"
 
 [dotnet]
 

@@ -32,7 +32,7 @@ func _on_soisfranc_body_entered(body):
 
 
 func _on_player_hit():
-	$TileMap/Soisfranc.hitMarker(moi.attaqueBase)
+	$TileMap/Grosluffy.hitMarker(moi.attaqueBase)
 	var affichageDegats = moi.attaqueBase*2400/100
 	HB.size.x = HB.size.x- affichageDegats
 	if HB.size.x == 1200 : 

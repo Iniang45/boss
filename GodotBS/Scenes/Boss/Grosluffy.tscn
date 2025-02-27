@@ -336,7 +336,7 @@ animations = [{
 radius = 58.9978
 height = 192.0
 
-[node name="Soisfranc" type="Area2D"]
+[node name="Grosluffy" type="Area2D"]
 position = Vector2(853, 249)
 collision_layer = 2
 script = ExtResource("1_nxuwc")
@@ -350,7 +350,8 @@ shape = SubResource("CapsuleShape2D_4sm2e")
 position = Vector2(-1, -29)
 scale = Vector2(0.5, 0.541)
 sprite_frames = SubResource("SpriteFrames_qjojm")
-animation = &"boroBreath"
+animation = &"luffy"
+flip_h = true
 
 [node name="Feu" type="AnimatedSprite2D" parent="Corps"]
 position = Vector2(-106.545, 80.7619)

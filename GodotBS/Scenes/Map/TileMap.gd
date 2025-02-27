@@ -1,5 +1,5 @@
 extends TileMap
-@onready var france  = $Soisfranc/Corps
+@onready var france  = $Grosluffy/Corps
 var breath = false
 @onready var HB = $BossHealthBar/HealthBarBG/HealthBarInterieur/HealthBar
 @onready var HBTexte = $BossHealthBar/Label
