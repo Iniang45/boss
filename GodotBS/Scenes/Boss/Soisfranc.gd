@@ -1,6 +1,7 @@
 extends Area2D
 var invincible = false
 var VieBoss = 100
+signal bodyChange 
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	pass
@@ -16,4 +17,5 @@ func hitMarker(degatsRecus):
 		await get_tree().create_timer(0.3).timeout
 		$hitSprite.visible = false
 		invincible = false
-	
+func transformation():
+	bodyChange.emit()

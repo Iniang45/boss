@@ -1,7 +1,8 @@
-[gd_scene load_steps=51 format=3 uid="uid://xm78ss1do3bk"]
+[gd_scene load_steps=54 format=3 uid="uid://xm78ss1do3bk"]
 
 [ext_resource type="Script" path="res://Scenes/Boss/Soisfranc.gd" id="1_nxuwc"]
 [ext_resource type="Texture2D" uid="uid://bprv43o8nen12" path="res://Assets/demon-Files/Spritesheets/demon-attack.png" id="2_1mamb"]
+[ext_resource type="Texture2D" uid="uid://b5jygegg5qm2v" path="res://Assets/GrosLuffy/GROS CHEVALIER UPDATE.png" id="2_lhv74"]
 [ext_resource type="Texture2D" uid="uid://4tmo7mht75ar" path="res://Assets/demon-Files/Spritesheets/demon-attack-no-breath.png" id="3_3prb2"]
 [ext_resource type="Texture2D" uid="uid://bv7pjg6p14ft0" path="res://Assets/demon-Files/Spritesheets/demon-idle.png" id="4_8cuve"]
 [ext_resource type="Texture2D" uid="uid://cykeuuepyjgla" path="res://Assets/GrosLuffy/WALK.png" id="5_ic858"]
@@ -88,6 +89,10 @@ region = Rect2(1152, 7, 192, 169)
 [sub_resource type="AtlasTexture" id="AtlasTexture_2u11v"]
 atlas = ExtResource("3_3prb2")
 region = Rect2(1344, 7, 192, 169)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_iq1ki"]
+atlas = ExtResource("2_lhv74")
+region = Rect2(0, 0, 640, 640)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_pcjtj"]
 atlas = ExtResource("4_8cuve")
@@ -222,6 +227,14 @@ animations = [{
 }, {
 "frames": [{
 "duration": 1.0,
+"texture": SubResource("AtlasTexture_iq1ki")
+}],
+"loop": true,
+"name": &"grosluffy",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
 "texture": SubResource("AtlasTexture_pcjtj")
 }, {
 "duration": 1.0,
@@ -336,6 +349,9 @@ animations = [{
 radius = 58.9978
 height = 192.0
 
+[sub_resource type="CircleShape2D" id="CircleShape2D_17s0c"]
+radius = 131.015
+
 [node name="Grosluffy" type="Area2D"]
 position = Vector2(853, 249)
 collision_layer = 2
@@ -345,12 +361,13 @@ script = ExtResource("1_nxuwc")
 position = Vector2(1, 0)
 scale = Vector2(1.82083, 1.96875)
 shape = SubResource("CapsuleShape2D_4sm2e")
+disabled = true
 
 [node name="Corps" type="AnimatedSprite2D" parent="."]
 position = Vector2(-1, -29)
 scale = Vector2(0.5, 0.541)
 sprite_frames = SubResource("SpriteFrames_qjojm")
-animation = &"luffy"
+animation = &"grosluffy"
 flip_h = true
 
 [node name="Feu" type="AnimatedSprite2D" parent="Corps"]
@@ -369,3 +386,7 @@ disabled = true
 visible = false
 scale = Vector2(0.1, 0.1)
 texture = ExtResource("8_kwn38")
+
+[node name="CollisionGros" type="CollisionShape2D" parent="."]
+position = Vector2(15, 19)
+shape = SubResource("CircleShape2D_17s0c")

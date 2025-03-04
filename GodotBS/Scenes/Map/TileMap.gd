@@ -16,18 +16,18 @@ func _process(delta):
 	if Input.is_action_just_released("tp"):
 		france.play("boroBreath")
 	else:
-		if (france.animation != "boroBreath") :
+		if (france.animation != "boroBreath") and (france.animation != "grosluffy") :
 			france.play("luffy")
 	if (france.animation == "boroBreath"):
 		var frame = france.get_frame()
 		if (frame == 6):
-			$Soisfranc/Corps/Feu.play("Souffle")
+			$Grosluffy/Corps/Feu.play("Souffle")
 	match france.animation : 
 		"boroBreath" :
 			if france.get_frame() > 7 :   
-				$Soisfranc/CollisionFeu.disabled = false 
+				$Grosluffy/CollisionFeu.disabled = false 
 		"idle" : 
-			$Soisfranc/CollisionFeu.visible = false
+			$Grosluffy/CollisionFeu.visible = false
 
 	
 
@@ -35,7 +35,7 @@ func _process(delta):
 func _on_soisfranc_animation_finished():
 	if (france.animation == "boroBreath"):
 		france.play("luffy")
-		$Soisfranc/CollisionFeu.disabled = true
+		$Grosluffy/CollisionFeu.disabled = true
 
 
 	

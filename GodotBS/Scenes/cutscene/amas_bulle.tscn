@@ -1,0 +1,96 @@
+[gd_scene load_steps=2 format=3 uid="uid://bvl430stn1gf"]
+
+[ext_resource type="Texture2D" uid="uid://bkoig2a7j4kj4" path="res://Assets/GrosLuffy/BULLE RONDE.png" id="1_sg7av"]
+
+[node name="AmasBulle" type="CanvasGroup"]
+position = Vector2(204, 25)
+
+[node name="Pioche" type="TextureRect" parent="."]
+offset_left = 328.0
+offset_top = -19.0
+offset_right = 2376.0
+offset_bottom = 2029.0
+scale = Vector2(0.075, 0.075)
+texture = ExtResource("1_sg7av")
+flip_h = true
+
+[node name="Label" type="Label" parent="Pioche"]
+layout_mode = 0
+offset_left = 480.0
+offset_top = 680.0
+offset_right = 1540.0
+offset_bottom = 1357.0
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_font_sizes/font_size = 150
+text = "Pioche"
+horizontal_alignment = 1
+vertical_alignment = 1
+autowrap_mode = 2
+
+[node name="Grosluffy" type="TextureRect" parent="."]
+offset_left = 62.0
+offset_top = -24.0
+offset_right = 2110.0
+offset_bottom = 2024.0
+scale = Vector2(0.075, 0.075)
+texture = ExtResource("1_sg7av")
+flip_h = true
+
+[node name="Label" type="Label" parent="Grosluffy"]
+layout_mode = 0
+offset_left = 533.333
+offset_top = 626.666
+offset_right = 1593.33
+offset_bottom = 1303.67
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_font_sizes/font_size = 150
+text = "Grosluffy
+"
+horizontal_alignment = 1
+vertical_alignment = 1
+autowrap_mode = 2
+
+[node name="ArbreMagique" type="TextureRect" parent="."]
+offset_left = 197.0
+offset_top = -22.0
+offset_right = 2245.0
+offset_bottom = 2026.0
+scale = Vector2(0.075, 0.075)
+texture = ExtResource("1_sg7av")
+flip_h = true
+
+[node name="Label" type="Label" parent="ArbreMagique"]
+layout_mode = 0
+offset_left = 480.0
+offset_top = 680.0
+offset_right = 1540.0
+offset_bottom = 1357.0
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_font_sizes/font_size = 150
+text = "Arbre Magique"
+horizontal_alignment = 1
+vertical_alignment = 1
+autowrap_mode = 2
+
+[node name="PistoVentouse" type="TextureRect" parent="."]
+offset_left = 473.0
+offset_top = -23.0
+offset_right = 2521.0
+offset_bottom = 2025.0
+scale = Vector2(0.075, 0.075)
+texture = ExtResource("1_sg7av")
+flip_h = true
+
+[node name="Label" type="Label" parent="PistoVentouse"]
+layout_mode = 0
+offset_left = 480.0
+offset_top = 680.0
+offset_right = 1540.0
+offset_bottom = 1357.0
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_font_sizes/font_size = 150
+text = "PistoVentouse
+"
+horizontal_alignment = 1
+vertical_alignment = 1
+autowrap_mode = 2
