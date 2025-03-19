@@ -390,3 +390,4 @@ texture = ExtResource("8_kwn38")
 [node name="CollisionGros" type="CollisionShape2D" parent="."]
 position = Vector2(15, 19)
 shape = SubResource("CircleShape2D_17s0c")
+disabled = true

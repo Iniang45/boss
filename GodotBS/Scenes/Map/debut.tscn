@@ -945,7 +945,7 @@ sources/3 = SubResource("TileSetAtlasSource_k25in")
 sources/4 = SubResource("TileSetAtlasSource_joh11")
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_gtlgt"]
-size = Vector2(140, 20)
+size = Vector2(140, 60)
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_fe0dp"]
 radius = 31.0161
@@ -988,7 +988,7 @@ position = Vector2(961, 107)
 position = Vector2(551, 11)
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Sortie"]
-position = Vector2(-1, 0)
+position = Vector2(-1, 20)
 shape = SubResource("RectangleShape2D_gtlgt")
 
 [node name="Cacamou1" type="Area2D" parent="."]

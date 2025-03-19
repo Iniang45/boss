@@ -1,3 +1,87 @@
-[gd_scene format=3 uid="uid://pxkqha51aa8k"]
+[gd_scene load_steps=14 format=3 uid="uid://pxkqha51aa8k"]
 
-[node name="GrosGrosluffy" type="Area2D"]
+[ext_resource type="Texture2D" uid="uid://d2q8ktrpfnmcs" path="res://Assets/GrosLuffy/GROS CHEVALIER.png" id="1_7qkep"]
+[ext_resource type="Script" path="res://Scenes/Boss/gros_grosluffy.gd" id="1_n3taf"]
+[ext_resource type="Texture2D" uid="uid://dscm4paobvl5r" path="res://Assets/GrosLuffy/GROS CHEVALIER_droite.png" id="3_0gydw"]
+[ext_resource type="Texture2D" uid="uid://c6dcsbs2k3mff" path="res://Assets/GrosLuffy/GROS CHEVALIER_45droite.png" id="3_vkeyf"]
+[ext_resource type="Texture2D" uid="uid://3l8tih1bxpnv" path="res://Assets/GrosLuffy/GROS CHEVALIER_gauche.png" id="5_2a2bk"]
+[ext_resource type="Texture2D" uid="uid://b0aw34cvx4y4w" path="res://Assets/GrosLuffy/GROS CHEVALIER_45bas.png" id="5_srltv"]
+[ext_resource type="Texture2D" uid="uid://c8b1ohof18xh" path="res://Assets/GrosLuffy/GROS CHEVALIER_basbsb.png" id="6_5btr0"]
+[ext_resource type="Texture2D" uid="uid://0ue180wyd7jt" path="res://Assets/GrosLuffy/GROS CHEVALIER_45gauche.png" id="7_8lngc"]
+[ext_resource type="Texture2D" uid="uid://bht035byexfmt" path="res://Assets/GrosLuffy/GROS CHEVALIER_fullgau.png" id="9_tyyvr"]
+
+[sub_resource type="PhysicsMaterial" id="PhysicsMaterial_3th14"]
+bounce = 1.0
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_2ugul"]
+atlas = ExtResource("5_2a2bk")
+region = Rect2(0, 0, 640, 640)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_b67ot"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("1_7qkep")
+}, {
+"duration": 1.0,
+"texture": ExtResource("3_vkeyf")
+}, {
+"duration": 1.0,
+"texture": ExtResource("3_0gydw")
+}, {
+"duration": 1.0,
+"texture": ExtResource("5_srltv")
+}, {
+"duration": 1.0,
+"texture": ExtResource("6_5btr0")
+}, {
+"duration": 1.0,
+"texture": ExtResource("7_8lngc")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_2ugul")
+}, {
+"duration": 1.0,
+"texture": ExtResource("9_tyyvr")
+}],
+"loop": true,
+"name": &"default",
+"speed": 15.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("6_5btr0")
+}],
+"loop": true,
+"name": &"flipv",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("1_7qkep")
+}],
+"loop": true,
+"name": &"idle",
+"speed": 5.0
+}]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_s66n3"]
+radius = 95.1893
+
+[node name="GrosGrosluffy" type="RigidBody2D"]
+collision_layer = 2
+collision_mask = 4
+physics_material_override = SubResource("PhysicsMaterial_3th14")
+gravity_scale = 0.0
+script = ExtResource("1_n3taf")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+scale = Vector2(0.4, 0.4)
+sprite_frames = SubResource("SpriteFrames_b67ot")
+animation = &"flipv"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(-9, 38)
+shape = SubResource("CircleShape2D_s66n3")
+
+[connection signal="body_entered" from="." to="." method="_on_body_entered"]

@@ -20,9 +20,7 @@ func _process(delta):
 	#print(str(moi.health)+"  "+str($TileMap/Soisfranc.VieBoss))
 	
 	pass
-func _on_soisfranc_body_entered(body):
-	print(body)
-	moi.hitMarker($TileMap.attaqueBase)
+	
 	
 
 
@@ -41,7 +39,10 @@ func _on_player_hit():
 
 
 func _on_debut_il_sort_debut():
+	print("kkk")
 	if $debut.peutsortir:
+		$Player.position.y -= 200
+		#lancementCinematique($cinematique1)
 		camera.position.x = 581
 		camera.position.y = 327
 		moi.calculClamp()
@@ -51,3 +52,17 @@ func _on_debut_il_sort_debut():
 func _on_debut_ramasse():
 	caca+=1
 	print(caca)
+func lancementCinematique(cinematique):
+	camera.position.x = cinematique.camx 
+	camera.position.y = cinematique.camy 
+	cinematique.lancement()
+
+
+func _on_cinematique_1_animfini():
+		camera.position.x = 581
+		camera.position.y = 327
+
+
+func _on_tile_map_touche_boss():
+	print("main marche")
+	moi.hitMarker($TileMap.attaqueBase)
