@@ -495,8 +495,8 @@ sprite_frames = SubResource("SpriteFrames_p6axe")
 animation = &"idle_down"
 
 [node name="AttackSprite2" type="AnimatedSprite2D" parent="PlayerSprite"]
-position = Vector2(2.93073, 0.912884)
-rotation = 4.93754
+position = Vector2(-8.59717, -17.4376)
+rotation = 1.90764
 scale = Vector2(1.25, 1.25)
 sprite_frames = SubResource("SpriteFrames_7f6mi")
 animation = &"slash_down"
@@ -504,8 +504,8 @@ frame = 5
 frame_progress = 1.0
 
 [node name="AttackSprite" type="AnimatedSprite2D" parent="PlayerSprite"]
-position = Vector2(0.572877, -0.870648)
-rotation = 1.09781
+position = Vector2(-7.6098, -15.5183)
+rotation = -1.12225
 scale = Vector2(1.25, 1.195)
 sprite_frames = SubResource("SpriteFrames_265qd")
 animation = &"slash_up"
@@ -546,6 +546,9 @@ shape = SubResource("CapsuleShape2D_q26yt")
 
 [node name="PlayerHB" parent="Transition" instance=ExtResource("15_4yu5y")]
 z_index = 2
+offset_left = 1.00002
+offset_top = 1.52588e-05
+offset_right = 1.0
 scale = Vector2(0.7, 0.7)
 
 [connection signal="timeout" from="PlayerSprite/TpSprite/TpCooldown" to="." method="_on_tp_cooldown_timeout"]

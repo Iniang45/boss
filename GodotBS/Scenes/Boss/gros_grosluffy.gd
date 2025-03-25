@@ -3,6 +3,8 @@ extends RigidBody2D
 var velocity = Vector2.ZERO
 var vecteurX = 90
 var vecteurY = 0
+var invincible = false
+var VieBoss = 100
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	velocity.x = vecteurX
@@ -26,4 +28,13 @@ func _process(delta):
 					vecteurX = 200
 				else :
 					vecteurX = -200
+
+func hitMarker(degatsRecus):
+	if not invincible :
+		VieBoss-=degatsRecus
+		invincible = true
+		$hitSprite.visible = true 
+		await get_tree().create_timer(0.3).timeout
+		$hitSprite.visible = false
+		invincible = false
 		

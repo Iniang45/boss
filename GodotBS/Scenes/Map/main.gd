@@ -18,8 +18,14 @@ func _ready():
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
 	#print(str(moi.health)+"  "+str($TileMap/Soisfranc.VieBoss))
-	
-	pass
+	if $Player/Transition/PlayerHB/HBvide/HB.size.x == 392:
+		mort()
+	if Input.is_action_just_pressed("InstaKill"):
+		$TileMap/GrosGrosluffy.hitMarker(50)
+		perteVieBoss(50)
+	if Input.is_action_just_pressed("self_damage"):
+		moi.hitMarker(50)
+		
 	
 	
 
@@ -30,11 +36,9 @@ func _process(delta):
 
 
 func _on_player_hit():
-	$TileMap/Grosluffy.hitMarker(moi.attaqueBase)
-	var affichageDegats = moi.attaqueBase*2400/100
-	HB.size.x = HB.size.x- affichageDegats
-	if HB.size.x == 1200 : 
-		HB.visible = false 
+	#$TileMap/Grosluffy.hitMarker(moi.attaqueBase)
+	$TileMap/GrosGrosluffy.hitMarker(moi.attaqueBase)
+	perteVieBoss(moi.attaqueBase)
 	
 
 
@@ -66,3 +70,14 @@ func _on_cinematique_1_animfini():
 func _on_tile_map_touche_boss():
 	print("main marche")
 	moi.hitMarker($TileMap.attaqueBase)
+	
+func mort():
+	var ecran = get_viewport_rect().size / 2
+	$ImFinished.position.x = ecran[0]
+	$ImFinished.position.y = ecran[1]
+	$ImFinished.visible = true
+func perteVieBoss(valeur):
+	var affichageDegats = valeur*2400/100
+	HB.size.x = HB.size.x- affichageDegats
+	if HB.size.x == 1200 : 
+		HB.visible = false

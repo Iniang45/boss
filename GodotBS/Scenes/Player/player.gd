@@ -19,10 +19,13 @@ var limit = Vector2(0,0)
 @onready var attackTimer = $PlayerSprite/AttackTimer
 @onready var tpTimer = $PlayerSprite/TpSprite/TpTimer
 @onready var CollisionSlash = $Slash/CollisionSlash
+@onready var AreaSlash = $Slash
 @onready var moiCollision = $PlayerCollision
 @onready var RayDark = $Slash/CollisionSlash/RayCast2D
 @onready var vieVerte = $Transition/PlayerHB/HBvide/HB
 @onready var vieBleu = $Transition/PlayerHB/HBvide/HB2
+var posX = 0 
+var posY = 0
 var cooldownAttack = false
 func _ready():
 	screen_size = get_viewport_rect().size
@@ -32,8 +35,8 @@ func _ready():
 	RayDark.enabled = false
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _physics_process(delta):
-	var posY = moi.position.y
-	var posX = moi.position.x
+	posY = moi.position.y
+	posX = moi.position.x
 	#var velocity = Vector2.ZERO # The player's movement vector.
 	velocity = Vector2.ZERO
 	if Input.is_action_pressed("tp"):
@@ -46,17 +49,13 @@ func _physics_process(delta):
 			$PlayerSprite/TpSprite.visible = false
 			match direction:
 				"up" : 
-					moi.position.y -= 85
-					moiCollision.position.y -= 85
+					deplaTP(-85,"y")
 				"down":
-					moi.position.y += 85
-					moiCollision.position.y += 85
+					deplaTP(85,"y")
 				"right":
-					moi.position.x += 85
-					moiCollision.position.x += 85
+					deplaTP(85,"x")
 				"left":
-					moi.position.x -=85
-					moiCollision.position.x -= 85
+					deplaTP(-85,"x")
 	if Input.is_action_pressed("move_right"):
 		velocity.x += 1
 		direction = "right"
@@ -101,36 +100,15 @@ func _physics_process(delta):
 		match direction :
 			"up":
 				$PlayerSprite.animation = "idle_up"
-				$PlayerSprite/AttackSprite.rotation_degrees = 0
-				$PlayerSprite/AttackSprite2.rotation_degrees = 180
-				CollisionSlash.position.y = posY -48
-				CollisionSlash.position.x = posX
-				CollisionSlash.rotation_degrees = 90 
 				
 				
 			"down":
 				$PlayerSprite.animation = "idle_down"
-				$PlayerSprite/AttackSprite.rotation_degrees = 128.6
-				$PlayerSprite/AttackSprite2.rotation_degrees = 0
-				CollisionSlash.position.y = posY + 48
-				CollisionSlash.position.x = posX
-				CollisionSlash.rotation_degrees = 90
-				
 			"right":
 				$PlayerSprite.animation = "idle_right"
-				$PlayerSprite/AttackSprite.rotation_degrees = 64.3
-				$PlayerSprite/AttackSprite2.rotation_degrees = 270
-				CollisionSlash.position.y = posY + 9 
-				CollisionSlash.position.x = posX + 42
-				CollisionSlash.rotation_degrees = 27.3
 				
 			"left":
 				$PlayerSprite.animation = "idle_left"
-				$PlayerSprite/AttackSprite.rotation_degrees = -100
-				$PlayerSprite/AttackSprite2.rotation_degrees = 900
-				CollisionSlash.rotation_degrees = -20
-				CollisionSlash.position.y = posY + 9 
-				CollisionSlash.position.x = posX - 42
 	
 	if velocity.length() > 0:
 		velocity = velocity.normalized() * speed
@@ -138,7 +116,7 @@ func _physics_process(delta):
 	
 	else:
 		$PlayerSprite.stop()
-	
+	taperEnCourant()
 	move_and_slide()
 	for i in get_slide_collision_count():
 		var collision = get_slide_collision(i)
@@ -186,7 +164,7 @@ func hitMarker(degatsRecus):
 				position.x += 100
 		invincible = true
 		$PlayerSprite/hitSprite.visible = true 
-		await get_tree().create_timer(0.3).timeout
+		await get_tree().create_timer(1).timeout
 		$PlayerSprite/hitSprite.visible = false
 		invincible = false
 		var affichageDegats = degatsRecus*7800/100
@@ -197,7 +175,48 @@ func calculClamp():
 	limit = Vector2(screen_size[0]*(int(cam.position.x/600)),screen_size[1]*(int(cam.position.y)/900)) 
 	screen_size_change[0] = screen_size[0] + screen_size[0]*(int(cam.position.x)/600)
 	screen_size_change[1] = screen_size[1] + screen_size[1]*(int(cam.position.y)/900)
+func setup(posAsX, posAsY, rotAs, posAs2X, posAs2Y, rotAs2, posCoX, posCoY, rotCo ) :
 	
-
-
-
+	AreaSlash.rotation_degrees = rotCo
+	AreaSlash.position.x = posX + posCoX 
+	AreaSlash.position.y = posY + posCoY
+	$PlayerSprite/AttackSprite.rotation_degrees = rotAs
+	$PlayerSprite/AttackSprite.position.y = posY + posAsY
+	$PlayerSprite/AttackSprite.position.x = posX + posAsX
+	$PlayerSprite/AttackSprite2.rotation_degrees =rotAs2
+	$PlayerSprite/AttackSprite2.position.x = posX+posAs2X
+	$PlayerSprite/AttackSprite2.position.y = posY +posAs2Y
+	
+func taperEnCourant():
+	if velocity.x > 0:
+		if velocity.y < 0 :
+			print("diag_haut_droit")
+			setup(-5,-25,-10,-5,-30,-160,-20,0,-45)
+		elif velocity.y > 0 :
+			print("diag_bas_droit")
+			setup(0,-20,107,0,-20,295,60,-40,70)
+		else:
+			print("droite")
+			setup(-10,-20,50,0,-20,-126,-10,-30,0)
+	elif velocity.x <0 :
+		if velocity.y > 0 :
+			print("diag_bas_gauche") 
+			setup(-30,-10,160,-30,-10,17,40,40,142) 
+		elif velocity.y < 0 :
+			print("diag_haut_gauche")
+			setup(-40,-30,-40,-35,-40,109,-60,30,-100)
+		else:
+			print("gauche")
+			setup(-35,-5,250,-40,-11,62,0,70,199)
+	else:
+		if velocity.y < 0 :
+			print("haut")
+			setup(-20,-40,-32,-20,-45,165,-40,0,-77)
+		elif velocity.y > 0 :
+			print("bas")
+			setup(-20,-5,141,-15,0,351,60,20,120)
+func deplaTP(valeur, axe):
+	if axe == "y":
+		position.y+=valeur
+	elif axe == "x": 
+		position.x+= valeur  

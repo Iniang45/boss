@@ -1,4 +1,4 @@
-[gd_scene load_steps=14 format=3 uid="uid://pxkqha51aa8k"]
+[gd_scene load_steps=15 format=3 uid="uid://pxkqha51aa8k"]
 
 [ext_resource type="Texture2D" uid="uid://d2q8ktrpfnmcs" path="res://Assets/GrosLuffy/GROS CHEVALIER.png" id="1_7qkep"]
 [ext_resource type="Script" path="res://Scenes/Boss/gros_grosluffy.gd" id="1_n3taf"]
@@ -9,6 +9,7 @@
 [ext_resource type="Texture2D" uid="uid://c8b1ohof18xh" path="res://Assets/GrosLuffy/GROS CHEVALIER_basbsb.png" id="6_5btr0"]
 [ext_resource type="Texture2D" uid="uid://0ue180wyd7jt" path="res://Assets/GrosLuffy/GROS CHEVALIER_45gauche.png" id="7_8lngc"]
 [ext_resource type="Texture2D" uid="uid://bht035byexfmt" path="res://Assets/GrosLuffy/GROS CHEVALIER_fullgau.png" id="9_tyyvr"]
+[ext_resource type="Texture2D" uid="uid://cjnypeas2jfux" path="res://Texture/Soisfranc_sombrero.JPG" id="10_v0mmk"]
 
 [sub_resource type="PhysicsMaterial" id="PhysicsMaterial_3th14"]
 bounce = 1.0
@@ -83,5 +84,11 @@ animation = &"flipv"
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 position = Vector2(-9, 38)
 shape = SubResource("CircleShape2D_s66n3")
+
+[node name="hitSprite" type="Sprite2D" parent="."]
+visible = false
+position = Vector2(-6.0125, 38.75)
+scale = Vector2(0.127928, 0.0915625)
+texture = ExtResource("10_v0mmk")
 
 [connection signal="body_entered" from="." to="." method="_on_body_entered"]
