@@ -8,7 +8,7 @@ extends Node2D
 @onready var HB = $TileMap/BossHealthBar/HealthBarBG/HealthBarInterieur/HealthBar
 @onready var HBTexte = $TileMap/BossHealthBar/Label
 @onready var HBB = $TileMap/BossHealthBar/HealthBarBG/HealthBarInterieur/HealthBarBlessure
-
+@onready var grosLuffy = $TileMap/Grosluffy
 var caca = 0
 func _ready():
 	
@@ -22,23 +22,46 @@ func _process(delta):
 		mort()
 	if Input.is_action_just_pressed("InstaKill"):
 		$TileMap/GrosGrosluffy.hitMarker(50)
-		perteVieBoss(50)
+		perteVieBoss(50, $TileMap.phase)
 	if Input.is_action_just_pressed("self_damage"):
-		moi.hitMarker(50)
+		moi.hitMarker(50, $TileMap.phase)
 		
+	grosLuffy.angle = rad_to_deg(moi.position.angle_to(grosLuffy.position))
+	calculateDirection(grosLuffy)
 	
-	
 
 
 
 
 
-
+func calculateDirection(ennemi):
+	var ecartX = ennemi.position.x - moi.position.x
+	var ecartY = ennemi.position.y - moi.position.y
+	match ecartX>0:
+		true:
+			match ecartY>0:
+				true:
+					ennemi.directionState = ennemi.direction.basD
+				false:
+					ennemi.directionState = ennemi.direction.hautD
+			ennemi.flip = false
+		false:
+			match ecartY>0:
+				true:
+					ennemi.directionState = ennemi.direction.basG
+				false:
+					ennemi.directionState = ennemi.direction.hautG
+			ennemi.flip = true
+			
+			
 
 func _on_player_hit():
-	#$TileMap/Grosluffy.hitMarker(moi.attaqueBase)
-	$TileMap/GrosGrosluffy.hitMarker(moi.attaqueBase)
-	perteVieBoss(moi.attaqueBase)
+	match $TileMap.phase : 
+		2:
+			$TileMap/Grosluffy.hitMarker(moi.attaqueBase)
+		1:
+			$TileMap/GrosGrosluffy.hitMarker(moi.attaqueBase)
+	perteVieBoss(moi.attaqueBase, $TileMap.phase)
 	
 
 
@@ -65,6 +88,7 @@ func lancementCinematique(cinematique):
 func _on_cinematique_1_animfini():
 		camera.position.x = 581
 		camera.position.y = 327
+		moi.calculClamp()
 
 
 func _on_tile_map_touche_boss():
@@ -72,12 +96,29 @@ func _on_tile_map_touche_boss():
 	moi.hitMarker($TileMap.attaqueBase)
 	
 func mort():
-	var ecran = get_viewport_rect().size / 2
-	$ImFinished.position.x = ecran[0]
-	$ImFinished.position.y = ecran[1]
-	$ImFinished.visible = true
-func perteVieBoss(valeur):
+	$TileMap/ImFinished.visible = true
+func perteVieBoss(valeur, quellePhase):
 	var affichageDegats = valeur*2400/100
-	HB.size.x = HB.size.x- affichageDegats
-	if HB.size.x == 1200 : 
-		HB.visible = false
+	match quellePhase:
+		1:
+	
+			HB.size.x = HB.size.x- affichageDegats
+			if HB.size.x == 1200 : 
+				HB.visible = false
+		2: 
+			HBB.size.x = HBB.size.x- affichageDegats
+			if HBB.size.x == 1200 : 
+				HBB.visible = false
+
+func _on_cinematique_1_2_animfini_2():
+	camera.position.x = 581
+	camera.position.y = 327
+	$TileMap.pause = false
+
+
+func _on_tile_map_phase_2_debut():
+	lancementCinematique($Cinematique_1_2)
+
+
+func _on_tile_map_touche_boss_2():
+	moi.hitMarker($TileMap.attaqueBase)

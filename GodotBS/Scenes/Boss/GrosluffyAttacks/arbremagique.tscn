@@ -1,0 +1,42 @@
+[gd_scene load_steps=7 format=3 uid="uid://b5r7gqafg2aah"]
+
+[ext_resource type="Texture2D" uid="uid://dmv2fxvbk6r5k" path="res://Assets/GrosLuffy/Arbre/Arbremini.png" id="1_q85nt"]
+[ext_resource type="Texture2D" uid="uid://cdy1740ygr113" path="res://Assets/GrosLuffy/Arbre/arbre2.png" id="2_bqp7v"]
+[ext_resource type="Texture2D" uid="uid://d2hjkiv0p8vts" path="res://Assets/GrosLuffy/Arbre/arbre3.png" id="3_kpnh6"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_5jqbg"]
+size = Vector2(173, 178)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_fx8x0"]
+size = Vector2(167, 299)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_vbf30"]
+size = Vector2(175, 501)
+
+[node name="Arbremagique" type="Area2D"]
+collision_layer = 2
+
+[node name="arbre1" type="Sprite2D" parent="."]
+texture = ExtResource("1_q85nt")
+
+[node name="arbre1Collision" type="CollisionShape2D" parent="."]
+position = Vector2(-0.5, 0)
+shape = SubResource("RectangleShape2D_5jqbg")
+
+[node name="arbre2" type="Sprite2D" parent="."]
+visible = false
+texture = ExtResource("2_bqp7v")
+
+[node name="arbre3" type="Sprite2D" parent="."]
+visible = false
+texture = ExtResource("3_kpnh6")
+
+[node name="arbre2colli" type="CollisionShape2D" parent="."]
+visible = false
+position = Vector2(-1.5, 0.5)
+shape = SubResource("RectangleShape2D_fx8x0")
+
+[node name="arbre3colli" type="CollisionShape2D" parent="."]
+visible = false
+position = Vector2(-1.5, 1.5)
+shape = SubResource("RectangleShape2D_vbf30")

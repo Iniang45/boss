@@ -1,10 +1,11 @@
-[gd_scene load_steps=6 format=3 uid="uid://d2r0vjcqeh61c"]
+[gd_scene load_steps=7 format=3 uid="uid://d2r0vjcqeh61c"]
 
 [ext_resource type="TileSet" uid="uid://dj7rpgp6e5us2" path="res://Assets/new_tile_set.tres" id="1_5qig0"]
 [ext_resource type="Script" path="res://Scenes/Map/TileMap.gd" id="2_bhb67"]
 [ext_resource type="PackedScene" uid="uid://d0dfqdub4xaah" path="res://Scenes/Boss/BossHealthBar.tscn" id="3_uxatt"]
 [ext_resource type="PackedScene" uid="uid://xm78ss1do3bk" path="res://Scenes/Boss/Grosluffy.tscn" id="4_7qsft"]
 [ext_resource type="PackedScene" uid="uid://pxkqha51aa8k" path="res://Scenes/Boss/gros_grosluffy.tscn" id="5_g1la5"]
+[ext_resource type="Texture2D" uid="uid://c7xi080fsxsqw" path="res://Assets/GoofyAssets/wallahi i'm finished faceass.jpg" id="6_8nsj4"]
 
 [node name="TileMap" type="TileMap"]
 tile_set = ExtResource("1_5qig0")
@@ -46,4 +47,13 @@ contact_monitor = true
 [node name="Marker" type="Marker2D" parent="."]
 position = Vector2(565, 292)
 
+[node name="ImFinished" type="TextureRect" parent="."]
+visible = false
+z_index = 10
+offset_right = 2292.0
+offset_bottom = 1340.0
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("6_8nsj4")
+
+[connection signal="body_entered" from="Grosluffy" to="." method="_on_grosluffy_body_entered"]
 [connection signal="body_entered" from="GrosGrosluffy" to="." method="_on_gros_grosluffy_body_entered"]

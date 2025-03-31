@@ -90,5 +90,3 @@ visible = false
 position = Vector2(-6.0125, 38.75)
 scale = Vector2(0.127928, 0.0915625)
 texture = ExtResource("10_v0mmk")
-
-[connection signal="body_entered" from="." to="." method="_on_body_entered"]

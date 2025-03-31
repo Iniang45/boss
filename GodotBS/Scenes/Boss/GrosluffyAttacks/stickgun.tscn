@@ -1,0 +1,21 @@
+[gd_scene load_steps=4 format=3 uid="uid://cjkqwc7n0ca5b"]
+
+[ext_resource type="Script" path="res://Assets/GrosLuffy/stickgun/Stickgun.gd" id="1_x6r2v"]
+[ext_resource type="Texture2D" uid="uid://bvmon3ugkn467" path="res://Assets/GrosLuffy/stickgun/VENTOUSE.png" id="2_j65sd"]
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_8u64q"]
+radius = 48.0
+height = 134.0
+
+[node name="Stickgun" type="Area2D"]
+visible = false
+collision_layer = 2
+script = ExtResource("1_x6r2v")
+
+[node name="stick" type="Sprite2D" parent="."]
+texture = ExtResource("2_j65sd")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(157, 11)
+shape = SubResource("CapsuleShape2D_8u64q")
+disabled = true

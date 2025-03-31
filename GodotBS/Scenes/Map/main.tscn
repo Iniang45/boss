@@ -3,7 +3,7 @@
 [ext_resource type="Script" path="res://Scenes/Map/main.gd" id="1_k0qxf"]
 [ext_resource type="PackedScene" uid="uid://d2r0vjcqeh61c" path="res://Scenes/Boss/tile_map.tscn" id="2_6oq5v"]
 [ext_resource type="PackedScene" uid="uid://c7t387c8qj6r1" path="res://Scenes/Player/player.tscn" id="2_f71xd"]
-[ext_resource type="Texture2D" uid="uid://c7xi080fsxsqw" path="res://Assets/GoofyAssets/wallahi i'm finished faceass.jpg" id="6_8qtpp"]
+[ext_resource type="PackedScene" uid="uid://cg8cqcga5hou5" path="res://Scenes/cutscene/cinematique_1_2.tscn" id="6_6fiqd"]
 [ext_resource type="PackedScene" uid="uid://b3srk8mwbobjc" path="res://Scenes/cutscene/cinematique_1.tscn" id="8_1h157"]
 [ext_resource type="PackedScene" uid="uid://dfdf1mijodef4" path="res://Scenes/Map/debut.tscn" id="14_20kke"]
 
@@ -18,7 +18,7 @@ position = Vector2(535, 976)
 [node name="Node" type="Node" parent="Player"]
 
 [node name="Camera2D" type="Camera2D" parent="Player/Node"]
-position = Vector2(578, 995)
+position = Vector2(577, 973)
 
 [node name="debut" parent="." instance=ExtResource("14_20kke")]
 offset_top = 650.0
@@ -31,16 +31,15 @@ offset_top = 1668.0
 offset_bottom = 1668.0
 grow_vertical = 1
 
-[node name="ImFinished" type="TextureRect" parent="."]
-visible = false
-z_index = 10
-offset_right = 1170.0
-offset_bottom = 873.0
-scale = Vector2(0.5, 0.5)
-texture = ExtResource("6_8qtpp")
+[node name="Cinematique_1_2" parent="." instance=ExtResource("6_6fiqd")]
+offset_top = 2500.0
+offset_bottom = 2500.0
 
+[connection signal="phase2debut" from="TileMap" to="." method="_on_tile_map_phase_2_debut"]
 [connection signal="toucheBoss" from="TileMap" to="." method="_on_tile_map_touche_boss"]
+[connection signal="toucheBoss2" from="TileMap" to="." method="_on_tile_map_touche_boss_2"]
 [connection signal="hit" from="Player" to="." method="_on_player_hit"]
 [connection signal="ilSortDebut" from="debut" to="." method="_on_debut_il_sort_debut"]
 [connection signal="ramasse" from="debut" to="." method="_on_debut_ramasse"]
 [connection signal="animfini" from="cinematique1" to="." method="_on_cinematique_1_animfini"]
+[connection signal="animfini2" from="Cinematique_1_2" to="." method="_on_cinematique_1_2_animfini_2"]

@@ -5,10 +5,18 @@ var breath = false
 @onready var HBTexte = $BossHealthBar/Label
 @onready var HBB = $BossHealthBar/HealthBarBG/HealthBarInterieur/HealthBarBlessure
 @onready var GrosGros = $GrosGrosluffy
+signal phase2debut
 var attaqueBase = 10
+var phase2 = false
+var pause = false
 signal toucheBoss
+var phase1 = true
+var phase = 1
+signal toucheBoss2
+var mort = false
 # Called when the node enters the scene tree for the first time.
 func _ready():
+	HBTexte.text = "GrosLuffy"
 	france.play("luffy")
 	HB.size.x = 24000
 
@@ -28,8 +36,12 @@ func _process(delta):
 		"idle" : 
 			$Grosluffy/CollisionFeu.visible = false
 
-	
-
+	if $BossHealthBar/HealthBarBG/HealthBarInterieur/HealthBar.size.x == 1200 and phase==1: 
+		changementPhase()
+	if pause :
+		$GrosGrosluffy.velocity = Vector2.ZERO 
+	if phase == 2 and mort== false:
+		$Grosluffy.phase2Behavior() 
 
 func _on_soisfranc_animation_finished():
 	if (france.animation == "boroBreath"):
@@ -66,3 +78,16 @@ func randomanim() :
 		3: $GrosGrosluffy/AnimatedSprite2D.flip_h = false
 		4: $GrosGrosluffy/AnimatedSprite2D.flip_v = false
 		2: $GrosGrosluffy/AnimatedSprite2D.animation = "flipv"
+func changementPhase():
+	phase2debut.emit()
+	pause = true
+	phase = 2
+	HBTexte.text = "Narrateur et Luffy, la toon force"
+	#$GrosGrosluffy.visible = false
+	$GrosGrosluffy/CollisionShape2D.disabled = true
+	$Grosluffy.visible = true
+	$Grosluffy/CollisionCorps.disabled = false 
+
+
+func _on_grosluffy_body_entered(body):
+	toucheBoss2.emit()

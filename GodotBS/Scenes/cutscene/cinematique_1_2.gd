@@ -1,11 +1,11 @@
 extends Control
 var camx = 576
-var camy = 1995
+var camy = 2835
 @onready var animation = $AnimationPlayer
 @onready var narrateur = $TileMap/Narrateur
 @onready var grosluffy = $TileMap/Grosluffy/Corps
 var transfo = false
-signal animfini 
+signal animfini2 
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	pass
@@ -16,19 +16,14 @@ func _process(delta):
 			narrateur.play("talk")
 		else : 
 			narrateur.play("idle")
-		if transfo == false :
-			if  moment <=10.5 and  moment >= 8: 
-				grosluffy.play("luffy")
-		
-			else:
-				grosluffy.play("luffy_idle")
-		else : 
+		if  moment <=1 and  moment >= 0: 
 			grosluffy.play("grosluffy")
-func _on_grosluffy_body_change():
-	transfo = true
+		
+		else:
+			grosluffy.play("luffy_idle")
 func lancement():
-	$AnimationPlayer.play("RESET")
+	$AnimationPlayer.play("phase")
 
 
 func _on_animation_player_animation_finished(anim_name):
-	animfini.emit()
+	animfini2.emit()
