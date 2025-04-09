@@ -1,0 +1,19 @@
+[remap]
+
+importer="mp3"
+type="AudioStreamMP3"
+uid="uid://e1gatamfpw3w"
+path="res://.godot/imported/Spider-Man The Animated Series (Genesis) Music - Fun House.mp3-2a64fb0103a185a4b3566cd507e4ec45.mp3str"
+
+[deps]
+
+source_file="res://Music/Spider-Man The Animated Series (Genesis) Music - Fun House.mp3"
+dest_files=["res://.godot/imported/Spider-Man The Animated Series (Genesis) Music - Fun House.mp3-2a64fb0103a185a4b3566cd507e4ec45.mp3str"]
+
+[params]
+
+loop=false
+loop_offset=0
+bpm=0
+beat_count=0
+bar_beats=4

@@ -67,7 +67,7 @@ animations = [{
 }]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_s66n3"]
-radius = 95.1893
+radius = 85.1469
 
 [node name="GrosGrosluffy" type="RigidBody2D"]
 collision_layer = 2
@@ -82,7 +82,7 @@ sprite_frames = SubResource("SpriteFrames_b67ot")
 animation = &"flipv"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-position = Vector2(-9, 38)
+position = Vector2(-7, 51)
 shape = SubResource("CircleShape2D_s66n3")
 
 [node name="hitSprite" type="Sprite2D" parent="."]

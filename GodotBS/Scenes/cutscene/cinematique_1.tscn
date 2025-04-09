@@ -427,8 +427,8 @@ visible = false
 layout_mode = 1
 offset_left = 544.0
 offset_top = 239.0
-offset_right = -108.0
-offset_bottom = 91.0
+offset_right = 1044.0
+offset_bottom = 739.0
 scale = Vector2(0.15, 0.15)
 
 [node name="FaceReact" type="TextureRect" parent="."]
@@ -459,8 +459,8 @@ z_index = 2
 layout_mode = 1
 offset_left = -3.0
 offset_top = -139.0
-offset_right = 20733.0
-offset_bottom = 11525.0
+offset_right = 35709.0
+offset_bottom = 19949.0
 scale = Vector2(0.7, 0.7)
 
 [connection signal="bodyChange" from="TileMap/Grosluffy" to="." method="_on_grosluffy_body_change"]

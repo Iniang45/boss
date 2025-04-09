@@ -1,18 +1,32 @@
-[gd_scene load_steps=3 format=3 uid="uid://bnhy4aoplfkbi"]
+[gd_scene load_steps=5 format=3 uid="uid://bnhy4aoplfkbi"]
 
+[ext_resource type="Script" path="res://Scenes/Boss/GrosluffyAttacks/pioche.gd" id="1_oxmdd"]
 [ext_resource type="Texture2D" uid="uid://b4fmljhno51q0" path="res://Assets/GrosLuffy/Pioche/PIOCHE.png" id="1_to6pj"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_18ysb"]
 radius = 29.5254
 height = 248.013
 
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_ig8sj"]
+radius = 28.2843
+height = 244.07
+
 [node name="Pioche" type="Area2D"]
 collision_layer = 2
+script = ExtResource("1_oxmdd")
 
 [node name="piocheSprite" type="Sprite2D" parent="."]
 texture = ExtResource("1_to6pj")
+flip_h = true
 
 [node name="piocheCollision" type="CollisionShape2D" parent="."]
 position = Vector2(-14, -45)
 rotation = 0.898845
 shape = SubResource("CapsuleShape2D_18ysb")
+disabled = true
+
+[node name="piocheCollisionReverse" type="CollisionShape2D" parent="."]
+position = Vector2(19, -29)
+rotation = 2.01935
+shape = SubResource("CapsuleShape2D_ig8sj")
+disabled = true

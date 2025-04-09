@@ -552,3 +552,4 @@ offset_right = 1.0
 scale = Vector2(0.7, 0.7)
 
 [connection signal="timeout" from="PlayerSprite/TpSprite/TpCooldown" to="." method="_on_tp_cooldown_timeout"]
+[connection signal="body_entered" from="Slash" to="." method="_on_slash_body_entered"]

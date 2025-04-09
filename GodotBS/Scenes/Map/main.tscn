@@ -1,9 +1,10 @@
-[gd_scene load_steps=7 format=3 uid="uid://bt3r46au4wq72"]
+[gd_scene load_steps=8 format=3 uid="uid://bt3r46au4wq72"]
 
 [ext_resource type="Script" path="res://Scenes/Map/main.gd" id="1_k0qxf"]
 [ext_resource type="PackedScene" uid="uid://d2r0vjcqeh61c" path="res://Scenes/Boss/tile_map.tscn" id="2_6oq5v"]
 [ext_resource type="PackedScene" uid="uid://c7t387c8qj6r1" path="res://Scenes/Player/player.tscn" id="2_f71xd"]
 [ext_resource type="PackedScene" uid="uid://cg8cqcga5hou5" path="res://Scenes/cutscene/cinematique_1_2.tscn" id="6_6fiqd"]
+[ext_resource type="PackedScene" uid="uid://4csvvnqm2k57" path="res://Scenes/Boss/boss_2.tscn" id="7_frnmr"]
 [ext_resource type="PackedScene" uid="uid://b3srk8mwbobjc" path="res://Scenes/cutscene/cinematique_1.tscn" id="8_1h157"]
 [ext_resource type="PackedScene" uid="uid://dfdf1mijodef4" path="res://Scenes/Map/debut.tscn" id="14_20kke"]
 
@@ -35,9 +36,16 @@ grow_vertical = 1
 offset_top = 2500.0
 offset_bottom = 2500.0
 
+[node name="Boss2" parent="." instance=ExtResource("7_frnmr")]
+position = Vector2(1153, 8)
+
+[connection signal="Sortie" from="TileMap" to="." method="_on_tile_map_sortie"]
+[connection signal="bossMort" from="TileMap" to="." method="_on_tile_map_boss_mort"]
 [connection signal="phase2debut" from="TileMap" to="." method="_on_tile_map_phase_2_debut"]
 [connection signal="toucheBoss" from="TileMap" to="." method="_on_tile_map_touche_boss"]
 [connection signal="toucheBoss2" from="TileMap" to="." method="_on_tile_map_touche_boss_2"]
+[connection signal="toucheMC" from="TileMap" to="." method="_on_tile_map_touche_mc"]
+[connection signal="bossToucheGL" from="Player" to="." method="_on_player_boss_touche_gl"]
 [connection signal="hit" from="Player" to="." method="_on_player_hit"]
 [connection signal="ilSortDebut" from="debut" to="." method="_on_debut_il_sort_debut"]
 [connection signal="ramasse" from="debut" to="." method="_on_debut_ramasse"]

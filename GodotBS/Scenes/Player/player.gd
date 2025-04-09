@@ -13,6 +13,7 @@ var attaqueBase = 10.0
 @onready var cam = $Node/Camera2D
 signal tp
 signal hit
+signal bossToucheGL
 var limit = Vector2(0,0) 
 @onready var moi = $PlayerSprite
 @onready var timeCombo = $PlayerSprite/AttackSprite/ComboTimer
@@ -132,6 +133,7 @@ func _physics_process(delta):
 		peutCombo = false
 	#RayDark.position=moi.position
 	if RayDark.is_colliding() == true:
+		print("touche")
 		hit.emit()
 	vieBleu.size.x = vieVerte.size.x
 	peutTaperAffichage()
@@ -169,10 +171,10 @@ func hitMarker(degatsRecus):
 		invincible = false
 		var affichageDegats = degatsRecus*7800/100
 		vieVerte.size.x = vieVerte.size.x- affichageDegats
-		print(vieVerte.size.x)
+		#print(vieVerte.size.x)
 		
 func calculClamp():
-	limit = Vector2(screen_size[0]*(int(cam.position.x/600)),screen_size[1]*(int(cam.position.y)/900)) 
+	limit = Vector2(screen_size[0]*(int(cam.position.x/900)),screen_size[1]*(int(cam.position.y)/900)) 
 	screen_size_change[0] = screen_size[0] + screen_size[0]*(int(cam.position.x)/600)
 	screen_size_change[1] = screen_size[1] + screen_size[1]*(int(cam.position.y)/900)
 func setup(posAsX, posAsY, rotAs, posAs2X, posAs2Y, rotAs2, posCoX, posCoY, rotCo ) :
@@ -190,33 +192,40 @@ func setup(posAsX, posAsY, rotAs, posAs2X, posAs2Y, rotAs2, posCoX, posCoY, rotC
 func taperEnCourant():
 	if velocity.x > 0:
 		if velocity.y < 0 :
-			print("diag_haut_droit")
+			#print("diag_haut_droit")
 			setup(-5,-25,-10,-5,-30,-160,-20,0,-45)
 		elif velocity.y > 0 :
-			print("diag_bas_droit")
+			#print("diag_bas_droit")
 			setup(0,-20,107,0,-20,295,60,-40,70)
 		else:
-			print("droite")
+			#print("droite")
 			setup(-10,-20,50,0,-20,-126,-10,-30,0)
 	elif velocity.x <0 :
 		if velocity.y > 0 :
-			print("diag_bas_gauche") 
+			#print("diag_bas_gauche") 
 			setup(-30,-10,160,-30,-10,17,40,40,142) 
 		elif velocity.y < 0 :
-			print("diag_haut_gauche")
+			#print("diag_haut_gauche")
 			setup(-40,-30,-40,-35,-40,109,-60,30,-100)
 		else:
-			print("gauche")
+			#print("gauche")
 			setup(-35,-5,250,-40,-11,62,0,70,199)
 	else:
 		if velocity.y < 0 :
-			print("haut")
+			#print("haut")
 			setup(-20,-40,-32,-20,-45,165,-40,0,-77)
 		elif velocity.y > 0 :
-			print("bas")
+			#print("bas")
 			setup(-20,-5,141,-15,0,351,60,20,120)
 func deplaTP(valeur, axe):
 	if axe == "y":
 		position.y+=valeur
 	elif axe == "x": 
 		position.x+= valeur  
+
+
+
+
+
+	
+
