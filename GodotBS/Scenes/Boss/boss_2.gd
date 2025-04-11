@@ -23,3 +23,7 @@ func _process(delta):
 		changementPhase()
 func changementPhase():
 	pass
+
+
+func _on_ylhan_touche_dawg():
+	toucheMC.emit()

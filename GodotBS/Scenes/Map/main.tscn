@@ -51,3 +51,4 @@ position = Vector2(1153, 8)
 [connection signal="ramasse" from="debut" to="." method="_on_debut_ramasse"]
 [connection signal="animfini" from="cinematique1" to="." method="_on_cinematique_1_animfini"]
 [connection signal="animfini2" from="Cinematique_1_2" to="." method="_on_cinematique_1_2_animfini_2"]
+[connection signal="toucheMC" from="Boss2" to="." method="_on_boss_2_touche_mc"]

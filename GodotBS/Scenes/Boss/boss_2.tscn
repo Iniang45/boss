@@ -933,3 +933,5 @@ position = Vector2(543, 173)
 
 [node name="Marker" type="Marker2D" parent="."]
 position = Vector2(569, 330)
+
+[connection signal="toucheDawg" from="Ylhan" to="." method="_on_ylhan_touche_dawg"]

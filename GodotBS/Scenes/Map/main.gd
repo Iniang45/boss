@@ -9,6 +9,7 @@ extends Node2D
 @onready var HBTexte = $TileMap/BossHealthBar/Label
 @onready var HBB = $TileMap/BossHealthBar/HealthBarBG/HealthBarInterieur/HealthBarBlessure
 @onready var grosLuffy = $TileMap/Grosluffy
+@onready var ylhan = $Boss2/Ylhan
 var caca = 0
 var cinelance = false
 func _ready():
@@ -22,14 +23,15 @@ func _process(delta):
 	if $Player/Transition/PlayerHB/HBvide/HB.size.x == 392:
 		mort()
 	if Input.is_action_just_pressed("InstaKill"):
-		$TileMap/GrosGrosluffy.hitMarker(400)
+		$TileMap/GrosGrosluffy.hitMarker(600)
 		perteVieBoss(50, $TileMap.phase)
 	if Input.is_action_just_pressed("self_damage"):
 		moi.hitMarker(50)
 	if grosLuffy != null:
 		grosLuffy.angle = rad_to_deg(moi.position.angle_to(grosLuffy.position))
 		calculateDirection(grosLuffy)
-	
+	ylhan.angle = rad_to_deg(moi.position.angle_to(ylhan.position))
+	calculateDirection(ylhan)
 
 
 
@@ -67,7 +69,8 @@ func _on_player_hit():
 		1:
 			$TileMap/GrosGrosluffy.hitMarker(moi.attaqueBase)
 	perteVieBoss(moi.attaqueBase, $TileMap.phase)
-	
+	if $TileMap.mort:
+		perteVieBoss(moi.attaqueBase,$Boss2.phase)
 
 
 func _on_debut_il_sort_debut():
@@ -115,7 +118,7 @@ func perteVieBoss(valeur, quellePhase):
 			if HB.size.x == 1200 : 
 				HB.visible = false
 		2: 
-			HBB.size.x = HBB.size.x- affichageDegats/2
+			HBB.size.x = HBB.size.x- affichageDegats
 			if HBB.size.x == 1188 : 
 				HBB.visible = false
 				$TileMap.mortBoss()
@@ -125,7 +128,7 @@ func _on_cinematique_1_2_animfini_2():
 	camera.position.y = 327
 	$TileMap.pause = false
 	$TileMap/MusicPhase1.stop()
-	$TileMap/MusicPhase2.play()
+	#$TileMap/MusicPhase2.play()
 
 func _on_tile_map_phase_2_debut():
 	lancementCinematique($Cinematique_1_2)
@@ -142,7 +145,7 @@ func _on_tile_map_touche_mc():
 func _on_tile_map_boss_mort():
 	moi.health = 100
 	$TileMap.mort = true
-	$Player/Transition/PlayerHB/HBvide/HB.size.x = 1152
+	$Player/Transition/PlayerHB/HBvide/HB.size.x = 7800
 
 
 func _on_tile_map_sortie():
@@ -153,3 +156,7 @@ func _on_tile_map_sortie():
 	print(moi.position)
 	print(moi.limit)
 	print(moi.screen_size[0])
+	$Player/Transition/PlayerHB.position.x += moi.screen_size[0]
+
+func _on_boss_2_touche_mc():
+	moi.hitMarker($Boss2.attaqueBase)

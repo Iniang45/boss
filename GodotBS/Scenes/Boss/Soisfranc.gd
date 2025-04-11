@@ -44,6 +44,7 @@ func phase2Behavior():
 		states.deplacement:
 			var randAttack = randi_range(1,4)
 			deplacement()
+			randAttack = 2
 			await get_tree().create_timer(3).timeout
 			#print(randAttack)
 			match  randAttack:
