@@ -12,7 +12,7 @@ func _ready():
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
-	
+#Programme permettant d'enchaîner les lignes de dialogue ainsi que de les arrêter si le joueur s'éloigne du PNJ
 	if Input.is_action_just_pressed("interact"):
 		
 		if Ray.is_colliding():
@@ -42,4 +42,4 @@ func _process(delta):
 
 func _on_bulle_timer_timeout():
 	fini = true 
-	print("zizi")
+	print("zigitouito")

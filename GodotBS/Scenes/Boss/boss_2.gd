@@ -1,4 +1,5 @@
 extends TileMap
+#Définition des variables et signaux qui vont être utilisés
 @onready var HB = $BossHealthBar/HealthBarBG/HealthBarInterieur/HealthBar
 @onready var HBTexte = $BossHealthBar/Label
 var attaqueBase = 10
@@ -22,6 +23,7 @@ func _ready():
 func _process(delta):
 	if $BossHealthBar/HealthBarBG/HealthBarInterieur/HealthBar.size.x == 1200 and phase==1: 
 		changementPhase()
+	#Détection de la collision des 2 attaques
 	if $Ylhan/Slash2/CollisionSlash/RayCast2D.is_colliding() and $Ylhan/Slash2/CollisionSlash/RayCast2D.get_collider().name == "Player":
 		print("ylahnnn")
 		toucheMC.emit()

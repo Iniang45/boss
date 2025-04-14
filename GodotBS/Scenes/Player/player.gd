@@ -1,7 +1,7 @@
 extends CharacterBody2D
-
-@export var speed = 200 # How fast the player will move (pixels/sec).
-var screen_size # Size of the game window.
+#Définition de plusieurs variables et signaux 
+@export var speed = 200 
+var screen_size 
 var screen_size_change
 var direction = "up"
 var ComboCount = 0
@@ -32,6 +32,7 @@ func _ready():
 	screen_size = get_viewport_rect().size
 	screen_size_change = screen_size
 	CollisionSlash.disabled = true
+	#CalculClamp permet d'empécher le joeuur de sortir de la fenêtre
 	calculClamp()
 	RayDark.enabled = false
 # Called every frame. 'delta' is the elapsed time since the previous frame.
@@ -40,6 +41,7 @@ func _physics_process(delta):
 	posX = moi.position.x
 	#var velocity = Vector2.ZERO # The player's movement vector.
 	velocity = Vector2.ZERO
+	#Gestion du dash
 	if Input.is_action_pressed("tp"):
 		if peutTp: 
 			$PlayerSprite/TpSprite/TpCooldown.start()
@@ -57,6 +59,7 @@ func _physics_process(delta):
 					deplaTP(85,"x")
 				"left":
 					deplaTP(-85,"x")
+	#Gestion des déplacements
 	if Input.is_action_pressed("move_right"):
 		velocity.x += 1
 		direction = "right"
@@ -69,6 +72,7 @@ func _physics_process(delta):
 	if Input.is_action_pressed("move_up"):
 		velocity.y -= 1
 		direction = "up"
+	#Gestion de l'attaque et du combo 
 	if Input.is_action_just_pressed("attack"):
 		timeCombo.start()
 		if attackTimer.is_stopped():
@@ -85,6 +89,7 @@ func _physics_process(delta):
 			ComboCount +=1
 			if attackTimer.is_stopped():
 				attackTimer.start()
+	#Gestion des animations de déplacement 
 	if velocity.x > 0:
 		$PlayerSprite.animation = "walk_right"
 
@@ -118,6 +123,7 @@ func _physics_process(delta):
 	else:
 		$PlayerSprite.stop()
 	taperEnCourant()
+	#Permet au personnage de se déplacer selon la vélocité
 	move_and_slide()
 	for i in get_slide_collision_count():
 		var collision = get_slide_collision(i)
@@ -125,13 +131,13 @@ func _physics_process(delta):
 
 	#position += velocity*delta
 	position = position.clamp(limit, screen_size_change)
-
+	#Permet de gérer la punition du joueur lorsqu'il appuie trop souvent sur la touche d'attaque
 	if timeCombo.time_left>0 and timeCombo.time_left < 1:
 		
 		peutCombo = true
 	else : 
 		peutCombo = false
-	#RayDark.position=moi.position
+	#Emission du signal hit lorsque le joueur touche un boss avec l'attaque 
 	if RayDark.is_colliding() == true and RayDark.get_collider().name != "Slash":
 		print("touche")
 		print(RayDark.get_collider().name)
@@ -153,6 +159,7 @@ func peutTaperAffichage() :
 	else:
 		$Transition/PlayerHB/PeutPasTaper.visible = false
 func hitMarker(degatsRecus):
+	#Permet de gérer l'intéraction lorsque le joeuur prend des dégats, il deviant incincible pendant quelques temps et est déplacé en arrière de 100pixels
 	if not invincible :
 		health-=degatsRecus
 		
@@ -173,7 +180,7 @@ func hitMarker(degatsRecus):
 		var affichageDegats = degatsRecus*7800/100
 		vieVerte.size.x = vieVerte.size.x- affichageDegats
 		#print(vieVerte.size.x)
-		
+#Permet d'empécher le joueur de sortir de l'ecran en fonction d'où la caméra se trouve, fonction appelée à chaque fois que la caméra bouge
 func calculClamp():
 	limit = Vector2(screen_size[0]*(int(cam.position.x/900)),screen_size[1]*(int(cam.position.y)/900)) 
 	screen_size_change[0] = screen_size[0] + screen_size[0]*(int(cam.position.x)/600)
@@ -191,6 +198,7 @@ func setup(posAsX, posAsY, rotAs, posAs2X, posAs2Y, rotAs2, posCoX, posCoY, rotC
 	$PlayerSprite/AttackSprite2.position.y = posY +posAs2Y
 	
 func taperEnCourant():
+	#Fonction permettant de gérer la position de l'attaque en fonction de la direction vers laquelle le joueur se déplace
 	if velocity.x > 0:
 		if velocity.y < 0 :
 			#print("diag_haut_droit")
@@ -219,6 +227,7 @@ func taperEnCourant():
 			#print("bas")
 			setup(-20,-5,141,-15,0,351,60,20,120)
 func deplaTP(valeur, axe):
+	#Fonction permettant de gérer la direction de la téléportation
 	if axe == "y":
 		position.y+=valeur
 	elif axe == "x": 

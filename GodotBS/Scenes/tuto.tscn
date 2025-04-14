@@ -26,14 +26,16 @@ theme_override_font_sizes/font_size = 100
 text = "- Z,Q,S,D pour se déplacer
 - E pour interagir
 - J pour taper
-- K pour dash "
+- K pour dash 
+Attention ne pas jouer
+en PLEIN ECRAN"
 
 [node name="Button" type="Button" parent="."]
 layout_mode = 0
-offset_left = 330.0
-offset_top = 780.0
-offset_right = 775.0
-offset_bottom = 960.0
+offset_left = 395.0
+offset_top = 1305.0
+offset_right = 840.0
+offset_bottom = 1485.0
 theme_override_font_sizes/font_size = 70
 text = "Compris"
 

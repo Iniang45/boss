@@ -1,4 +1,6 @@
 extends CharacterBody2D
+#Script de la phase 2 du premier Boss 
+#Définition des variables et signaux
 var invincible = false
 var VieBoss = 100
 signal bodyChange 
@@ -6,6 +8,7 @@ signal toucheBoss2
 signal toucheDawg
 var angle = 0
 enum direction {hautG, basG, hautD, basD}
+#Définition de la machine à états 
 enum states {idle, pioche, grosluffy, arbre, pistobulle, deplacement}
 var state : states = states.idle
 var directionState : direction = direction.hautG
@@ -32,6 +35,7 @@ func _process(delta):
 	position = position.clamp(limit,limitU)
 	
 func phase2Behavior():
+	#Fonctionnement de la machine à états
 	match state :
 		states.idle:
 			deplacement()
@@ -59,11 +63,12 @@ func phase2Behavior():
 		states.pioche : 
 			piocheAttaque()
 		states.arbre : 
+		#nbanimfini permet de ne pas relancer l'animation du choix d'attaque plusieurs fois
 			if nbanimfini == 0:
 				$AnimationPlayer2.play("arbre_souris")
 				nbanimfini+=1
 		states.grosluffy : 
-			
+			#Attaque qui bug souvent sûrement dû à un problème de clamp
 			if nbanimfini == 0:
 				grosluffyAnima()
 				nbanimfini +=1
@@ -73,6 +78,7 @@ func phase2Behavior():
 				$AnimationPlayer2.play("stickgun_souris")
 				nbanimfini +=1
 func hitMarker(degatsRecus):
+	#fonction permettant de gérer lorsque le boss reçoit des dégats,
 	#print(invincible)
 	if not invincible :
 		VieBoss-=degatsRecus
@@ -84,7 +90,7 @@ func hitMarker(degatsRecus):
 func transformation():
 	bodyChange.emit()
 func deplacement():
-	
+	#Fonction permettant de gérer dans quelle direcion le boss doit se déplacer directionState est modifié dans une fonction de Main.gd
 	match directionState:
 		direction.hautG:
 			velocity.y -= 1
@@ -114,6 +120,7 @@ func piocheAttaque():
 		$AnimationPlayer2.play("pioche_souris")
 
 func arbreAnimation():
+	#l'arbre grandi 3 fois à intervalles de 0.5 secondes 
 	$Corps.animation = "luffy_idle"
 	$Arbremagique.rotation_degrees = angle + 90
 	$Arbremagique.changementarbre(1)
@@ -131,6 +138,7 @@ func grosluffyAnima():
 	$AnimationPlayer2.play("gros_souris")
 	nbanimfini =1	
 func stickgun():
+	#Fonctionne permettant de tirer des ventouse en appelant shoot du script de stickgun
 	$Corps/Stickgun.visible = true 
 	$Stickgun.shoot(position,angle,calculateVelocity())
 	await get_tree().create_timer(2).timeout
@@ -160,17 +168,20 @@ func stopanim():
 	animfiniplease.emit()
 
 func _on_arealuffy_body_entered(body):
+	#Fonction pour que le joueur prennent des dégats lorsqu'il entre en collsiison avec le boss
 	print(body.name)
 	if body.name == "Player":
 		toucheDawg.emit()
 
 
 func _on_pioche_body_entered(body):
+	#Fonction pour que le joueur prennent des dégats lorsqu'il entre en collsiison avec la pioche
 	if body.name == "Player":
 		toucheDawg.emit()
 
 
 func _on_animation_player_2_animation_finished(anim_name):
+	#Les animations qui indiquent la prochaine attaque qui va arriver, l'attaque est lancée à la fin de ces animations
 	match anim_name:
 		"pioche_souris":
 			$Corps/Pioche/piocheCollision.disabled = false
@@ -193,8 +204,10 @@ func _on_animation_player_2_animation_finished(anim_name):
 			stickgun()
 
 func _on_arbremagique_body_entered(body):
+	#Fonction pour que le joueur prennent des dégats lorsqu'il entre en collsiison avec l'arbre magique
 	toucheDawg.emit()
 func calculateVelocity():
+	#Fonctions permettant de diriger vers où la ventouse du stickgun va aller 
 	var velociStickgun = Vector2.ZERO
 	$Stickgun.rotation_degrees = angle + 180 
 	match directionState:

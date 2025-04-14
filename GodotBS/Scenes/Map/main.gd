@@ -1,5 +1,6 @@
 extends Node2D
 # Called when the node enters the scene tree for the first time.
+#Chargement des noeuds pour plus de clarté 
 @onready var moi = $Player
 @onready var camera = $Player/Node/Camera2D
 @onready var moiSprite = $Player/PlayerSprite
@@ -22,12 +23,14 @@ func _process(delta):
 	#print(str(moi.health)+"  "+str($TileMap/Soisfranc.VieBoss))
 	if $Player/Transition/PlayerHB/HBvide/HB.size.x == 392:
 		mort()
+	#Triche permettant de tuer le boss ou de me tuer pour le debuggage
 	if Input.is_action_just_pressed("InstaKill"):
 		if $TileMap.mort==false:
 			$TileMap/GrosGrosluffy.hitMarker(600)
 			perteVieBoss(50, $TileMap.phase)
 	if Input.is_action_just_pressed("self_damage"):
 		moi.hitMarker(50)
+	#Calcul de l'angle entre le boss et le joueur pour certaines attaques 
 	if grosLuffy != null:
 		grosLuffy.angle = rad_to_deg(moi.position.angle_to(grosLuffy.position))
 		calculateDirection(grosLuffy,0)
@@ -40,7 +43,7 @@ func _process(delta):
 
 
 
-
+#Fonction permettant de calculer dans quelle direction le boss doit t-il se déplacer pour aller vers le joeuur 
 func calculateDirection(ennemi,valeur):
 	
 	var ecartX = ennemi.position.x+valeur - moi.position.x
@@ -66,6 +69,7 @@ func calculateDirection(ennemi,valeur):
 			
 
 func _on_player_hit():
+#Fonction s'activant lorsque le joueur touche le boss avec son attaque
 	match $TileMap.phase : 
 		2:
 			if $TileMap/Grosluffy != null:
@@ -82,6 +86,7 @@ func _on_player_hit():
 	
 
 func _on_debut_il_sort_debut():
+#Fonction permettant de lancer le premier bossfight
 	#print("kkk")
 	$TileMap/Sombrero.visible = false
 	if $debut.peutsortir:
@@ -112,7 +117,6 @@ func _on_cinematique_1_animfini():
 
 
 func _on_tile_map_touche_boss():
-	#.("main marche")
 	moi.hitMarker($TileMap.attaqueBase)
 	
 func mort():
@@ -121,6 +125,7 @@ func mort():
 	else:
 		$Boss2/EcranMort.visible = true
 func perteVieBoss(valeur, quellePhase):
+	#Rétrecissement de la barre de vie 
 	var affichageDegats = valeur*2400/100
 	match quellePhase:
 		1:
@@ -157,6 +162,7 @@ func _on_tile_map_touche_mc():
 
 
 func _on_tile_map_boss_mort():
+	#Regain des pv du joueur lors de la mort du boss 
 	moi.health = 100
 	$TileMap.mort = true
 	$Player/Transition/PlayerHB/HBvide/HB.size.x = 7800

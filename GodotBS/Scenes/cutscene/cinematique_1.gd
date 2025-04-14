@@ -18,7 +18,7 @@ func _process(delta):
 			narrateur.play("idle")
 		if transfo == false :
 			if  moment <=10.5 and  moment >= 8: 
-				grosluffy.play("luffy")
+				grosluffy.play("luffy") #animation de marche 
 		
 			else:
 				grosluffy.play("luffy_idle")

@@ -1,4 +1,5 @@
 extends CharacterBody2D
+#Cf soisfranc.gd
 var invincible = false
 var VieBoss = 100
 signal bodyChange 
@@ -24,18 +25,20 @@ func ready():
 
 func _physics_process(delta):
 	phase1()
+	#Permet au boss de ne pas toucher pendant les cinématiques
 	if pause:
 		velocity = Vector2.ZERO
 	$YlhanSprite.flip_h = flip
 	move_and_slide()
 	var limit = Vector2(40,30)
 	var limitU  = Vector2(1155,624)
+	#Permet au boss de pas sortir de la fenêtre
 	position = position.clamp(limit,limitU)
 func phase1():
 	#print($YlhanSprite.animation)
 	#print(state)
 	#$YlhanSprite.animation = "walk"
-	
+	#Définition de la machine à états de la même manière que dans le fichier soisfranc.gd
 	match state:
 		states.idle:
 			deplacement()
@@ -89,6 +92,7 @@ func _on_ylhan_sprite_animation_finished():
 			collisioGestion2(true)
 			animfiniR = true 
 func deplacement():
+	#Fonction permettant au boss de se déplacer vers le joueur 
 	match directionState:
 		direction.hautG:
 			velocity.y -= 1
@@ -110,6 +114,7 @@ func deplacement():
 		#print(directionState)
 	
 func collisioGestion2(booleen):
+	#Fonction permettant la gestion des collisions des attaques
 	$Slash2/CollisionSlash.disabled = booleen
 	if booleen :
 		$Slash2/CollisionSlash/RayCast2D.set_enabled(false)
@@ -122,4 +127,5 @@ func collisionGestion1(booleen):
 	else:
 		$Slash/CollisionSlash/RayCast2D.set_enabled(true)
 func _on_corps_body_entered(body):
+	#Signal émis lorsque le corps du boss touche le joueur 
 	toucheDawg.emit()
