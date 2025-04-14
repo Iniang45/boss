@@ -47,7 +47,7 @@ offset_bottom = 1303.67
 theme_override_colors/font_color = Color(0, 0, 0, 1)
 theme_override_font_sizes/font_size = 150
 text = "Grosluffy
-"
+(le famaux)"
 horizontal_alignment = 1
 vertical_alignment = 1
 autowrap_mode = 2
@@ -69,7 +69,9 @@ offset_right = 1540.0
 offset_bottom = 1357.0
 theme_override_colors/font_color = Color(0, 0, 0, 1)
 theme_override_font_sizes/font_size = 150
-text = "Arbre Magique"
+text = "Arbre Magique
+de Clement 
+Ouvry"
 horizontal_alignment = 1
 vertical_alignment = 1
 autowrap_mode = 2
@@ -92,7 +94,7 @@ offset_bottom = 1357.0
 theme_override_colors/font_color = Color(0, 0, 0, 1)
 theme_override_font_sizes/font_size = 150
 text = "PistoVentouse
-"
+ou stickgun "
 horizontal_alignment = 1
 vertical_alignment = 1
 autowrap_mode = 2

@@ -8,7 +8,7 @@ var transfo = false
 signal animfini 
 # Called when the node enters the scene tree for the first time.
 func _ready():
-	pass
+	grosluffy.flip_h = true
 func _process(delta):
 	if  animation.get_current_animation()!="":
 		var moment = animation.current_animation_position
@@ -29,6 +29,7 @@ func _on_grosluffy_body_change():
 func lancement():
 	$AnimationPlayer.play("RESET")
 
-
+func grosluffyFlip():
+	grosluffy.flip_h = true
 func _on_animation_player_animation_finished(anim_name):
 	animfini.emit()

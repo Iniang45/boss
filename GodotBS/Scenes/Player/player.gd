@@ -132,8 +132,9 @@ func _physics_process(delta):
 	else : 
 		peutCombo = false
 	#RayDark.position=moi.position
-	if RayDark.is_colliding() == true:
+	if RayDark.is_colliding() == true and RayDark.get_collider().name != "Slash":
 		print("touche")
+		print(RayDark.get_collider().name)
 		hit.emit()
 	vieBleu.size.x = vieVerte.size.x
 	peutTaperAffichage()

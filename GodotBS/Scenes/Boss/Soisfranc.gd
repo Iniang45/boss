@@ -9,7 +9,7 @@ enum direction {hautG, basG, hautD, basD}
 enum states {idle, pioche, grosluffy, arbre, pistobulle, deplacement}
 var state : states = states.idle
 var directionState : direction = direction.hautG
-var flip = false
+var flip = true
 var piochePlayed = false
 var nbanimfini = 0 
 signal animfiniplease 
@@ -44,7 +44,7 @@ func phase2Behavior():
 		states.deplacement:
 			var randAttack = randi_range(1,4)
 			deplacement()
-			randAttack = 2
+			#randAttack = 2
 			await get_tree().create_timer(3).timeout
 			#print(randAttack)
 			match  randAttack:

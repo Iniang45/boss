@@ -23,23 +23,27 @@ func _process(delta):
 	if $Player/Transition/PlayerHB/HBvide/HB.size.x == 392:
 		mort()
 	if Input.is_action_just_pressed("InstaKill"):
-		$TileMap/GrosGrosluffy.hitMarker(600)
-		perteVieBoss(50, $TileMap.phase)
+		if $TileMap.mort==false:
+			$TileMap/GrosGrosluffy.hitMarker(600)
+			perteVieBoss(50, $TileMap.phase)
 	if Input.is_action_just_pressed("self_damage"):
 		moi.hitMarker(50)
 	if grosLuffy != null:
 		grosLuffy.angle = rad_to_deg(moi.position.angle_to(grosLuffy.position))
-		calculateDirection(grosLuffy)
-	ylhan.angle = rad_to_deg(moi.position.angle_to(ylhan.position))
-	calculateDirection(ylhan)
+		calculateDirection(grosLuffy,0)
+	ylhan.angle = rad_to_deg(moi.position.angle_to(ylhan.position+Vector2(1100,0)))
+	calculateDirection(ylhan,moi.screen_size[0])
+	if ylhan.position.y - moi.position.y > 0:
+		ylhan.rotation_degrees = 180 
+	else:
+		ylhan .rotation_degrees = 0
 
 
 
 
-
-func calculateDirection(ennemi):
+func calculateDirection(ennemi,valeur):
 	
-	var ecartX = ennemi.position.x - moi.position.x
+	var ecartX = ennemi.position.x+valeur - moi.position.x
 	var ecartY = ennemi.position.y - moi.position.y
 	#print(ecartX)
 	#print(ecartY)
@@ -65,13 +69,17 @@ func _on_player_hit():
 	match $TileMap.phase : 
 		2:
 			if $TileMap/Grosluffy != null:
-				$TileMap/Grosluffy.hitMarker(moi.attaqueBase)
+				$TileMap/Grosluffy.hitMarker(moi.attaqueBase/2)
+				if not $TileMap.mort:
+					perteVieBoss(moi.attaqueBase, $TileMap.phase)
 		1:
 			$TileMap/GrosGrosluffy.hitMarker(moi.attaqueBase)
-	perteVieBoss(moi.attaqueBase, $TileMap.phase)
+			if not $TileMap.mort:
+					perteVieBoss(moi.attaqueBase, $TileMap.phase)
 	if $TileMap.mort:
+		print("c'est le WEP")
 		perteVieBoss(moi.attaqueBase,$Boss2.phase)
-
+	
 
 func _on_debut_il_sort_debut():
 	#print("kkk")
@@ -79,11 +87,11 @@ func _on_debut_il_sort_debut():
 	if $debut.peutsortir:
 		$Player.position.y -= 200
 		if not cinelance:
-			#lancementCinematique($cinematique1)
-			pass
-		camera.position.x = 581
-		camera.position.y = 327
-		moi.calculClamp()
+			lancementCinematique($cinematique1)
+			
+		#camera.position.x = 581
+		#camera.position.y = 327
+		#moi.calculClamp()
 
 
 func _on_debut_ramasse():
@@ -108,7 +116,10 @@ func _on_tile_map_touche_boss():
 	moi.hitMarker($TileMap.attaqueBase)
 	
 func mort():
-	$TileMap/ImFinished.visible = true
+	if not $TileMap.mort:
+		$TileMap/ImFinished.visible = true
+	else:
+		$Boss2/EcranMort.visible = true
 func perteVieBoss(valeur, quellePhase):
 	var affichageDegats = valeur*2400/100
 	match quellePhase:
@@ -121,14 +132,17 @@ func perteVieBoss(valeur, quellePhase):
 			HBB.size.x = HBB.size.x- affichageDegats
 			if HBB.size.x == 1188 : 
 				HBB.visible = false
-				$TileMap.mortBoss()
+				if not $TileMap.mort:
+					$TileMap.mortBoss()
+				else:
+					$Boss2.mortBoss()
 
 func _on_cinematique_1_2_animfini_2():
 	camera.position.x = 581
 	camera.position.y = 327
 	$TileMap.pause = false
 	$TileMap/MusicPhase1.stop()
-	#$TileMap/MusicPhase2.play()
+	$TileMap/MusicPhase2.play()
 
 func _on_tile_map_phase_2_debut():
 	lancementCinematique($Cinematique_1_2)
@@ -149,14 +163,40 @@ func _on_tile_map_boss_mort():
 
 
 func _on_tile_map_sortie():
+	HB =  $Boss2/BossHealthBar/HealthBarBG/HealthBarInterieur/HealthBar
+	HBB = $Boss2/BossHealthBar/HealthBarBG/HealthBarInterieur/HealthBarBlessure
+	HBTexte = $Boss2/BossHealthBar/Label
 	
-	moi.position.x = 1400
-	camera.position.x = 1726
-	moi.calculClamp()
-	print(moi.position)
-	print(moi.limit)
-	print(moi.screen_size[0])
-	$Player/Transition/PlayerHB.position.x += moi.screen_size[0]
-
+	lancementCinematique($Cinematique2)
 func _on_boss_2_touche_mc():
 	moi.hitMarker($Boss2.attaqueBase)
+
+
+func _on_cinematique_2_fini(name):
+	match name:
+		"cinematique":
+			ylhan.pause = false
+			moi.position.x = 1400
+			camera.position.x = 1726
+			camera.position.y = 327
+			moi.calculClamp()
+			print(moi.position)
+			print(moi.limit)
+			print(moi.screen_size[0])
+			$Player/Transition/PlayerHB.position.x += moi.screen_size[0]
+			$Boss2/MusicPhase1.play()
+		"phase2":
+			#$Boss2/MusicPhase2.play()
+			$Boss2.phase1 = false
+			$Boss2.phase = 2
+			ylhan.scale = Vector2(3,3)
+			ylhan.pause = false
+			moi.position.x = 1400
+			camera.position.x = 1726
+			camera.position.y = 327
+			moi.calculClamp()
+
+func _on_boss_2_phase_2_debut():
+	$Boss2/MusicPhase2.play()
+	$Cinematique2.phase = 2
+	lancementCinematique($Cinematique2)

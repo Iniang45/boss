@@ -1,0 +1,40 @@
+[gd_scene load_steps=3 format=3 uid="uid://dgkq8ff4q4euj"]
+
+[ext_resource type="Texture2D" uid="uid://dob4r4oawer6y" path="res://Assets/GoofyAssets/la_potalas.png" id="1_ch8cr"]
+[ext_resource type="Script" path="res://Tuto.gd" id="2_kbvts"]
+
+[node name="Tuto" type="TextureRect"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_right = 18.0
+offset_bottom = 1700.0
+grow_horizontal = 2
+grow_vertical = 2
+scale = Vector2(0.2, 0.2)
+texture = ExtResource("1_ch8cr")
+script = ExtResource("2_kbvts")
+
+[node name="Label" type="Label" parent="."]
+layout_mode = 0
+offset_left = 25.0
+offset_top = 60.0
+offset_right = 1752.0
+offset_bottom = 840.0
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_font_sizes/font_size = 100
+text = "- Z,Q,S,D pour se déplacer
+- E pour interagir
+- J pour taper
+- K pour dash "
+
+[node name="Button" type="Button" parent="."]
+layout_mode = 0
+offset_left = 330.0
+offset_top = 780.0
+offset_right = 775.0
+offset_bottom = 960.0
+theme_override_font_sizes/font_size = 70
+text = "Compris"
+
+[connection signal="pressed" from="Button" to="." method="_on_button_pressed"]

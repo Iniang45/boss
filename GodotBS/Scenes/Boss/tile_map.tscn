@@ -8,7 +8,7 @@
 [ext_resource type="Texture2D" uid="uid://c7xi080fsxsqw" path="res://Assets/GoofyAssets/wallahi i'm finished faceass.jpg" id="6_8nsj4"]
 [ext_resource type="Texture2D" uid="uid://cjnypeas2jfux" path="res://Texture/Soisfranc_sombrero.JPG" id="7_4nj7n"]
 [ext_resource type="AudioStream" uid="uid://e1gatamfpw3w" path="res://Music/Spider-Man The Animated Series (Genesis) Music - Fun House.mp3" id="8_hi7ef"]
-[ext_resource type="AudioStream" uid="uid://cngfamclixc1e" path="res://Music/Dragon Ball Z Dokkan Battle AGL LR Demon King Piccolo Finish Skill 2 OST (Extended).mp3" id="9_md685"]
+[ext_resource type="AudioStream" uid="uid://bn1q7somxwwu6" path="res://Music/Dragon Ball Z Dokkan Battle PHY LR Super Saiyan 2 Gohan (Youth) Active Skill OST (Extended).mp3" id="9_fdgoe"]
 
 [sub_resource type="Animation" id="Animation_id477"]
 length = 0.001
@@ -191,6 +191,16 @@ offset_bottom = 1340.0
 scale = Vector2(0.5, 0.5)
 texture = ExtResource("6_8nsj4")
 
+[node name="Label" type="Label" parent="ImFinished"]
+layout_mode = 0
+offset_left = 724.0
+offset_top = 88.0
+offset_right = 1711.0
+offset_bottom = 912.0
+theme_override_font_sizes/font_size = 300
+text = "Game 
+Over"
+
 [node name="Marker" type="Marker2D" parent="."]
 position = Vector2(569, 330)
 
@@ -225,7 +235,8 @@ text = "Bravo vous avez obtenu la photo Sombrero"
 stream = ExtResource("8_hi7ef")
 
 [node name="MusicPhase2" type="AudioStreamPlayer" parent="."]
-stream = ExtResource("9_md685")
+stream = ExtResource("9_fdgoe")
+volume_db = -15.0
 
 [node name="SortieBoss" type="Area2D" parent="."]
 
