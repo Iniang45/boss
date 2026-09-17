@@ -13,7 +13,7 @@ var directionState : direction = direction.hautG
 @onready var  slashcolli1 = $Slash/CollisionSlash
 @onready var slashcolli2 = $Slash2/CollisionSlash
 
-const SPEED = 300.0
+var SPEED = 300.0
 var nbanimfini = 0 
 var animfiniL = false
 var animfiniR = false
@@ -87,7 +87,7 @@ func _on_ylhan_sprite_animation_finished():
 		"attack_left":
 			collisionGestion1(true)
 			animfiniL = true
-			print("ca faire mal")
+			#print("ca faire mal")
 		"attack_right":
 			collisioGestion2(true)
 			animfiniR = true 
@@ -129,3 +129,8 @@ func collisionGestion1(booleen):
 func _on_corps_body_entered(body):
 	#Signal émis lorsque le corps du boss touche le joueur 
 	toucheDawg.emit()
+func restart():
+	state = states.idle
+	SPEED = 300
+	VieBoss = 100
+	

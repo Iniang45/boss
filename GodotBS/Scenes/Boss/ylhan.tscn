@@ -137,7 +137,7 @@ animations = [{
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_uqfkq")
 }],
-"loop": false,
+"loop": true,
 "name": &"attack_left",
 "speed": 5.0
 }, {
@@ -226,6 +226,7 @@ script = ExtResource("1_jicif")
 scale = Vector2(3, 3)
 sprite_frames = SubResource("SpriteFrames_hlpj3")
 animation = &"attack_left"
+frame_progress = 0.880657
 
 [node name="Slash" parent="." instance=ExtResource("7_fs36y")]
 position = Vector2(62, -32)

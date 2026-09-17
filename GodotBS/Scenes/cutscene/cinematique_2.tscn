@@ -1,4 +1,4 @@
-[gd_scene load_steps=24 format=3 uid="uid://62ncqc8q6syj"]
+[gd_scene load_steps=28 format=3 uid="uid://62ncqc8q6syj"]
 
 [ext_resource type="Script" path="res://Cinematique2.gd" id="1_0xd0j"]
 [ext_resource type="Texture2D" uid="uid://bctk5ax42133p" path="res://Texture/TX Tileset Grass.png" id="2_f7300"]
@@ -7,6 +7,7 @@
 [ext_resource type="Texture2D" uid="uid://c45u0sxwwkaec" path="res://Assets/NPC/BDBULLE.png" id="5_83kxv"]
 [ext_resource type="PackedScene" uid="uid://d0dfqdub4xaah" path="res://Scenes/Boss/BossHealthBar.tscn" id="6_r2dn0"]
 [ext_resource type="Texture2D" uid="uid://bidc0tmn4g5v8" path="res://The Adventurer - Free/Idle/idle_right_up.png" id="7_d1jwg"]
+[ext_resource type="Texture2D" uid="uid://bu8k28jgsx8wy" path="res://Assets/themes/title_panel_ui_v1.png" id="8_2bcdk"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_lhtdv"]
 texture = ExtResource("2_f7300")
@@ -785,6 +786,15 @@ animations = [{
 "speed": 5.0
 }]
 
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_is8ay"]
+texture = ExtResource("8_2bcdk")
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_nlv6n"]
+texture = ExtResource("8_2bcdk")
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_kbw1k"]
+texture = ExtResource("8_2bcdk")
+
 [node name="Cinematique2" type="Control"]
 layout_mode = 3
 anchors_preset = 15
@@ -829,10 +839,11 @@ autowrap_mode = 2
 layout_mode = 1
 offset_left = 222.0
 offset_top = 509.0
-offset_right = 5982.0
-offset_bottom = 3749.0
+offset_right = 34782.0
+offset_bottom = 19949.0
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+speed_scale = 2.0
 libraries = {
 "": SubResource("AnimationLibrary_hg4sb")
 }
@@ -841,5 +852,19 @@ libraries = {
 position = Vector2(533, 389)
 scale = Vector2(2, 2)
 sprite_frames = SubResource("SpriteFrames_3d3h0")
+
+[node name="Button" type="Button" parent="."]
+layout_mode = 0
+offset_left = 66.0
+offset_top = 548.0
+offset_right = 194.0
+offset_bottom = 618.0
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_colors/font_pressed_color = Color(0, 0, 0, 1)
+theme_override_colors/font_hover_color = Color(0, 0, 0, 1)
+theme_override_styles/normal = SubResource("StyleBoxTexture_is8ay")
+theme_override_styles/hover = SubResource("StyleBoxTexture_nlv6n")
+theme_override_styles/pressed = SubResource("StyleBoxTexture_kbw1k")
+text = "Pass "
 
 [connection signal="animation_finished" from="AnimationPlayer" to="." method="_on_animation_player_animation_finished"]

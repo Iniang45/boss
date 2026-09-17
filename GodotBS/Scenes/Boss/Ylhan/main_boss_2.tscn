@@ -1,0 +1,83 @@
+[gd_scene load_steps=10 format=3 uid="uid://bwq5loqlgxxtt"]
+
+[ext_resource type="Script" path="res://Scenes/Boss/main_boss_1.gd" id="1_6dj8e"]
+[ext_resource type="PackedScene" uid="uid://4csvvnqm2k57" path="res://Scenes/Boss/boss_2.tscn" id="2_cw4k1"]
+[ext_resource type="PackedScene" uid="uid://c7t387c8qj6r1" path="res://Scenes/Player/player.tscn" id="3_5d3so"]
+[ext_resource type="Texture2D" uid="uid://bkoig2a7j4kj4" path="res://Assets/GrosLuffy/BULLE RONDE.png" id="4_4vnsf"]
+[ext_resource type="Texture2D" uid="uid://b5jygegg5qm2v" path="res://Assets/GrosLuffy/GROS CHEVALIER UPDATE.png" id="5_4ywfb"]
+[ext_resource type="FontFile" uid="uid://b1m66ejr2el7w" path="res://Assets/Fonts/snubnose DEMO.otf" id="6_j7qld"]
+[ext_resource type="FontFile" uid="uid://dqcdcqwtm3udd" path="res://Assets/Fonts/Ghost theory 1.ttf" id="7_m7rod"]
+[ext_resource type="PackedScene" uid="uid://bh5p85y1x5cd6" path="res://Scenes/cutscene/fade.tscn" id="8_f86a5"]
+[ext_resource type="PackedScene" uid="uid://62ncqc8q6syj" path="res://Scenes/cutscene/cinematique_2.tscn" id="9_i4wfl"]
+
+[node name="main_boss2" type="Node2D" node_paths=PackedStringArray("cam", "fade", "moi", "BossScene", "gameOver", "Cinematiques")]
+script = ExtResource("1_6dj8e")
+cam = NodePath("Node/Camera2D")
+fade = NodePath("Node/Camera2D/Fade")
+moi = NodePath("Player")
+BossScene = NodePath("Boss2")
+gameOver = NodePath("Node/Camera2D/gameOver")
+Cinematiques = [NodePath("Cinematique2")]
+
+[node name="Boss2" parent="." instance=ExtResource("2_cw4k1")]
+
+[node name="Player" parent="." instance=ExtResource("3_5d3so")]
+
+[node name="Node" type="Node" parent="."]
+
+[node name="Camera2D" type="Camera2D" parent="Node"]
+position = Vector2(576, 342)
+
+[node name="gameOver" type="TextureButton" parent="Node/Camera2D"]
+visible = false
+z_index = 1
+offset_left = -424.0
+offset_top = -401.0
+offset_right = 1624.0
+offset_bottom = 1647.0
+scale = Vector2(0.4, 0.4)
+texture_normal = ExtResource("4_4vnsf")
+
+[node name="gameOverPerso" type="TextureRect" parent="Node/Camera2D/gameOver"]
+layout_mode = 0
+offset_left = 1016.0
+offset_top = 68.0
+offset_right = 1656.0
+offset_bottom = 708.0
+texture = ExtResource("5_4ywfb")
+
+[node name="gameOverPhrase" type="Label" parent="Node/Camera2D/gameOver"]
+layout_mode = 0
+offset_left = 568.0
+offset_top = 672.0
+offset_right = 1500.0
+offset_bottom = 1320.0
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_fonts/font = ExtResource("6_j7qld")
+theme_override_font_sizes/font_size = 120
+text = "Imbeciles, nul ne peut fuir l'infini."
+horizontal_alignment = 1
+vertical_alignment = 1
+autowrap_mode = 2
+
+[node name="retry" type="Label" parent="Node/Camera2D/gameOver"]
+layout_mode = 0
+offset_left = 576.0
+offset_top = 1124.0
+offset_right = 1508.0
+offset_bottom = 1772.0
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_fonts/font = ExtResource("7_m7rod")
+theme_override_font_sizes/font_size = 120
+text = "click to retry"
+horizontal_alignment = 1
+vertical_alignment = 1
+autowrap_mode = 2
+
+[node name="Fade" parent="Node/Camera2D" instance=ExtResource("8_f86a5")]
+
+[node name="Cinematique2" parent="." instance=ExtResource("9_i4wfl")]
+offset_left = 1150.0
+offset_right = 1150.0
+
+[connection signal="fini" from="Cinematique2" to="." method="_on_cinematique_2_fini"]

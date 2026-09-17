@@ -9,8 +9,8 @@ var peutCombo = false
 var peutTp = true 
 var health = 100
 var invincible = false
-var attaqueBase = 10.0
-@onready var cam = $Node/Camera2D
+var attaqueBase = 100.0
+var stopWaitAMinute = false
 signal tp
 signal hit
 signal bossToucheGL
@@ -33,7 +33,6 @@ func _ready():
 	screen_size_change = screen_size
 	CollisionSlash.disabled = true
 	#CalculClamp permet d'empécher le joeuur de sortir de la fenêtre
-	calculClamp()
 	RayDark.enabled = false
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _physics_process(delta):
@@ -42,14 +41,16 @@ func _physics_process(delta):
 	#var velocity = Vector2.ZERO # The player's movement vector.
 	velocity = Vector2.ZERO
 	#Gestion du dash
+	if stopWaitAMinute:
+		set_process_input(false)
 	if Input.is_action_pressed("tp"):
 		if peutTp: 
 			$PlayerSprite/TpSprite/TpCooldown.start()
 			peutTp = false
 			vieBleu.visible = true 
-			$PlayerSprite/TpSprite.visible = true 
-			await get_tree().create_timer(0.1).timeout
-			$PlayerSprite/TpSprite.visible = false
+			$PlayerSprite.modulate = Color(0,0,0.90) 
+			await get_tree().create_timer(0.2).timeout
+			$PlayerSprite.modulate = Color(1,1,1) 
 			match direction:
 				"up" : 
 					deplaTP(-85,"y")
@@ -137,11 +138,9 @@ func _physics_process(delta):
 		peutCombo = true
 	else : 
 		peutCombo = false
+		
 	#Emission du signal hit lorsque le joueur touche un boss avec l'attaque 
-	if RayDark.is_colliding() == true and RayDark.get_collider().name != "Slash":
-		print("touche")
-		print(RayDark.get_collider().name)
-		hit.emit()
+
 	vieBleu.size.x = vieVerte.size.x
 	peutTaperAffichage()
 func _on_tp_cooldown_timeout():
@@ -150,7 +149,15 @@ func _on_tp_cooldown_timeout():
 func activationCollisions():
 	CollisionSlash.disabled = false
 	RayDark.enabled = true 		
-	await get_tree().create_timer(0.2).timeout
+	RayDark.force_raycast_update()
+	if $RayCastCD.is_stopped():
+		RayDark.force_raycast_update()
+		if RayDark.is_colliding() == true and RayDark.get_collider().name != "Slash":
+			print("touche")
+			print(RayDark.get_collider().name)
+			hit.emit()
+			$RayCastCD.start()
+	await get_tree().create_timer(0.3).timeout
 	CollisionSlash.disabled = true
 	RayDark.enabled = false  
 func peutTaperAffichage() : 
@@ -173,18 +180,22 @@ func hitMarker(degatsRecus):
 			"left":
 				position.x += 100
 		invincible = true
-		$PlayerSprite/hitSprite.visible = true 
-		await get_tree().create_timer(1).timeout
-		$PlayerSprite/hitSprite.visible = false
+		#$PlayerSprite/hitSprite.visible = true 
+		#await get_tree().create_timer(1).timeout
+		#$PlayerSprite/hitSprite.visible = false
+		$PlayerSprite.modulate = Color(1, 0, 0) # rouge
+		await get_tree().create_timer(1.5).timeout
+		$PlayerSprite.modulate = Color(1, 1, 1) # couleur normale
 		invincible = false
 		var affichageDegats = degatsRecus*7800/100
 		vieVerte.size.x = vieVerte.size.x- affichageDegats
 		#print(vieVerte.size.x)
 #Permet d'empécher le joueur de sortir de l'ecran en fonction d'où la caméra se trouve, fonction appelée à chaque fois que la caméra bouge
-func calculClamp():
+func calculClamp(cam):
 	limit = Vector2(screen_size[0]*(int(cam.position.x/900)),screen_size[1]*(int(cam.position.y)/900)) 
-	screen_size_change[0] = screen_size[0] + screen_size[0]*(int(cam.position.x)/600)
-	screen_size_change[1] = screen_size[1] + screen_size[1]*(int(cam.position.y)/900)
+	screen_size_change[0] = screen_size[0] + screen_size[0]*(int(cam.position.x)/600) - 20
+	screen_size_change[1] = screen_size[1] + screen_size[1]*(int(cam.position.y)/900) - 20
+	print(limit,screen_size_change)
 func setup(posAsX, posAsY, rotAs, posAs2X, posAs2Y, rotAs2, posCoX, posCoY, rotCo ) :
 	
 	AreaSlash.rotation_degrees = rotCo
@@ -232,10 +243,23 @@ func deplaTP(valeur, axe):
 		position.y+=valeur
 	elif axe == "x": 
 		position.x+= valeur  
+func pause(pause):
+	if pause:
+		$PlayerCollision.disabled = true 
+		visible = false
+	else:
+		$PlayerCollision.disabled = false
+		visible = true	
 
-
-
-
+func restart(positionX,positionY):
+	pause(false)
+	health = 100
+	attaqueBase = 10
+	speed = 200
+	ComboCount = 0 
+	peutTp = true
+	
+	
 
 	
 

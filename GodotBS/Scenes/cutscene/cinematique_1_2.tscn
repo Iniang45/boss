@@ -1,4 +1,4 @@
-[gd_scene load_steps=21 format=3 uid="uid://cg8cqcga5hou5"]
+[gd_scene load_steps=26 format=3 uid="uid://cg8cqcga5hou5"]
 
 [ext_resource type="TileSet" uid="uid://dj7rpgp6e5us2" path="res://Assets/new_tile_set.tres" id="1_e2c5n"]
 [ext_resource type="Script" path="res://Scenes/cutscene/cinematique_1_2.gd" id="1_txoq1"]
@@ -11,6 +11,7 @@
 [ext_resource type="PackedScene" uid="uid://bvl430stn1gf" path="res://Scenes/cutscene/amas_bulle.tscn" id="8_f48tv"]
 [ext_resource type="PackedScene" uid="uid://pxkqha51aa8k" path="res://Scenes/Boss/gros_grosluffy.tscn" id="9_hn0s0"]
 [ext_resource type="PackedScene" uid="uid://dmnh46hmcljc8" path="res://Scenes/cutscene/souris.tscn" id="9_v1a0d"]
+[ext_resource type="Texture2D" uid="uid://bu8k28jgsx8wy" path="res://Assets/themes/title_panel_ui_v1.png" id="12_13sfn"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_3xx0k"]
 atlas = ExtResource("5_ewp2h")
@@ -144,6 +145,191 @@ tracks/6/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 1,
+"values": [false]
+}
+tracks/7/type = "value"
+tracks/7/imported = false
+tracks/7/enabled = true
+tracks/7/path = NodePath("TileMap/Grosluffy:scale")
+tracks/7/interp = 1
+tracks/7/loop_wrap = true
+tracks/7/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(1, 1)]
+}
+tracks/8/type = "value"
+tracks/8/imported = false
+tracks/8/enabled = true
+tracks/8/path = NodePath("TileMap/Grosluffy:position")
+tracks/8/interp = 1
+tracks/8/loop_wrap = true
+tracks/8/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(832, 280)]
+}
+tracks/9/type = "value"
+tracks/9/imported = false
+tracks/9/enabled = true
+tracks/9/path = NodePath("TileMap/BossHealthBar:visible")
+tracks/9/interp = 1
+tracks/9/loop_wrap = true
+tracks/9/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+tracks/10/type = "value"
+tracks/10/imported = false
+tracks/10/enabled = true
+tracks/10/path = NodePath("TileMap/Narrateur:position")
+tracks/10/interp = 1
+tracks/10/loop_wrap = true
+tracks/10/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(250, -100)]
+}
+
+[sub_resource type="Animation" id="Animation_vrgks"]
+resource_name = "fin"
+length = 12.0
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("TileMap/Grosluffy:rotation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(5, 6, 7),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [0.0, 6.28319, -6.28319]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("TileMap/Narrateur:position")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 1.9, 3.6, 8.6, 11.8),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1),
+"update": 0,
+"values": [Vector2(250, -100), Vector2(250, -100), Vector2(324, 151), Vector2(324, 151), Vector2(250, -100)]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("TileMap/Narrateur/LabelContainer:visible")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0, 3.5, 9.3),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 1,
+"values": [false, true, false]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("TileMap/Grosluffy/LabelLuffy:visible")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0, 2.2, 2.2001, 4.4, 6.5, 9.4),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1),
+"update": 1,
+"values": [false, true, true, false, true, false]
+}
+tracks/4/type = "value"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath("TileMap/Grosluffy/LabelLuffy/LabelLuffy:text")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/keys = {
+"times": PackedFloat32Array(2.2, 6.5),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": ["J'abandonne 
+", "aaahh il savait même pas bloquer mes attaques "]
+}
+tracks/5/type = "value"
+tracks/5/imported = false
+tracks/5/enabled = true
+tracks/5/path = NodePath("TileMap/Narrateur/LabelContainer/Label:text")
+tracks/5/interp = 1
+tracks/5/loop_wrap = true
+tracks/5/keys = {
+"times": PackedFloat32Array(3.6, 6.7),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": ["Ma foi, il est meilleur que nous ", "On ne possede pas la photo va voir ailleurs "]
+}
+tracks/6/type = "value"
+tracks/6/imported = false
+tracks/6/enabled = false
+tracks/6/path = NodePath("TileMap/BossHealthBar:position")
+tracks/6/interp = 1
+tracks/6/loop_wrap = true
+tracks/6/keys = {
+"times": PackedFloat32Array(0, 9.1, 11.9),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Vector2(221, 627), Vector2(221, 627), Vector2(229, 514)]
+}
+tracks/7/type = "value"
+tracks/7/imported = false
+tracks/7/enabled = true
+tracks/7/path = NodePath("TileMap/Grosluffy:scale")
+tracks/7/interp = 1
+tracks/7/loop_wrap = true
+tracks/7/keys = {
+"times": PackedFloat32Array(0, 8.9, 9),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Vector2(1.6, 1.6), Vector2(1.6, 1.6), Vector2(1, 1)]
+}
+tracks/8/type = "value"
+tracks/8/imported = false
+tracks/8/enabled = true
+tracks/8/path = NodePath("TileMap/Grosluffy:position")
+tracks/8/interp = 1
+tracks/8/loop_wrap = true
+tracks/8/keys = {
+"times": PackedFloat32Array(0, 8.6, 11.8),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Vector2(832, 280), Vector2(832, 280), Vector2(698, -198)]
+}
+tracks/9/type = "value"
+tracks/9/imported = false
+tracks/9/enabled = true
+tracks/9/path = NodePath("TileMap/BossHealthBar:visible")
+tracks/9/interp = 1
+tracks/9/loop_wrap = true
+tracks/9/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+tracks/10/type = "value"
+tracks/10/imported = false
+tracks/10/enabled = true
+tracks/10/path = NodePath("TileMap/Grosluffy:visible")
+tracks/10/interp = 1
+tracks/10/loop_wrap = true
+tracks/10/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
 "values": [true]
 }
 
@@ -235,12 +421,34 @@ tracks/6/keys = {
 "update": 0,
 "values": [Vector2(221, 627), Vector2(221, 627), Vector2(229, 514)]
 }
+tracks/7/type = "value"
+tracks/7/imported = false
+tracks/7/enabled = true
+tracks/7/path = NodePath("TileMap/Grosluffy:visible")
+tracks/7/interp = 1
+tracks/7/loop_wrap = true
+tracks/7/keys = {
+"times": PackedFloat32Array(0, 12),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [true, false]
+}
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_0q54i"]
 _data = {
 "RESET": SubResource("Animation_epawt"),
+"fin": SubResource("Animation_vrgks"),
 "phase": SubResource("Animation_yvumc")
 }
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_clg2q"]
+texture = ExtResource("12_13sfn")
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_rq0le"]
+texture = ExtResource("12_13sfn")
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_inv88"]
+texture = ExtResource("12_13sfn")
 
 [node name="Cinematique_1_2" type="Control"]
 layout_mode = 3
@@ -273,6 +481,7 @@ layer_2/tile_data = PackedInt32Array(65540, 589827, 3, 131076, 589827, 4, 65541,
 script = ExtResource("2_6qnuf")
 
 [node name="Grosluffy" parent="TileMap" instance=ExtResource("3_0qw7l")]
+visible = false
 position = Vector2(832, 280)
 
 [node name="LabelLuffy" type="TextureRect" parent="TileMap/Grosluffy"]
@@ -299,7 +508,7 @@ autowrap_mode = 2
 
 [node name="Narrateur" type="AnimatedSprite2D" parent="TileMap"]
 z_index = 3
-position = Vector2(200, -100)
+position = Vector2(250, -100)
 scale = Vector2(0.2, 0.2)
 sprite_frames = SubResource("SpriteFrames_yadbx")
 animation = &"idle"
@@ -329,6 +538,7 @@ vertical_alignment = 1
 autowrap_mode = 2
 
 [node name="BossHealthBar" parent="TileMap" instance=ExtResource("7_tfiut")]
+visible = false
 offset_left = 221.0
 offset_top = 627.0
 offset_right = 235.0
@@ -338,7 +548,6 @@ offset_bottom = 627.0
 visible = false
 
 [node name="AmasBulle" parent="." instance=ExtResource("8_f48tv")]
-visible = false
 position = Vector2(207, -10)
 
 [node name="Souris" parent="." instance=ExtResource("9_v1a0d")]
@@ -351,8 +560,24 @@ offset_bottom = 91.0
 scale = Vector2(0.15, 0.15)
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+speed_scale = 2.0
 libraries = {
 "": SubResource("AnimationLibrary_0q54i")
 }
 
+[node name="Button" type="Button" parent="."]
+layout_mode = 0
+offset_left = 66.0
+offset_top = 548.0
+offset_right = 194.0
+offset_bottom = 618.0
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_colors/font_pressed_color = Color(0, 0, 0, 1)
+theme_override_colors/font_hover_color = Color(0, 0, 0, 1)
+theme_override_styles/normal = SubResource("StyleBoxTexture_clg2q")
+theme_override_styles/hover = SubResource("StyleBoxTexture_rq0le")
+theme_override_styles/pressed = SubResource("StyleBoxTexture_inv88")
+text = "Pass "
+
 [connection signal="animation_finished" from="AnimationPlayer" to="." method="_on_animation_player_animation_finished"]
+[connection signal="pressed" from="Button" to="." method="_on_button_pressed"]

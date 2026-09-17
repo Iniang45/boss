@@ -1,0 +1,102 @@
+[gd_scene load_steps=11 format=3 uid="uid://0d3iemikppj5"]
+
+[ext_resource type="PackedScene" uid="uid://c7t387c8qj6r1" path="res://Scenes/Player/player.tscn" id="1_2ffcm"]
+[ext_resource type="Script" path="res://Scenes/Boss/main_boss_1.gd" id="1_6tlii"]
+[ext_resource type="Texture2D" uid="uid://bkoig2a7j4kj4" path="res://Assets/GrosLuffy/BULLE RONDE.png" id="3_sawf3"]
+[ext_resource type="Texture2D" uid="uid://b5jygegg5qm2v" path="res://Assets/GrosLuffy/GROS CHEVALIER UPDATE.png" id="4_mtohn"]
+[ext_resource type="FontFile" uid="uid://b1m66ejr2el7w" path="res://Assets/Fonts/snubnose DEMO.otf" id="5_xs0y1"]
+[ext_resource type="FontFile" uid="uid://dqcdcqwtm3udd" path="res://Assets/Fonts/Ghost theory 1.ttf" id="6_qw86f"]
+[ext_resource type="PackedScene" uid="uid://bh5p85y1x5cd6" path="res://Scenes/cutscene/fade.tscn" id="7_hufaf"]
+[ext_resource type="PackedScene" uid="uid://d2r0vjcqeh61c" path="res://Scenes/Boss/tile_map.tscn" id="8_uclya"]
+[ext_resource type="PackedScene" uid="uid://b3srk8mwbobjc" path="res://Scenes/cutscene/cinematique_1.tscn" id="9_hwgf8"]
+[ext_resource type="PackedScene" uid="uid://cg8cqcga5hou5" path="res://Scenes/cutscene/cinematique_1_2.tscn" id="10_6fbnc"]
+
+[node name="MainBoss1" type="Node2D" node_paths=PackedStringArray("cam", "fade", "moi", "BossScene", "gameOver", "Cinematiques")]
+script = ExtResource("1_6tlii")
+cam = NodePath("Node/Camera2D")
+fade = NodePath("Node/Camera2D/Fade")
+moi = NodePath("Player")
+BossScene = NodePath("TileMap")
+gameOver = NodePath("Node/Camera2D/gameOver")
+Cinematiques = [NodePath("cinematique1"), NodePath("Cinematique_1_2")]
+
+[node name="TileMap" parent="." instance=ExtResource("8_uclya")]
+
+[node name="Player" parent="." instance=ExtResource("1_2ffcm")]
+position = Vector2(253, 260)
+
+[node name="Node" type="Node" parent="."]
+
+[node name="Camera2D" type="Camera2D" parent="Node"]
+position = Vector2(581, 339)
+
+[node name="gameOver" type="TextureButton" parent="Node/Camera2D"]
+visible = false
+z_index = 1
+offset_left = -424.0
+offset_top = -401.0
+offset_right = 1624.0
+offset_bottom = 1647.0
+scale = Vector2(0.4, 0.4)
+texture_normal = ExtResource("3_sawf3")
+
+[node name="gameOverPerso" type="TextureRect" parent="Node/Camera2D/gameOver"]
+layout_mode = 0
+offset_left = 1016.0
+offset_top = 68.0
+offset_right = 1656.0
+offset_bottom = 708.0
+texture = ExtResource("4_mtohn")
+
+[node name="gameOverPhrase" type="Label" parent="Node/Camera2D/gameOver"]
+layout_mode = 0
+offset_left = 568.0
+offset_top = 672.0
+offset_right = 1500.0
+offset_bottom = 1320.0
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_fonts/font = ExtResource("5_xs0y1")
+theme_override_font_sizes/font_size = 120
+text = "Imbeciles, nul ne peut fuir l'infini."
+horizontal_alignment = 1
+vertical_alignment = 1
+autowrap_mode = 2
+
+[node name="retry" type="Label" parent="Node/Camera2D/gameOver"]
+layout_mode = 0
+offset_left = 576.0
+offset_top = 1124.0
+offset_right = 1508.0
+offset_bottom = 1772.0
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_fonts/font = ExtResource("6_qw86f")
+theme_override_font_sizes/font_size = 120
+text = "click to retry"
+horizontal_alignment = 1
+vertical_alignment = 1
+autowrap_mode = 2
+
+[node name="Fade" parent="Node/Camera2D" instance=ExtResource("7_hufaf")]
+
+[node name="cinematique1" parent="." instance=ExtResource("9_hwgf8")]
+offset_left = 1153.0
+offset_top = 11.0
+offset_right = 1153.0
+offset_bottom = 11.0
+
+[node name="Cinematique_1_2" parent="." instance=ExtResource("10_6fbnc")]
+offset_left = 2306.0
+offset_top = 14.0
+offset_right = 2306.0
+offset_bottom = 14.0
+
+[connection signal="bossMort" from="TileMap" to="." method="_on_tile_map_boss_mort"]
+[connection signal="phase2debut" from="TileMap" to="." method="_on_tile_map_phase_2_debut"]
+[connection signal="toucheBoss" from="TileMap" to="." method="_on_tile_map_touche_boss"]
+[connection signal="toucheBoss2" from="TileMap" to="." method="_on_tile_map_touche_boss_2"]
+[connection signal="toucheMC" from="TileMap" to="." method="_on_tile_map_touche_mc"]
+[connection signal="hit" from="Player" to="." method="_on_player_hit"]
+[connection signal="pressed" from="Node/Camera2D/gameOver" to="." method="_on_game_over_pressed"]
+[connection signal="animfini" from="cinematique1" to="." method="_on_cinematique_1_animfini"]
+[connection signal="animfini2" from="Cinematique_1_2" to="." method="_on_cinematique_1_2_animfini_2"]
+[connection signal="animfiniMort" from="Cinematique_1_2" to="." method="_on_cinematique_1_2_animfini_mort"]

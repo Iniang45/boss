@@ -1,9 +1,10 @@
 extends Control
 signal fini(name) 
-var camx = 1764
-var camy = 998
+var pos_camx = 1700
+var pos_camy = 350
 var phase = 1
 @onready var cine = $AnimationPlayer
+var passCinema = false
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	pass
@@ -17,12 +18,20 @@ func _process(delta):
 			$TileMap/Ylhan/YlhanSprite.play("walk")
 	else:
 		$TileMap/Ylhan/YlhanSprite.stop()
-func lancement():
+func lancement(cine):
 	match phase:
 		1:
 			$AnimationPlayer.play("cinematique")
 		2: 
+			passCinema = false
 			$AnimationPlayer.play("phase2")
 
 func _on_animation_player_animation_finished(anim_name):
-	fini.emit(anim_name)
+	if not passCinema : 
+		fini.emit(anim_name)
+	
+
+
+func _on_button_pressed():
+	fini.emit(cine.current_animation.name)
+	passCinema = true

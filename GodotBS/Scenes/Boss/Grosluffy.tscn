@@ -6,8 +6,8 @@
 [ext_resource type="Texture2D" uid="uid://4tmo7mht75ar" path="res://Assets/demon-Files/Spritesheets/demon-attack-no-breath.png" id="3_3prb2"]
 [ext_resource type="Texture2D" uid="uid://bv7pjg6p14ft0" path="res://Assets/demon-Files/Spritesheets/demon-idle.png" id="4_8cuve"]
 [ext_resource type="Texture2D" uid="uid://cykeuuepyjgla" path="res://Assets/GrosLuffy/WALK.png" id="5_ic858"]
-[ext_resource type="Texture2D" uid="uid://bwck7m3gni2ay" path="res://Assets/GrosLuffy/JUMP.png" id="6_8xv2r"]
 [ext_resource type="Texture2D" uid="uid://chu2gifw8bji3" path="res://Assets/demon-Files/Spritesheets/breath.png" id="7_cewli"]
+[ext_resource type="Texture2D" uid="uid://sten0l623nrx" path="res://Assets/GrosLuffy/grosluffyblesse-removebg-preview.png" id="7_fupek"]
 [ext_resource type="Texture2D" uid="uid://cjnypeas2jfux" path="res://Texture/Soisfranc_sombrero.JPG" id="8_kwn38"]
 [ext_resource type="Texture2D" uid="uid://x2kgdd0xgbf6" path="res://Assets/GrosLuffy/stickgun/ARALETE VENTOUSE.png" id="10_5rgap"]
 [ext_resource type="PackedScene" uid="uid://bnhy4aoplfkbi" path="res://Scenes/Boss/GrosluffyAttacks/pioche.tscn" id="10_nenix"]
@@ -153,7 +153,6 @@ atlas = ExtResource("5_ic858")
 region = Rect2(0, 0, 480, 480)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_knukd"]
-atlas = ExtResource("6_8xv2r")
 region = Rect2(0, 0, 480, 480)
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_qjojm"]
@@ -283,6 +282,14 @@ animations = [{
 }],
 "loop": true,
 "name": &"luffy",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("7_fupek")
+}],
+"loop": true,
+"name": &"luffy_damaged",
 "speed": 5.0
 }, {
 "frames": [{
@@ -431,18 +438,6 @@ tracks/5/keys = {
 "transitions": PackedFloat32Array(1),
 "update": 0,
 "values": [Vector2(585, 72)]
-}
-tracks/6/type = "value"
-tracks/6/imported = false
-tracks/6/enabled = true
-tracks/6/path = NodePath("../Node/AmasBulle:visible")
-tracks/6/interp = 1
-tracks/6/loop_wrap = true
-tracks/6/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [false]
 }
 
 [sub_resource type="Animation" id="Animation_vkbmr"]
@@ -618,26 +613,26 @@ tracks/1/keys = {
 tracks/2/type = "value"
 tracks/2/imported = false
 tracks/2/enabled = true
-tracks/2/path = NodePath("Node/AmasBulle:visible")
+tracks/2/path = NodePath("Node/Souris:size")
 tracks/2/interp = 1
 tracks/2/loop_wrap = true
 tracks/2/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 0,
-"values": [false]
+"values": [Vector2(500, 500)]
 }
 tracks/3/type = "value"
 tracks/3/imported = false
 tracks/3/enabled = true
-tracks/3/path = NodePath("Node/Souris:size")
+tracks/3/path = NodePath("Node/AmasBulle:visible")
 tracks/3/interp = 1
 tracks/3/loop_wrap = true
 tracks/3/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [Vector2(500, 500)]
+"update": 1,
+"values": [false]
 }
 
 [sub_resource type="Animation" id="Animation_0lrbh"]
@@ -674,10 +669,10 @@ tracks/2/path = NodePath("Node/AmasBulle:visible")
 tracks/2/interp = 1
 tracks/2/loop_wrap = true
 tracks/2/keys = {
-"times": PackedFloat32Array(0, 0.9, 1.6, 1.8, 2),
-"transitions": PackedFloat32Array(1, 1, 1, 1, 1),
-"update": 0,
-"values": [true, true, true, true, false]
+"times": PackedFloat32Array(0, 1.8, 2),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 1,
+"values": [true, true, false]
 }
 
 [sub_resource type="Animation" id="Animation_yj6md"]
@@ -714,10 +709,10 @@ tracks/2/path = NodePath("Node/AmasBulle:visible")
 tracks/2/interp = 1
 tracks/2/loop_wrap = true
 tracks/2/keys = {
-"times": PackedFloat32Array(0, 0.9, 1.6, 1.8, 2),
-"transitions": PackedFloat32Array(1, 1, 1, 1, 1),
-"update": 0,
-"values": [true, true, true, true, false]
+"times": PackedFloat32Array(0, 1.8, 2),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 1,
+"values": [true, true, false]
 }
 
 [sub_resource type="Animation" id="Animation_cso4u"]
@@ -754,10 +749,10 @@ tracks/2/path = NodePath("Node/AmasBulle:visible")
 tracks/2/interp = 1
 tracks/2/loop_wrap = true
 tracks/2/keys = {
-"times": PackedFloat32Array(0, 0.9, 1.6, 2),
-"transitions": PackedFloat32Array(1, 1, 1, 1),
-"update": 0,
-"values": [true, true, true, false]
+"times": PackedFloat32Array(0, 1.6, 2),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 1,
+"values": [true, true, false]
 }
 
 [sub_resource type="Animation" id="Animation_fnxgq"]
@@ -794,10 +789,10 @@ tracks/2/path = NodePath("Node/AmasBulle:visible")
 tracks/2/interp = 1
 tracks/2/loop_wrap = true
 tracks/2/keys = {
-"times": PackedFloat32Array(0, 0.9, 1.6, 1.8, 2),
-"transitions": PackedFloat32Array(1, 1, 1, 1, 1),
-"update": 0,
-"values": [true, true, true, true, false]
+"times": PackedFloat32Array(0, 1.8, 2),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 1,
+"values": [true, true, false]
 }
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_5f00m"]
@@ -828,7 +823,7 @@ disabled = true
 [node name="Corps" type="AnimatedSprite2D" parent="."]
 scale = Vector2(0.5, 0.541)
 sprite_frames = SubResource("SpriteFrames_qjojm")
-animation = &"luffy_idle"
+animation = &"luffy"
 flip_h = true
 
 [node name="Pioche" parent="Corps" instance=ExtResource("10_nenix")]
@@ -880,7 +875,7 @@ libraries = {
 
 [node name="Marker2D" type="Marker2D" parent="."]
 visible = false
-position = Vector2(573, 345)
+position = Vector2(634, 308)
 
 [node name="Node" type="Node" parent="."]
 
@@ -893,7 +888,6 @@ offset_right = 1021.0
 offset_bottom = 680.0
 
 [node name="AmasBulle" parent="Node" instance=ExtResource("12_dia2b")]
-visible = false
 
 [node name="AnimationPlayer2" type="AnimationPlayer" parent="."]
 libraries = {
@@ -901,6 +895,7 @@ libraries = {
 }
 
 [node name="Stickgun" parent="." instance=ExtResource("14_emdw0")]
+visible = false
 position = Vector2(102, 25)
 scale = Vector2(0.8, 0.8)
 

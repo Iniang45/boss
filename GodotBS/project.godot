@@ -15,6 +15,10 @@ run/main_scene="res://Scenes/Map/main.tscn"
 config/features=PackedStringArray("4.1", "GL Compatibility")
 config/icon="res://Assets/GoofyAssets/LIBEREZ FRANCOIS (1).png"
 
+[display]
+
+window/stretch/mode="viewport"
+
 [dotnet]
 
 project/assembly_name="BossFight"

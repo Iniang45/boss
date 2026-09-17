@@ -1,6 +1,7 @@
 extends CharacterBody2D
 #Script de la phase 2 du premier Boss 
 #Définition des variables et signaux
+var pause = false
 var invincible = false
 var VieBoss = 100
 signal bodyChange 
@@ -30,8 +31,8 @@ func _process(delta):
 		$Corps.flip_h = false
 	
 	move_and_slide()
-	var limit = Vector2(40,30)
-	var limitU  = Vector2(1125,624)
+	var limit = Vector2(80,90)
+	var limitU  = Vector2(1075,575)
 	position = position.clamp(limit,limitU)
 	
 func phase2Behavior():
@@ -51,15 +52,16 @@ func phase2Behavior():
 			#randAttack = 2
 			await get_tree().create_timer(3).timeout
 			#print(randAttack)
-			match  randAttack:
-				1: 
-					state = states.pistobulle
-				2:
-					state = states.arbre
-				3: 
-					state = states.grosluffy
-				4: 
-					state= states.pioche
+			if not pause : 
+				match  randAttack:
+					1: 
+						state = states.pistobulle
+					2:
+						state = states.arbre
+					3: 
+						state = states.grosluffy
+					4: 
+						state= states.pioche
 		states.pioche : 
 			piocheAttaque()
 		states.arbre : 
@@ -83,9 +85,9 @@ func hitMarker(degatsRecus):
 	if not invincible :
 		VieBoss-=degatsRecus
 		invincible = true
-		$hitSprite.visible = true 
+		$Corps.modulate = Color(1, 0, 0) # rouge
 		await get_tree().create_timer(0.3).timeout
-		$hitSprite.visible = false
+		$Corps.modulate = Color(1, 1, 1) # couleur normale
 		invincible = false
 func transformation():
 	bodyChange.emit()
@@ -141,13 +143,12 @@ func stickgun():
 	#Fonctionne permettant de tirer des ventouse en appelant shoot du script de stickgun
 	$Corps/Stickgun.visible = true 
 	$Stickgun.shoot(position,angle,calculateVelocity())
-	await get_tree().create_timer(2).timeout
-	$Stickgun.arret()
+	await get_tree().create_timer(1).timeout
 	$Stickgun.shoot(position,angle,calculateVelocity())
-	await get_tree().create_timer(2).timeout
+	await get_tree().create_timer(1).timeout
 	$Stickgun.arret()
 	$Corps/Stickgun.visible = false
-	state = states.idle
+	state = states.deplacement
 	nbanimfini=0
 func _on_animation_player_animation_finished(anim_name):
 	match anim_name:
@@ -227,12 +228,22 @@ func calculateVelocity():
 	#print(directionState)
 	#print(angle)
 	if velociStickgun.length() > 0:
-		velociStickgun = velociStickgun.normalized() * 300
+		velociStickgun = velociStickgun.normalized() * 400
 	return velociStickgun
 
 
 func _on_stickgun_body_entered(body):
 	toucheDawg.emit()
 
-
+func restart():
+	VieBoss = 100
+	state = states.idle
+	
+func desactiver(booleen):
+	if booleen:
+		visible = false
+		$Arealuffy/CollisionCorps.disabled = true
+	else:
+		visible = true
+		$Arealuffy/CollisionCorps.disabled = false
 

@@ -115,6 +115,7 @@ sprite_frames = SubResource("SpriteFrames_27dqh")
 animation = &"idle_left"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+visible = false
 position = Vector2(35.5, 38)
 shape = SubResource("RectangleShape2D_g3vo6")
 
@@ -149,5 +150,6 @@ autowrap_mode = 2
 clip_text = true
 
 [node name="BulleTimer" type="Timer" parent="Bulle"]
+wait_time = 4.704
 
 [connection signal="timeout" from="Bulle/BulleTimer" to="." method="_on_bulle_timer_timeout"]

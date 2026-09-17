@@ -2,6 +2,9 @@ extends TileMap
 #Définition des variables et signaux qui vont être utilisés
 @onready var HB = $BossHealthBar/HealthBarBG/HealthBarInterieur/HealthBar
 @onready var HBTexte = $BossHealthBar/Label
+@onready var HBB = $BossHealthBar/HealthBarBG/HealthBarInterieur/HealthBarBlessure
+@export var boss : CharacterBody2D
+@onready var musique = $MusicPhase1
 var attaqueBase = 10
 var phase2 = false
 var pause = false
@@ -25,7 +28,7 @@ func _process(delta):
 		changementPhase()
 	#Détection de la collision des 2 attaques
 	if $Ylhan/Slash2/CollisionSlash/RayCast2D.is_colliding() and $Ylhan/Slash2/CollisionSlash/RayCast2D.get_collider().name == "Player":
-		print("ylahnnn")
+		#print("ylahnnn")
 		toucheMC.emit()
 	if $Ylhan/Slash/CollisionSlash/RayCast2D.is_colliding()  and $Ylhan/Slash/CollisionSlash/RayCast2D.get_collider().name == "Player":
 		toucheMC.emit()
@@ -42,6 +45,14 @@ func mortBoss():
 		pause = true
 		$TextureRect.visible = true
 		$MusicPhase2.stop()
-
+func affichageGameOver():
+	$EcranMort.visible = true 
 func _on_ylhan_touche_dawg():
 	toucheMC.emit()
+func restart():
+	phase = 1
+	HB.size.x = 2400
+	phase2 = false
+	phase1 = true
+	$Ylhan.restart()
+	$EcranMort.visible = false 

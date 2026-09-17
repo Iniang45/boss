@@ -3,6 +3,7 @@
 [ext_resource type="Texture2D" uid="uid://bkoig2a7j4kj4" path="res://Assets/GrosLuffy/BULLE RONDE.png" id="1_sg7av"]
 
 [node name="AmasBulle" type="CanvasGroup"]
+visible = false
 position = Vector2(204, 25)
 
 [node name="Pioche" type="TextureRect" parent="."]
@@ -93,8 +94,7 @@ offset_right = 1540.0
 offset_bottom = 1357.0
 theme_override_colors/font_color = Color(0, 0, 0, 1)
 theme_override_font_sizes/font_size = 150
-text = "PistoVentouse
-ou stickgun "
+text = "PistoVentouse (grosses ventouses)"
 horizontal_alignment = 1
 vertical_alignment = 1
 autowrap_mode = 2

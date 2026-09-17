@@ -1,7 +1,7 @@
 [gd_scene load_steps=15 format=3 uid="uid://pxkqha51aa8k"]
 
-[ext_resource type="Texture2D" uid="uid://d2q8ktrpfnmcs" path="res://Assets/GrosLuffy/GROS CHEVALIER.png" id="1_7qkep"]
 [ext_resource type="Script" path="res://Scenes/Boss/gros_grosluffy.gd" id="1_n3taf"]
+[ext_resource type="Texture2D" uid="uid://d2q8ktrpfnmcs" path="res://Assets/GrosLuffy/GROS_CHEVALIER.png" id="2_gp7fq"]
 [ext_resource type="Texture2D" uid="uid://dscm4paobvl5r" path="res://Assets/GrosLuffy/GROS CHEVALIER_droite.png" id="3_0gydw"]
 [ext_resource type="Texture2D" uid="uid://c6dcsbs2k3mff" path="res://Assets/GrosLuffy/GROS CHEVALIER_45droite.png" id="3_vkeyf"]
 [ext_resource type="Texture2D" uid="uid://3l8tih1bxpnv" path="res://Assets/GrosLuffy/GROS CHEVALIER_gauche.png" id="5_2a2bk"]
@@ -22,7 +22,7 @@ region = Rect2(0, 0, 640, 640)
 animations = [{
 "frames": [{
 "duration": 1.0,
-"texture": ExtResource("1_7qkep")
+"texture": ExtResource("2_gp7fq")
 }, {
 "duration": 1.0,
 "texture": ExtResource("3_vkeyf")
@@ -59,7 +59,7 @@ animations = [{
 }, {
 "frames": [{
 "duration": 1.0,
-"texture": ExtResource("1_7qkep")
+"texture": ExtResource("2_gp7fq")
 }],
 "loop": true,
 "name": &"idle",
@@ -67,7 +67,7 @@ animations = [{
 }]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_s66n3"]
-radius = 85.1469
+radius = 91.0494
 
 [node name="GrosGrosluffy" type="RigidBody2D"]
 collision_layer = 2
@@ -82,7 +82,7 @@ sprite_frames = SubResource("SpriteFrames_b67ot")
 animation = &"flipv"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-position = Vector2(-7, 51)
+position = Vector2(-4, 50)
 shape = SubResource("CircleShape2D_s66n3")
 
 [node name="hitSprite" type="Sprite2D" parent="."]

@@ -1,0 +1,54 @@
+[gd_scene load_steps=5 format=3 uid="uid://cvfsppt8wtey8"]
+
+[ext_resource type="Script" path="res://bulleMessage.gd" id="1_jjlg8"]
+[ext_resource type="Texture2D" uid="uid://bkoig2a7j4kj4" path="res://Assets/GrosLuffy/BULLE RONDE.png" id="2_6wokr"]
+[ext_resource type="FontFile" uid="uid://b1m66ejr2el7w" path="res://Assets/Fonts/snubnose DEMO.otf" id="3_r5u1h"]
+[ext_resource type="Texture2D" uid="uid://dfgec3vdvq0j" path="res://Assets/NPC/Clement/Faceset2.png" id="4_5okyv"]
+
+[node name="dialogue" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_jjlg8")
+
+[node name="bulle" type="TextureRect" parent="."]
+layout_mode = 0
+offset_left = 255.0
+offset_top = -19.0
+offset_right = 2303.0
+offset_bottom = 2029.0
+scale = Vector2(0.33, 0.33)
+texture = ExtResource("2_6wokr")
+
+[node name="label" type="Label" parent="bulle"]
+layout_mode = 0
+offset_left = 563.636
+offset_top = 857.576
+offset_right = 1542.64
+offset_bottom = 1187.58
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_fonts/font = ExtResource("3_r5u1h")
+theme_override_font_sizes/font_size = 78
+text = "Les cieux grondent et les oceans pleurent "
+horizontal_alignment = 1
+vertical_alignment = 1
+autowrap_mode = 3
+
+[node name="perso" type="TextureRect" parent="bulle"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 1251.51
+offset_top = 396.97
+offset_right = -390.485
+offset_bottom = -1239.03
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("4_5okyv")
+
+[connection signal="dialoguefini" from="." to="." method="_on_dialoguefini"]
+[connection signal="dialoguelance" from="." to="." method="_on_dialoguelance"]

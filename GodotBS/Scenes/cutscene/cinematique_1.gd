@@ -1,6 +1,9 @@
 extends Control
 var camx = 576
 var camy = 1995
+var pos_camx = 1740
+var pos_camy = 350
+var passCinema = false 
 @onready var animation = $AnimationPlayer
 @onready var narrateur = $TileMap/Narrateur
 @onready var grosluffy = $TileMap/Grosluffy/Corps
@@ -26,10 +29,16 @@ func _process(delta):
 			grosluffy.play("grosluffy")
 func _on_grosluffy_body_change():
 	transfo = true
-func lancement():
+func lancement(cine):
 	$AnimationPlayer.play("RESET")
 
 func grosluffyFlip():
 	grosluffy.flip_h = true
 func _on_animation_player_animation_finished(anim_name):
+	if not passCinema : 
+		animfini.emit()
+
+
+func _on_button_pressed():
 	animfini.emit()
+	passCinema = true

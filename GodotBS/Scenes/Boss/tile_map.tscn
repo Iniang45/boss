@@ -1,11 +1,10 @@
-[gd_scene load_steps=14 format=3 uid="uid://d2r0vjcqeh61c"]
+[gd_scene load_steps=13 format=3 uid="uid://d2r0vjcqeh61c"]
 
 [ext_resource type="TileSet" uid="uid://dj7rpgp6e5us2" path="res://Assets/new_tile_set.tres" id="1_5qig0"]
 [ext_resource type="Script" path="res://Scenes/Map/TileMap.gd" id="2_bhb67"]
 [ext_resource type="PackedScene" uid="uid://d0dfqdub4xaah" path="res://Scenes/Boss/BossHealthBar.tscn" id="3_uxatt"]
 [ext_resource type="PackedScene" uid="uid://xm78ss1do3bk" path="res://Scenes/Boss/Grosluffy.tscn" id="4_7qsft"]
 [ext_resource type="PackedScene" uid="uid://pxkqha51aa8k" path="res://Scenes/Boss/gros_grosluffy.tscn" id="5_g1la5"]
-[ext_resource type="Texture2D" uid="uid://c7xi080fsxsqw" path="res://Assets/GoofyAssets/wallahi i'm finished faceass.jpg" id="6_8nsj4"]
 [ext_resource type="Texture2D" uid="uid://cjnypeas2jfux" path="res://Texture/Soisfranc_sombrero.JPG" id="7_4nj7n"]
 [ext_resource type="AudioStream" uid="uid://e1gatamfpw3w" path="res://Music/Spider-Man The Animated Series (Genesis) Music - Fun House.mp3" id="8_hi7ef"]
 [ext_resource type="AudioStream" uid="uid://bn1q7somxwwu6" path="res://Music/Dragon Ball Z Dokkan Battle PHY LR Super Saiyan 2 Gohan (Youth) Active Skill OST (Extended).mp3" id="9_fdgoe"]
@@ -183,26 +182,8 @@ collision_mask = 5
 max_contacts_reported = 1
 contact_monitor = true
 
-[node name="ImFinished" type="TextureRect" parent="."]
-visible = false
-z_index = 10
-offset_right = 2292.0
-offset_bottom = 1340.0
-scale = Vector2(0.5, 0.5)
-texture = ExtResource("6_8nsj4")
-
-[node name="Label" type="Label" parent="ImFinished"]
-layout_mode = 0
-offset_left = 724.0
-offset_top = 88.0
-offset_right = 1711.0
-offset_bottom = 912.0
-theme_override_font_sizes/font_size = 300
-text = "Game 
-Over"
-
 [node name="Marker" type="Marker2D" parent="."]
-position = Vector2(569, 330)
+position = Vector2(566, 344)
 
 [node name="AnimationBoss1" type="AnimationPlayer" parent="."]
 libraries = {
@@ -245,7 +226,26 @@ position = Vector2(1135.63, 321)
 rotation = 1.5708
 shape = SubResource("RectangleShape2D_8frqr")
 
+[node name="GameOver" type="Control" parent="."]
+visible = false
+layout_mode = 3
+anchors_preset = 0
+offset_left = 422.0
+offset_top = 198.0
+offset_right = 487.0
+offset_bottom = 261.0
+
+[node name="Button" type="Button" parent="GameOver"]
+layout_mode = 0
+offset_left = -135.0
+offset_top = 10.0
+offset_right = 377.0
+offset_bottom = 324.0
+theme_override_font_sizes/font_size = 70
+text = "RESTART"
+
 [connection signal="grosluffyAnim" from="Grosluffy" to="." method="_on_grosluffy_grosluffy_anim"]
 [connection signal="toucheDawg" from="Grosluffy" to="." method="_on_grosluffy_touche_dawg"]
 [connection signal="body_entered" from="GrosGrosluffy" to="." method="_on_gros_grosluffy_body_entered"]
 [connection signal="body_entered" from="SortieBoss" to="." method="_on_sortie_boss_body_entered"]
+[connection signal="pressed" from="GameOver/Button" to="." method="_on_button_pressed"]

@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://d2q8ktrpfnmcs"
-path="res://.godot/imported/GROS CHEVALIER.png-1aba39e8b58a7a3a4a41b254f5172db8.ctex"
+uid="uid://bload7wfxrgv0"
+path="res://.godot/imported/File5.png-2ad32724f319b075b4f6a41b7b9d7181.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Assets/GrosLuffy/GROS CHEVALIER.png"
-dest_files=["res://.godot/imported/GROS CHEVALIER.png-1aba39e8b58a7a3a4a41b254f5172db8.ctex"]
+source_file="res://Assets/Ylhan/sword_slashes/Sword_slashes/Blue Slash Thin/File5.png"
+dest_files=["res://.godot/imported/File5.png-2ad32724f319b075b4f6a41b7b9d7181.ctex"]
 
 [params]
 

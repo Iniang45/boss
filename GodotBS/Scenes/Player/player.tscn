@@ -536,11 +536,11 @@ visible = false
 scale = Vector2(0.3, 0.3)
 texture = ExtResource("2_37fyq")
 
+[node name="Slash" parent="." instance=ExtResource("14_h5chh")]
+
 [node name="PlayerCollision" type="CollisionShape2D" parent="."]
 position = Vector2(22, 30)
 shape = SubResource("CapsuleShape2D_q26yt")
-
-[node name="Slash" parent="." instance=ExtResource("14_h5chh")]
 
 [node name="Transition" type="Node" parent="."]
 
@@ -550,6 +550,10 @@ offset_left = 1.00002
 offset_top = 1.52588e-05
 offset_right = 1.0
 scale = Vector2(0.7, 0.7)
+
+[node name="RayCastCD" type="Timer" parent="."]
+wait_time = 0.3
+one_shot = true
 
 [connection signal="timeout" from="PlayerSprite/TpSprite/TpCooldown" to="." method="_on_tp_cooldown_timeout"]
 [connection signal="body_entered" from="Slash" to="." method="_on_slash_body_entered"]

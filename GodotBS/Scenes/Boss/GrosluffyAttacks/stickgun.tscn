@@ -8,7 +8,7 @@ radius = 48.0
 height = 134.0
 
 [node name="Stickgun" type="Area2D"]
-visible = false
+scale = Vector2(2, 2)
 collision_layer = 2
 script = ExtResource("1_x6r2v")
 
