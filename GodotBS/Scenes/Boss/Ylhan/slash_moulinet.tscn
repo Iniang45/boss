@@ -1,0 +1,91 @@
+[gd_scene load_steps=12 format=3 uid="uid://b8d4eprpqkcr3"]
+
+[ext_resource type="Texture2D" uid="uid://b43t4g2colbgl" path="res://Assets/Ylhan/sword_slashes/Moulinet_spreadSheet.png" id="1_mc2jh"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_prxrw"]
+radius = 51.0882
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_aaxcx"]
+atlas = ExtResource("1_mc2jh")
+region = Rect2(0, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_kmb0o"]
+atlas = ExtResource("1_mc2jh")
+region = Rect2(64, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_an8tl"]
+atlas = ExtResource("1_mc2jh")
+region = Rect2(128, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_8l5yb"]
+atlas = ExtResource("1_mc2jh")
+region = Rect2(192, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_kesmq"]
+atlas = ExtResource("1_mc2jh")
+region = Rect2(256, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_k1hni"]
+atlas = ExtResource("1_mc2jh")
+region = Rect2(320, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_hhp3k"]
+atlas = ExtResource("1_mc2jh")
+region = Rect2(384, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ujsvj"]
+atlas = ExtResource("1_mc2jh")
+region = Rect2(448, 0, 64, 64)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_iho8j"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_aaxcx")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_kmb0o")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_an8tl")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_8l5yb")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_kesmq")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_k1hni")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_hhp3k")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ujsvj")
+}],
+"loop": true,
+"name": &"moulinet",
+"speed": 15.0
+}]
+
+[node name="Slash_Moulinet" type="Area2D"]
+collision_mask = 4
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("CircleShape2D_prxrw")
+
+[node name="Moulinet1" type="AnimatedSprite2D" parent="."]
+scale = Vector2(2, 2)
+sprite_frames = SubResource("SpriteFrames_iho8j")
+animation = &"moulinet"
+frame = 6
+frame_progress = 0.684066
+
+[node name="Moulinet2" type="AnimatedSprite2D" parent="."]
+rotation = 3.14159
+scale = Vector2(2, 2)
+sprite_frames = SubResource("SpriteFrames_iho8j")
+animation = &"moulinet"
+frame = 6
+frame_progress = 0.137696

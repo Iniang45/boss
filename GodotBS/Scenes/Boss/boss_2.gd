@@ -4,7 +4,7 @@ extends TileMap
 @onready var HBTexte = $BossHealthBar/Label
 @onready var HBB = $BossHealthBar/HealthBarBG/HealthBarInterieur/HealthBarBlessure
 @export var boss : CharacterBody2D
-@onready var musique = $MusicPhase1
+@export var musique : Array[AudioStreamPlayer]
 var attaqueBase = 10
 var phase2 = false
 var pause = false
@@ -18,6 +18,7 @@ var phase = 1
 signal toucheBoss2
 var mort = false
 # Called when the node enters the scene tree for the first time.
+
 func _ready():
 	HBTexte.text = "Ylhan,UFC"
 	HB.size.x = 24000
@@ -27,11 +28,8 @@ func _process(delta):
 	if $BossHealthBar/HealthBarBG/HealthBarInterieur/HealthBar.size.x == 1200 and phase==1: 
 		changementPhase()
 	#Détection de la collision des 2 attaques
-	if $Ylhan/Slash2/CollisionSlash/RayCast2D.is_colliding() and $Ylhan/Slash2/CollisionSlash/RayCast2D.get_collider().name == "Player":
-		#print("ylahnnn")
-		toucheMC.emit()
-	if $Ylhan/Slash/CollisionSlash/RayCast2D.is_colliding()  and $Ylhan/Slash/CollisionSlash/RayCast2D.get_collider().name == "Player":
-		toucheMC.emit()
+
+	boss.pause = pause 
 func changementPhase():
 	$MusicPhase1.stop()
 	phase2debut.emit()

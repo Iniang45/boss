@@ -1,18 +1,22 @@
-extends RigidBody2D
+extends CharacterBody2D
 
-var velocity = Vector2.ZERO
+
 var vecteurX = 90
 var vecteurY = 0
 var invincible = false
 var VieBoss = 100
-
+var angle = 0
+signal collide(body_name)
+var _last_collided_body: Node2D = null
 func _ready():
 	velocity.x = vecteurX
 	$AnimatedSprite2D.animation = "idle"
 
-func _process(delta):
+func _physics_process(delta):
 	$AnimatedSprite2D.play()
-	set_linear_velocity(velocity)	
+	move_and_slide()
+	emission_collision()
+	
 	velocity.x = vecteurX*3
 	velocity.y = vecteurY*3
 	var limit = Vector2(40,30)
@@ -51,3 +55,21 @@ func desactiver(booleen):
 	else:
 		visible = true
 		$CollisionShape2D.disabled = false
+func emission_collision() -> void:
+	var current_collision_body: Node2D = null
+
+	if get_slide_collision_count() > 0:
+		var collision = get_slide_collision(0)
+		current_collision_body = collision.get_collider() as Node2D
+
+		# Si un nouvel objet est percuté
+		if current_collision_body != null and current_collision_body != _last_collided_body:
+			_last_collided_body = current_collision_body
+			
+			# Émission du signal avec le nom du nœud
+			collide.emit(current_collision_body.name)
+			print("Collision avec : ", current_collision_body.name)
+
+	# Si le boss ne touche plus rien, on réinitialise pour le prochain impact
+	else:
+		_last_collided_body = null

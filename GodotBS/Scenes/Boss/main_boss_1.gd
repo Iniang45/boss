@@ -11,6 +11,7 @@ extends Node2D
 @export var gameOver : TextureButton
 @export var Cinematiques : Array[Control]
 var cinelance = false
+@export var lookAt : bool 
 signal victoire 
 # Called when the node enters the scene tree for the first time.
 func _ready():
@@ -19,6 +20,8 @@ func _ready():
 	changeCam()
 	if len(Cinematiques) != 0:	
 		lancementCinematique(Cinematiques[0],"RESET")
+	connectSignals(BossScene)
+	connectSignals(moi)
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
 	if $Player/Transition/PlayerHB/HBvide/HB.size.x == 392:
@@ -26,13 +29,15 @@ func _process(delta):
 	#Triche permettant de tuer le boss ou de me tuer pour le debuggage
 	if Input.is_action_just_pressed("InstaKill"):
 		BossScene.boss.hitMarker(1200)
-		perteVieBoss(100, $TileMap.phase)
+		perteVieBoss(100, BossScene.phase)
 	if Input.is_action_just_pressed("self_damage"):
 		moi.hitMarker(50)
 	#Calcul de l'angle entre le boss et le joueur pour certaines attaques 
 	if BossScene.boss != null:
 		BossScene.boss.angle = rad_to_deg(moi.position.angle_to(BossScene.boss.position))
 		calculateDirection(BossScene.boss,0)
+		
+		
 
 func mort():
 	moi.pause(true)
@@ -61,6 +66,8 @@ func perteVieBoss(valeur, quellePhase):
 
 
 func calculateDirection(ennemi,valeur):
+	if ennemi.get("direction") == null : 
+		return
 	
 	var ecartX = ennemi.position.x+valeur - moi.position.x
 	var ecartY = ennemi.position.y - moi.position.y
@@ -74,6 +81,7 @@ func calculateDirection(ennemi,valeur):
 				true:
 					ennemi.directionState = ennemi.direction.hautD
 			ennemi.flip = false
+		
 		true:
 			match ecartY>0:
 				false:
@@ -81,33 +89,34 @@ func calculateDirection(ennemi,valeur):
 				true:
 					ennemi.directionState = ennemi.direction.hautG
 			ennemi.flip = true
+			
 
 
 
 func _on_player_hit():
 	print("omaera")
 #Fonction s'activant lorsque le joueur touche le boss avec son attaque
-	match $TileMap.phase : 
+	match BossScene.phase : 
 		2:
-			if $TileMap/Grosluffy != null:
-				$TileMap/Grosluffy.hitMarker(moi.attaqueBase/2)
-				if not $TileMap.mort:
-					perteVieBoss(moi.attaqueBase, $TileMap.phase)
+			if BossScene.boss != null:
+				BossScene.boss.hitMarker(moi.attaqueBase/2)
+				if not BossScene.mort:
+					perteVieBoss(moi.attaqueBase, BossScene.phase)
 		1:
 			print("zizicopter")
-			$TileMap/GrosGrosluffy.hitMarker(moi.attaqueBase)
-			if not $TileMap.mort:
-					perteVieBoss(moi.attaqueBase, $TileMap.phase)
+			BossScene.boss.hitMarker(moi.attaqueBase)
+			if not BossScene.mort:
+					perteVieBoss(moi.attaqueBase, BossScene.phase)
 
 func _on_tile_map_touche_boss():
-	moi.hitMarker($TileMap.attaqueBase)
+	moi.hitMarker(BossScene.attaqueBase, BossScene.boss.position)
 
 
 func _on_tile_map_touche_mc():
-	moi.hitMarker($TileMap.attaqueBase)
+	moi.hitMarker(BossScene.attaqueBase, BossScene.boss.position)
 	
 func _on_tile_map_touche_boss_2():
-	moi.hitMarker($TileMap.attaqueBase)
+	moi.hitMarker(BossScene.attaqueBase, BossScene.boss.position)
 	$Player/Transition/PlayerHB.visible = false	
 func lancementCinematique(cinematique,cine):
 	if cinematique != null:
@@ -121,10 +130,12 @@ func lancementCinematique(cinematique,cine):
 		cinematique.lancement(cine)
 	
 func _on_tile_map_phase_2_debut():
-	BossScene.boss.pause = true 
+	BossScene.pause = true 
 	lancementCinematique(Cinematiques[1],"phase")
 
 func _on_cinematique_1_animfini():
+		cinematiqueIntroEnd()
+		return
 		cinelance = true
 		camera.position.x = 581
 		camera.position.y = 327
@@ -177,12 +188,26 @@ func cinematiqueIntroEnd():
 	moi.calculClamp(cam)
 	moi.invincible = false
 	moi.position = Vector2(550,580)
-	BossScene.musique.play()
+	BossScene.musique[0].play()
 	BossScene.boss.position = Vector2(550,305)
 	BossScene.boss.visible = true
-	BossScene.boss.pause = false 
+	BossScene.pause = false 
+	BossScene.boss.changer_etat(BossScene.boss.states.idle)
+	
 	
 	
 func _on_cinematique_2_fini(name):
 		if name == "cinematique":
 			cinematiqueIntroEnd()
+func connectSignals(noeud):
+	var signalList = noeud.get_signal_list()
+	for sig in signalList:
+		var signalName = sig["name"]
+		var targetMethod = "_on_" + noeud.name + "_" + signalName.to_snake_case()
+		if has_method(targetMethod):
+			if not noeud.is_connected(signalName, Callable(self, targetMethod)):
+				noeud.connect(signalName, Callable(self, targetMethod))
+				print("Signal connecté avec succès : ", signalName, " -> ", targetMethod)
+	
+
+

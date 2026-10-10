@@ -15,13 +15,14 @@ script = ExtResource("1_6dj8e")
 cam = NodePath("Node/Camera2D")
 fade = NodePath("Node/Camera2D/Fade")
 moi = NodePath("Player")
-BossScene = NodePath("Boss2")
+BossScene = NodePath("tile_map")
 gameOver = NodePath("Node/Camera2D/gameOver")
 Cinematiques = [NodePath("Cinematique2")]
+lookAt = true
 
-[node name="Boss2" parent="." instance=ExtResource("2_cw4k1")]
+[node name="tile_map" parent="." instance=ExtResource("2_cw4k1")]
 
-[node name="Player" parent="." instance=ExtResource("3_5d3so")]
+[node name="Player" parent="." groups=["JoueurBoss2"] instance=ExtResource("3_5d3so")]
 
 [node name="Node" type="Node" parent="."]
 
@@ -80,4 +81,5 @@ autowrap_mode = 2
 offset_left = 1150.0
 offset_right = 1150.0
 
+[connection signal="hit" from="Player" to="." method="_on_player_hit"]
 [connection signal="fini" from="Cinematique2" to="." method="_on_cinematique_2_fini"]

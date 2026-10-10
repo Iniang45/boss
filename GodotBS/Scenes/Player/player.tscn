@@ -537,6 +537,7 @@ scale = Vector2(0.3, 0.3)
 texture = ExtResource("2_37fyq")
 
 [node name="Slash" parent="." instance=ExtResource("14_h5chh")]
+collision_mask = 6
 
 [node name="PlayerCollision" type="CollisionShape2D" parent="."]
 position = Vector2(22, 30)

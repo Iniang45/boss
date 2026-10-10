@@ -1,4 +1,4 @@
-[gd_scene load_steps=15 format=3 uid="uid://pxkqha51aa8k"]
+[gd_scene load_steps=14 format=3 uid="uid://pxkqha51aa8k"]
 
 [ext_resource type="Script" path="res://Scenes/Boss/gros_grosluffy.gd" id="1_n3taf"]
 [ext_resource type="Texture2D" uid="uid://d2q8ktrpfnmcs" path="res://Assets/GrosLuffy/GROS_CHEVALIER.png" id="2_gp7fq"]
@@ -10,9 +10,6 @@
 [ext_resource type="Texture2D" uid="uid://0ue180wyd7jt" path="res://Assets/GrosLuffy/GROS CHEVALIER_45gauche.png" id="7_8lngc"]
 [ext_resource type="Texture2D" uid="uid://bht035byexfmt" path="res://Assets/GrosLuffy/GROS CHEVALIER_fullgau.png" id="9_tyyvr"]
 [ext_resource type="Texture2D" uid="uid://cjnypeas2jfux" path="res://Texture/Soisfranc_sombrero.JPG" id="10_v0mmk"]
-
-[sub_resource type="PhysicsMaterial" id="PhysicsMaterial_3th14"]
-bounce = 1.0
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_2ugul"]
 atlas = ExtResource("5_2a2bk")
@@ -69,11 +66,9 @@ animations = [{
 [sub_resource type="CircleShape2D" id="CircleShape2D_s66n3"]
 radius = 91.0494
 
-[node name="GrosGrosluffy" type="RigidBody2D"]
+[node name="GrosGrosluffy" type="CharacterBody2D"]
 collision_layer = 2
 collision_mask = 4
-physics_material_override = SubResource("PhysicsMaterial_3th14")
-gravity_scale = 0.0
 script = ExtResource("1_n3taf")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]

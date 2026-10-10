@@ -43,23 +43,31 @@ func _physics_process(delta):
 	#Gestion du dash
 	if stopWaitAMinute:
 		set_process_input(false)
-	if Input.is_action_pressed("tp"):
-		if peutTp: 
-			$PlayerSprite/TpSprite/TpCooldown.start()
-			peutTp = false
-			vieBleu.visible = true 
-			$PlayerSprite.modulate = Color(0,0,0.90) 
-			await get_tree().create_timer(0.2).timeout
-			$PlayerSprite.modulate = Color(1,1,1) 
-			match direction:
-				"up" : 
-					deplaTP(-85,"y")
-				"down":
-					deplaTP(85,"y")
-				"right":
-					deplaTP(85,"x")
-				"left":
-					deplaTP(-85,"x")
+	if Input.is_action_just_pressed("tp") and peutTp:
+		peutTp = false
+		$PlayerSprite/TpSprite/TpCooldown.start()
+		vieBleu.visible = true 
+		
+		# 1. Effet visuel et canalisation (0.2s de préparation)
+		$PlayerSprite.modulate = Color(0, 0, 0.90) 
+		await get_tree().create_timer(0.1).timeout
+		$PlayerSprite.modulate = Color.WHITE
+
+		# 2. Conversion de la direction
+		var dir_vector := Vector2.ZERO
+		match direction:
+			"up": dir_vector = Vector2.UP
+			"down": dir_vector = Vector2.DOWN
+			"left": dir_vector = Vector2.LEFT
+			"right": dir_vector = Vector2.RIGHT
+
+		# 3. Téléportation sécurisée anti-mur
+		var distance := 85.0
+		var collision = move_and_collide(dir_vector * distance, true)
+		if collision:
+			global_position += collision.get_travel()
+		else:
+			global_position += dir_vector * distance
 	#Gestion des déplacements
 	if Input.is_action_pressed("move_right"):
 		velocity.x += 1
@@ -147,48 +155,51 @@ func _on_tp_cooldown_timeout():
 	peutTp = true
 	vieBleu.visible=false 
 func activationCollisions():
+	$RayCastCD.stop() # <-- Réinitialise le cooldown pour que le 2ème coup du combo puisse toucher
+	
 	CollisionSlash.disabled = false
 	RayDark.enabled = true 		
 	RayDark.force_raycast_update()
-	if $RayCastCD.is_stopped():
-		RayDark.force_raycast_update()
-		if RayDark.is_colliding() == true and RayDark.get_collider().name != "Slash":
-			print("touche")
-			print(RayDark.get_collider().name)
-			hit.emit()
-			$RayCastCD.start()
+	
+	if RayDark.is_colliding() and RayDark.get_collider().name != "Slash":
+		print("touche : ", RayDark.get_collider().name)
+		hit.emit()
+		$RayCastCD.start()
+			
 	await get_tree().create_timer(0.3).timeout
 	CollisionSlash.disabled = true
-	RayDark.enabled = false  
+	RayDark.enabled = false
 func peutTaperAffichage() : 
 	if attackTimer.is_stopped() == false and ComboCount>1: 
 		$Transition/PlayerHB/PeutPasTaper.visible = true
 	else:
 		$Transition/PlayerHB/PeutPasTaper.visible = false
-func hitMarker(degatsRecus):
+func hitMarker(degatsRecus, position_attaquant = Vector2.ZERO):
 	#Permet de gérer l'intéraction lorsque le joeuur prend des dégats, il deviant incincible pendant quelques temps et est déplacé en arrière de 100pixels
-	if not invincible :
-		health-=degatsRecus
-		
-		match direction :
-			"up":
-				position.y += 100
-			"down":
-				position.y -=100
-			"right":
-				position.x -= 100
-			"left":
-				position.x += 100
-		invincible = true
-		#$PlayerSprite/hitSprite.visible = true 
-		#await get_tree().create_timer(1).timeout
-		#$PlayerSprite/hitSprite.visible = false
-		$PlayerSprite.modulate = Color(1, 0, 0) # rouge
-		await get_tree().create_timer(1.5).timeout
-		$PlayerSprite.modulate = Color(1, 1, 1) # couleur normale
-		invincible = false
-		var affichageDegats = degatsRecus*7800/100
-		vieVerte.size.x = vieVerte.size.x- affichageDegats
+	if invincible : 
+		return 
+	invincible = true 
+	health -= degatsRecus
+	var affichage_degats = degatsRecus * 7800 / 100
+	vieVerte.size.x -= affichage_degats
+	var dir_repousse := Vector2.ZERO
+	if position_attaquant != Vector2.ZERO:
+		dir_repousse = (global_position - position_attaquant).normalized()
+	else:
+		match direction:
+			"up": dir_repousse = Vector2.DOWN
+			"down": dir_repousse = Vector2.UP
+			"right": dir_repousse = Vector2.LEFT
+			"left": dir_repousse = Vector2.RIGHT 	
+	var tween_knockback := create_tween()
+	tween_knockback.tween_property(self, "position", position + dir_repousse * 40.0, 0.15)\
+		.set_trans(Tween.TRANS_QUAD)\
+		.set_ease(Tween.EASE_OUT)
+	var tween_visuel := create_tween().set_loops(5)
+	tween_visuel.tween_property($PlayerSprite, "modulate", Color(1, 0.3, 0.3, 0.4), 0.1)
+	tween_visuel.tween_property($PlayerSprite, "modulate", Color.WHITE, 0.1)
+	await get_tree().create_timer(1.0).timeout
+	invincible = false
 		#print(vieVerte.size.x)
 #Permet d'empécher le joueur de sortir de l'ecran en fonction d'où la caméra se trouve, fonction appelée à chaque fois que la caméra bouge
 func calculClamp(cam):
@@ -237,12 +248,7 @@ func taperEnCourant():
 		elif velocity.y > 0 :
 			#print("bas")
 			setup(-20,-5,141,-15,0,351,60,20,120)
-func deplaTP(valeur, axe):
-	#Fonction permettant de gérer la direction de la téléportation
-	if axe == "y":
-		position.y+=valeur
-	elif axe == "x": 
-		position.x+= valeur  
+
 func pause(pause):
 	if pause:
 		$PlayerCollision.disabled = true 

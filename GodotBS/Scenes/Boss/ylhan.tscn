@@ -1,13 +1,22 @@
-[gd_scene load_steps=37 format=3 uid="uid://cs4nsy11a4xkb"]
+[gd_scene load_steps=40 format=3 uid="uid://cs4nsy11a4xkb"]
 
 [ext_resource type="Texture2D" uid="uid://d0gisf3jv7li5" path="res://Assets/Ylhan/GiantBlueSamurai/ChargeLeft.png" id="1_1svas"]
 [ext_resource type="Script" path="res://Scenes/Boss/ylhan.gd" id="1_jicif"]
 [ext_resource type="Texture2D" uid="uid://cg8gf0pe37o6x" path="res://Assets/Ylhan/GiantBlueSamurai/AttackLeft.png" id="2_qs1vg"]
 [ext_resource type="Texture2D" uid="uid://nt6qttue2vuf" path="res://Assets/Ylhan/GiantBlueSamurai/ChargeRight.png" id="3_1xl36"]
+[ext_resource type="Texture2D" uid="uid://bhv1id4fbujgo" path="res://Assets/Ylhan/GiantBlueSamurai/ChargeDouble.png" id="3_8pfk5"]
 [ext_resource type="Texture2D" uid="uid://c3c737xfbdjum" path="res://Assets/Ylhan/GiantBlueSamurai/AttackRight.png" id="4_7rq1m"]
 [ext_resource type="Texture2D" uid="uid://b8whvrhhu4v2y" path="res://Assets/Ylhan/GiantBlueSamurai/Idle.png" id="5_dol1g"]
 [ext_resource type="Texture2D" uid="uid://bx0u0xfp5pcx5" path="res://Assets/Ylhan/GiantBlueSamurai/Walk.png" id="6_kbivu"]
 [ext_resource type="PackedScene" uid="uid://4ebyonidqpag" path="res://Scenes/Player/slash.tscn" id="7_fs36y"]
+[ext_resource type="PackedScene" uid="uid://b8d4eprpqkcr3" path="res://Scenes/Boss/Ylhan/slash_moulinet.tscn" id="10_goc5q"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_vcxl7"]
+radius = 58.5491
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ukrm4"]
+atlas = ExtResource("1_1svas")
+region = Rect2(0, 0, 96, 96)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_pwc58"]
 atlas = ExtResource("1_1svas")
@@ -117,6 +126,17 @@ region = Rect2(480, 0, 96, 48)
 animations = [{
 "frames": [{
 "duration": 1.0,
+"texture": SubResource("AtlasTexture_ukrm4")
+}, {
+"duration": 1.0,
+"texture": ExtResource("3_8pfk5")
+}],
+"loop": false,
+"name": &"attack_double",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
 "texture": SubResource("AtlasTexture_pwc58")
 }, {
 "duration": 1.0,
@@ -137,7 +157,7 @@ animations = [{
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_uqfkq")
 }],
-"loop": true,
+"loop": false,
 "name": &"attack_left",
 "speed": 5.0
 }, {
@@ -214,33 +234,10 @@ animations = [{
 "speed": 5.0
 }]
 
-[sub_resource type="CircleShape2D" id="CircleShape2D_vcxl7"]
-radius = 58.5491
-
 [node name="Ylhan" type="CharacterBody2D"]
 collision_layer = 2
 collision_mask = 4
 script = ExtResource("1_jicif")
-
-[node name="YlhanSprite" type="AnimatedSprite2D" parent="."]
-scale = Vector2(3, 3)
-sprite_frames = SubResource("SpriteFrames_hlpj3")
-animation = &"attack_left"
-frame_progress = 0.880657
-
-[node name="Slash" parent="." instance=ExtResource("7_fs36y")]
-position = Vector2(62, -32)
-rotation = 1.34739
-scale = Vector2(1.5, 1.5)
-collision_layer = 2
-collision_mask = 5
-
-[node name="Slash2" parent="." instance=ExtResource("7_fs36y")]
-position = Vector2(46, 73)
-rotation = -3.5884
-scale = Vector2(1.3, 1.3)
-collision_layer = 2
-collision_mask = 5
 
 [node name="Camera2D" type="Camera2D" parent="."]
 
@@ -252,7 +249,39 @@ collision_mask = 5
 position = Vector2(-1, 14)
 shape = SubResource("CircleShape2D_vcxl7")
 
-[connection signal="animation_finished" from="YlhanSprite" to="." method="_on_ylhan_sprite_animation_finished"]
-[connection signal="body_entered" from="Slash" to="." method="_on_slash_body_entered"]
-[connection signal="body_entered" from="Slash2" to="." method="_on_slash_2_body_entered"]
+[node name="Pivot" type="Node2D" parent="."]
+
+[node name="YlhanSprite" type="AnimatedSprite2D" parent="Pivot"]
+scale = Vector2(3, 3)
+sprite_frames = SubResource("SpriteFrames_hlpj3")
+animation = &"walk"
+
+[node name="Slash" parent="Pivot" instance=ExtResource("7_fs36y")]
+position = Vector2(62, -32)
+rotation = 1.34739
+scale = Vector2(1.5, 1.5)
+collision_layer = 8
+collision_mask = 5
+
+[node name="Slash2" parent="Pivot" instance=ExtResource("7_fs36y")]
+position = Vector2(46, 73)
+rotation = 2.69479
+scale = Vector2(1.3, 1.3)
+collision_layer = 8
+collision_mask = 5
+
+[node name="Slash_Moulinet" parent="Pivot" instance=ExtResource("10_goc5q")]
+visible = false
+position = Vector2(12, 18)
+rotation = -2.66686
+scale = Vector2(2.5, 2.5)
+collision_layer = 8
+collision_mask = 5
+
 [connection signal="body_entered" from="Corps" to="." method="_on_corps_body_entered"]
+[connection signal="animation_finished" from="Pivot/YlhanSprite" to="." method="_on_ylhan_sprite_animation_finished"]
+[connection signal="area_entered" from="Pivot/Slash" to="." method="_on_slash_area_entered"]
+[connection signal="body_entered" from="Pivot/Slash" to="." method="_on_slash_body_entered"]
+[connection signal="area_entered" from="Pivot/Slash2" to="." method="_on_slash_2_area_entered"]
+[connection signal="body_entered" from="Pivot/Slash2" to="." method="_on_slash_2_body_entered"]
+[connection signal="body_entered" from="Pivot/Slash_Moulinet" to="." method="_on_slash_moulinet_body_entered"]

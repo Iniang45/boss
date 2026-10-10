@@ -18,6 +18,7 @@ var piochePlayed = false
 var nbanimfini = 0 
 signal animfiniplease 
 signal grosluffyAnim
+var tween_hit : Tween 
 @onready var souris = $Node/Souris
 # Called when the node enters the scene tree for the first time.
 func _ready():
@@ -25,70 +26,77 @@ func _ready():
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
-	if flip:
-		$Corps.flip_h = true
-	else:
-		$Corps.flip_h = false
+	flipFunction(flip)
 	
 	move_and_slide()
 	var limit = Vector2(80,90)
 	var limitU  = Vector2(1075,575)
 	position = position.clamp(limit,limitU)
-	
+
+func flipFunction(boolean):
+	if boolean:
+		$Corps.flip_h = true
+	else:
+		$Corps.flip_h = false
 func phase2Behavior():
 	#Fonctionnement de la machine à états
-	match state :
+	match state:
 		states.idle:
-			deplacement()
-			await get_tree().create_timer(2).timeout
-			piochePlayed= false
-			state = states.deplacement
-			nbanimfini =0
-			$Corps/Pioche/piocheCollision.disabled = true
-			$Corps/Pioche/piocheCollisionReverse.disabled = true 
+			velocity = Vector2.ZERO
 		states.deplacement:
-			var randAttack = randi_range(1,4)
+			# Mouvement physique appliqué uniquement pendant cet état
 			deplacement()
-			#randAttack = 2
-			await get_tree().create_timer(3).timeout
-			#print(randAttack)
-			if not pause : 
-				match  randAttack:
-					1: 
-						state = states.pistobulle
-					2:
-						state = states.arbre
-					3: 
-						state = states.grosluffy
-					4: 
-						state= states.pioche
-		states.pioche : 
+		states.pioche:
 			piocheAttaque()
-		states.arbre : 
-		#nbanimfini permet de ne pas relancer l'animation du choix d'attaque plusieurs fois
-			if nbanimfini == 0:
-				$AnimationPlayer2.play("arbre_souris")
-				nbanimfini+=1
-		states.grosluffy : 
-			#Attaque qui bug souvent sûrement dû à un problème de clamp
-			if nbanimfini == 0:
-				grosluffyAnima()
-				nbanimfini +=1
-				
+	
+func changer_etat(nouveau_state):
+	state = nouveau_state
+	nbanimfini = 0
+	match state:
+		states.idle:
+			$Corps.play("luffy_idle")
+			$Corps/Pioche/piocheCollision.disabled = true
+			$Corps/Pioche/piocheCollisionReverse.disabled = true
+			piochePlayed = false
+			
+			# Attend 2 secondes immobiles avant de se déplacer
+			await get_tree().create_timer(0.3).timeout
+			if state == states.idle:
+				changer_etat(states.deplacement)
+
+		states.deplacement:
+			$AnimationPlayer2.play("walk") # Active enfin l'animation de marche !
+			
+			# Se déplace pendant 3 secondes puis lance une attaque aléatoire
+			await get_tree().create_timer(1.5).timeout
+			if state == states.deplacement and not pause:
+				var rand_attack = randi_range(1, 4)
+				match rand_attack:
+					1: changer_etat(states.pistobulle)
+					2: changer_etat(states.arbre)
+					3: changer_etat(states.grosluffy)
+					4: changer_etat(states.pioche)
+		states.pioche:
+			piocheAttaque()
+		states.arbre:
+			$AnimationPlayer2.play("arbre_souris")
+		states.grosluffy:
+			grosluffyAnima()
 		states.pistobulle:
-			if nbanimfini == 0:
-				$AnimationPlayer2.play("stickgun_souris")
-				nbanimfini +=1
+			$AnimationPlayer2.play("stickgun_souris")
 func hitMarker(degatsRecus):
 	#fonction permettant de gérer lorsque le boss reçoit des dégats,
 	#print(invincible)
-	if not invincible :
-		VieBoss-=degatsRecus
-		invincible = true
-		$Corps.modulate = Color(1, 0, 0) # rouge
-		await get_tree().create_timer(0.3).timeout
-		$Corps.modulate = Color(1, 1, 1) # couleur normale
-		invincible = false
+	VieBoss -= degatsRecus
+
+	# Si le boss était déjà en train de flasher suite au coup précédent, on interrompt le flash
+	if tween_hit and tween_hit.is_running():
+		tween_hit.kill()
+
+	# Flash rouge immédiat qui revient au blanc rapidement (0.15s)
+	$Corps.modulate = Color(1, 0, 0)
+	tween_hit = create_tween()
+	tween_hit.tween_property($Corps, "modulate", Color.WHITE, 0.15)
 func transformation():
 	bodyChange.emit()
 func deplacement():
@@ -133,7 +141,7 @@ func arbreAnimation():
 	$Arbremagique.changementarbre(3)
 	await get_tree().create_timer(0.5).timeout
 	$Arbremagique.changementarbre(4)
-	state = states.idle 
+	changer_etat(states.idle)
 	nbanimfini = 0
 func grosluffyAnima():
 
@@ -148,7 +156,7 @@ func stickgun():
 	await get_tree().create_timer(1).timeout
 	$Stickgun.arret()
 	$Corps/Stickgun.visible = false
-	state = states.deplacement
+	changer_etat(states.idle)
 	nbanimfini=0
 func _on_animation_player_animation_finished(anim_name):
 	match anim_name:
@@ -158,12 +166,14 @@ func _on_animation_player_animation_finished(anim_name):
 			state = states.idle
 			piochePlayed = true
 			nbanimfini=0 
+			changer_etat(states.idle)
 		"pioche_reverse":
 			$Corps/Pioche/piocheCollision.disabled = true
 			$Corps/Pioche.visible = false 
 			state = states.idle
 			piochePlayed = true 
 			nbanimfini = 0
+			changer_etat(states.idle)
 			
 func stopanim():
 	animfiniplease.emit()

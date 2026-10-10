@@ -15,9 +15,9 @@ func _process(delta):
 	$BossHealthBar/Label.text = "Ylhan,UFC"
 	if cine.current_animation == "cinematique":
 		if cine.current_animation_position <= 3: 
-			$TileMap/Ylhan/YlhanSprite.play("walk")
+			$TileMap/Ylhan/Pivot/YlhanSprite.play("walk")
 	else:
-		$TileMap/Ylhan/YlhanSprite.stop()
+		$TileMap/Ylhan/Pivot/YlhanSprite.stop()
 func lancement(cine):
 	match phase:
 		1:
@@ -33,5 +33,5 @@ func _on_animation_player_animation_finished(anim_name):
 
 
 func _on_button_pressed():
-	fini.emit(cine.current_animation.name)
+	fini.emit(cine.current_animation)
 	passCinema = true

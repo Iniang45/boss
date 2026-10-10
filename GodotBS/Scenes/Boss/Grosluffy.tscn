@@ -882,10 +882,10 @@ position = Vector2(634, 308)
 [node name="Souris" parent="Node" instance=ExtResource("13_rx0yt")]
 visible = false
 z_index = 1
-offset_left = 521.0
-offset_top = 180.0
-offset_right = 1021.0
-offset_bottom = 680.0
+offset_left = 585.0
+offset_top = 72.0
+offset_right = -67.0
+offset_bottom = -76.0
 
 [node name="AmasBulle" parent="Node" instance=ExtResource("12_dia2b")]
 

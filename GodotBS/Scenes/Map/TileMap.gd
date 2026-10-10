@@ -7,6 +7,7 @@ var breath = false
 @onready var HBB = $BossHealthBar/HealthBarBG/HealthBarInterieur/HealthBarBlessure
 @onready var GrosGros = $GrosGrosluffy
 @onready var boss = $GrosGrosluffy 
+@export var musique : Array[AudioStreamPlayer]
 signal phase2debut
 var attaqueBase = 10
 var phase2 = false
@@ -27,9 +28,10 @@ func _ready():
 	HBTexte.text = "GrosLuffy"
 	france.play("luffy")
 	HB.size.x = 24000
+	$Grosluffy.desactiver(true)
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
-func _process(delta):
+func _physics_process(delta):
 	if $BossHealthBar/HealthBarBG/HealthBarInterieur/HealthBar.size.x == 1200 and phase==1: 
 		#print(phase)
 		if phase != 2:
@@ -92,6 +94,7 @@ func changementPhase(nouvellePhase):
 		$Grosluffy.visible = true
 		$Grosluffy/Arealuffy/CollisionCorps.disabled = false 
 		boss = $Grosluffy
+		boss.changer_etat(boss.states.idle)
 	else :
 		$MusicPhase2.stop()
 		$MusicPhase1.play()
@@ -134,6 +137,7 @@ func _on_grosluffy_grosluffy_anim():
 	$Grosluffy.state = $Grosluffy.states.idle
 	pause = true
 	boss = $Grosluffy
+	boss.changer_etat(boss.states.idle)
 
 
 func _on_sortie_boss_body_entered(body):
@@ -164,3 +168,26 @@ func _on_button_pressed():
 	restartButton.emit()
 
 	
+
+
+func _on_gros_grosluffy_collide(body_name):
+	if body_name != "TileMap":
+		#print("ca vous dirait un duel, attention c'est contre moi")
+		if not pause :
+			#print(pause)
+			#print("omaera")
+			toucheBoss.emit()
+	else:
+		randomanim()
+		if GrosGros.position.x > $Marker.position.x :
+			GrosGros.vecteurX = randi_range(-200,0)
+			#print("à gauche")
+		else : 
+			GrosGros.vecteurX = randi_range(0,200)
+			#print("à droite")
+		if GrosGros.position.y > $Marker.position.y : 
+			GrosGros.vecteurY = randi_range(-150,0)
+			#print("en haut")
+		else:
+			GrosGros.vecteurY = randi_range(0,150)
+			#print("en bas")
