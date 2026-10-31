@@ -1,0 +1,69 @@
+[gd_scene load_steps=14 format=3 uid="uid://b1tc42ir4g6wc"]
+
+[ext_resource type="Texture2D" uid="uid://cjc3b3jr3mcm1" path="res://Assets/Ylhan/sword_slashes/Sword_slashes/Blue Group Slashes/File9.png" id="1_4ixbv"]
+[ext_resource type="Script" path="res://Assets/Ylhan/multi_slash.gd" id="1_rejl5"]
+[ext_resource type="Texture2D" uid="uid://o7607gr5atcq" path="res://Assets/Ylhan/sword_slashes/Sword_slashes/Blue Group Slashes/File10.png" id="2_str4v"]
+[ext_resource type="Texture2D" uid="uid://bjul2aykkehgd" path="res://Assets/Ylhan/sword_slashes/Sword_slashes/Blue Group Slashes/File11.png" id="3_w4pvt"]
+[ext_resource type="Texture2D" uid="uid://dte5ame2cbrn3" path="res://Assets/Ylhan/sword_slashes/Sword_slashes/Blue Group Slashes/File1.png" id="4_oexu0"]
+[ext_resource type="Texture2D" uid="uid://cfqtytsej00x4" path="res://Assets/Ylhan/sword_slashes/Sword_slashes/Blue Group Slashes/File2.png" id="5_uddr1"]
+[ext_resource type="Texture2D" uid="uid://d4kthlw4fwgtw" path="res://Assets/Ylhan/sword_slashes/Sword_slashes/Blue Group Slashes/File3.png" id="6_x1p7l"]
+[ext_resource type="Texture2D" uid="uid://cnkipkq5faa4e" path="res://Assets/Ylhan/sword_slashes/Sword_slashes/Blue Group Slashes/File4.png" id="7_ptusu"]
+[ext_resource type="Texture2D" uid="uid://dhqieug71vj70" path="res://Assets/Ylhan/sword_slashes/Sword_slashes/Blue Group Slashes/File5.png" id="8_j4ddq"]
+[ext_resource type="Texture2D" uid="uid://dcndp60axi8x0" path="res://Assets/Ylhan/sword_slashes/Sword_slashes/Blue Group Slashes/File6.png" id="9_0aikx"]
+[ext_resource type="Texture2D" uid="uid://d4m8sgd7cw2le" path="res://Assets/Ylhan/sword_slashes/Sword_slashes/Blue Group Slashes/File7.png" id="10_v5c3f"]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_6n5ju"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("1_4ixbv")
+}, {
+"duration": 1.0,
+"texture": ExtResource("2_str4v")
+}, {
+"duration": 1.0,
+"texture": ExtResource("3_w4pvt")
+}, {
+"duration": 1.0,
+"texture": ExtResource("4_oexu0")
+}, {
+"duration": 1.0,
+"texture": ExtResource("5_uddr1")
+}, {
+"duration": 1.0,
+"texture": ExtResource("6_x1p7l")
+}, {
+"duration": 1.0,
+"texture": ExtResource("7_ptusu")
+}, {
+"duration": 1.0,
+"texture": ExtResource("8_j4ddq")
+}, {
+"duration": 1.0,
+"texture": ExtResource("9_0aikx")
+}, {
+"duration": 1.0,
+"texture": ExtResource("10_v5c3f")
+}],
+"loop": true,
+"name": &"slash",
+"speed": 12.0
+}]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_3lk3h"]
+radius = 148.054
+
+[node name="multi_slash" type="Area2D"]
+script = ExtResource("1_rejl5")
+
+[node name="sprite" type="AnimatedSprite2D" parent="."]
+sprite_frames = SubResource("SpriteFrames_6n5ju")
+animation = &"slash"
+frame_progress = 0.0749996
+
+[node name="collision" type="CollisionShape2D" parent="."]
+shape = SubResource("CircleShape2D_3lk3h")
+
+[node name="VisibleOnScreenNotifier2D" type="VisibleOnScreenNotifier2D" parent="."]
+
+[connection signal="screen_exited" from="VisibleOnScreenNotifier2D" to="." method="_on_visible_on_screen_notifier_2d_screen_exited"]

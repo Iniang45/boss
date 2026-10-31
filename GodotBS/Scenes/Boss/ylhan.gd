@@ -2,7 +2,6 @@ extends CharacterBody2D
 #Cf soisfranc.gd
 var invincible = false
 var VieBoss = 100
-signal bodyChange 
 signal toucheBoss2
 signal toucheDawg
 var angle = 0
@@ -123,7 +122,7 @@ func _on_ylhan_sprite_animation_finished():
 		"attack_left":
 			gerer_collision_attaque(1,false)
 			animfiniL = true
-			#print("ca faire mal")
+			#print(" faire mal")
 		"attack_right":
 			gerer_collision_attaque(0,false)
 			animfiniR = true 
@@ -154,7 +153,12 @@ func deplacement(delta):
 		$Pivot/YlhanSprite.play("walk")
 		#print(directionState)
 	
-
+func slash(side):
+	if side:
+		$Pivot/YlhanSprite.play("attack_right", 3.0)
+	else : 
+		$Pivot/YlhanSprite.play("attack_left", 3.0)
+	
 func _on_corps_body_entered(body):
 	#Signal émis lorsque le corps du boss touche le joueur 
 	toucheDawg.emit()

@@ -7,7 +7,7 @@ var phase = 1
 var passCinema = false
 # Called when the node enters the scene tree for the first time.
 func _ready():
-	pass
+	$AnimationPlayer.play("Phase2")
 
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
@@ -18,6 +18,11 @@ func _process(delta):
 			$TileMap/Ylhan/Pivot/YlhanSprite.play("walk")
 	else:
 		$TileMap/Ylhan/Pivot/YlhanSprite.stop()
+	if cine.current_animation == "Phase2":
+		if $GroupeSlashes.visible == true :
+			$GroupeSlashes.play("default")
+			
+			
 func lancement(cine):
 	match phase:
 		1:
@@ -25,13 +30,14 @@ func lancement(cine):
 		2: 
 			passCinema = false
 			$AnimationPlayer.play("phase2")
+	
 
 func _on_animation_player_animation_finished(anim_name):
 	if not passCinema : 
 		fini.emit(anim_name)
-	
-
 
 func _on_button_pressed():
 	fini.emit(cine.current_animation)
 	passCinema = true
+
+

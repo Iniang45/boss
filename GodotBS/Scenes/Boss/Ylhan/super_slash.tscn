@@ -1,0 +1,75 @@
+[gd_scene load_steps=11 format=3 uid="uid://cab7w437wotu2"]
+
+[ext_resource type="Script" path="res://Scenes/Boss/Ylhan/super_slash.gd" id="1_0ximh"]
+[ext_resource type="Texture2D" uid="uid://bdbxoljw50mga" path="res://Assets/Ylhan/sword_slashes/Sword_slashes/Blue Slash Thin/File2.png" id="3_w4d5l"]
+[ext_resource type="Texture2D" uid="uid://dngs4tanku7hs" path="res://Assets/Ylhan/sword_slashes/Sword_slashes/Blue Slash Thin/File3.png" id="4_p0b3o"]
+[ext_resource type="Texture2D" uid="uid://b5mhlf4aw26y2" path="res://Assets/Ylhan/sword_slashes/Sword_slashes/Blue Slash Thin/File4.png" id="5_27opi"]
+[ext_resource type="Texture2D" uid="uid://bd8btjxa3t7an" path="res://Assets/Ylhan/sword_slashes/Sword_slashes/Blue Slash Thin/File6.png" id="7_nsfpm"]
+[ext_resource type="Texture2D" uid="uid://bgptmngvbsd5x" path="res://Assets/Ylhan/sword_slashes/Sword_slashes/White Slash Wide/File1.png" id="8_bal0e"]
+[ext_resource type="Texture2D" uid="uid://dlagkmfih2s1e" path="res://Assets/Ylhan/sword_slashes/Sword_slashes/White Slash Wide/File2.png" id="9_8h4i1"]
+[ext_resource type="Texture2D" uid="uid://c7t1xao5fg31t" path="res://Assets/Ylhan/sword_slashes/Sword_slashes/White Slash Wide/File3.png" id="10_ki16h"]
+[ext_resource type="Texture2D" uid="uid://pj6sor0psd52" path="res://Assets/Ylhan/sword_slashes/Sword_slashes/White Slash Wide/File4.png" id="11_o1hky"]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_m4xgj"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("3_w4d5l")
+}, {
+"duration": 1.0,
+"texture": ExtResource("4_p0b3o")
+}, {
+"duration": 1.0,
+"texture": ExtResource("5_27opi")
+}, {
+"duration": 1.0,
+"texture": ExtResource("7_nsfpm")
+}],
+"loop": false,
+"name": &"Blue_slash",
+"speed": 9.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("8_bal0e")
+}, {
+"duration": 1.0,
+"texture": ExtResource("9_8h4i1")
+}, {
+"duration": 1.0,
+"texture": ExtResource("10_ki16h")
+}, {
+"duration": 1.0,
+"texture": ExtResource("9_8h4i1")
+}, {
+"duration": 1.0,
+"texture": ExtResource("10_ki16h")
+}, {
+"duration": 1.0,
+"texture": ExtResource("8_bal0e")
+}, {
+"duration": 1.0,
+"texture": ExtResource("11_o1hky")
+}, {
+"duration": 1.0,
+"texture": ExtResource("11_o1hky")
+}],
+"loop": true,
+"name": &"White_Slash",
+"speed": 20.0
+}]
+
+[node name="SuperSlash" type="Area2D"]
+script = ExtResource("1_0ximh")
+
+[node name="SlashSprite" type="AnimatedSprite2D" parent="."]
+sprite_frames = SubResource("SpriteFrames_m4xgj")
+animation = &"Blue_slash"
+frame_progress = 0.567142
+
+[node name="Collision" type="CollisionPolygon2D" parent="."]
+position = Vector2(-175.617, 63.3932)
+rotation = 1.73434
+scale = Vector2(1, 1.15094)
+build_mode = 1
+polygon = PackedVector2Array(-16.6887, 47.6405, -12.3577, 17.0791, -18.1308, -61.3473, -84.6593, -267.556, -92.1291, -317.56, -15.1085, -184.184, 9.82123, -63.5936, 2.87188, 49.2391)
